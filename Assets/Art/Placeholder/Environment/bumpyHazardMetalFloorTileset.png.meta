@@ -1,49 +1,61 @@
 fileFormatVersion: 2
-guid: add09387373781145b70cbac3ed93d6d
+guid: 91715a3b15551de4fa68135cebd03574
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1864262534976157203
-    second: TLCornerO
+      213: -3631161369106878227
+    second: bumpyHazardMetalFloorTileset_0
   - first:
-      213: -3666733226923739911
-    second: TSide
+      213: 4124576665535460841
+    second: bumpyHazardMetalFloorTileset_1
   - first:
-      213: 7254365067342153830
-    second: TRCornerO
+      213: 8318490899679404215
+    second: bumpyHazardMetalFloorTileset_2
   - first:
-      213: -8055813070720193288
-    second: darkGreyMetalFloor_3
+      213: 487777634091297123
+    second: bumpyHazardMetalFloorTileset_3
   - first:
-      213: 6786962326423687483
-    second: LSide
+      213: 8481546135883810791
+    second: bumpyHazardMetalFloorTileset_4
   - first:
-      213: -7013567360185983522
-    second: Fill
+      213: -5400469057080375416
+    second: bumpyHazardMetalFloorTileset_5
   - first:
-      213: 7969211300929082219
-    second: RSide
+      213: -6632342870156426336
+    second: bumpyHazardMetalFloorTileset_6
   - first:
-      213: 1236683120884314100
-    second: darkGreyMetalFloor_7
+      213: 6234794637142060280
+    second: bumpyHazardMetalFloorTileset_7
   - first:
-      213: -5778547708310431977
-    second: BLCornerO
+      213: -3098074424455595942
+    second: bumpyHazardMetalFloorTileset_8
   - first:
-      213: -6448088865173374537
-    second: BSide
+      213: 7898245090379068833
+    second: bumpyHazardMetalFloorTileset_9
   - first:
-      213: -574499865197236101
-    second: BRCornerO
+      213: -2554134041804225628
+    second: bumpyHazardMetalFloorTileset_10
   - first:
-      213: 534552787733466390
-    second: darkGreyMetalFloor_11
+      213: 319924408705841645
+    second: bumpyHazardMetalFloorTileset_11
   - first:
-      213: 2020894014845082393
-    second: AllSide
+      213: 8502605576005777593
+    second: bumpyHazardMetalFloorTileset_12
   - first:
-      213: -8649684213778455527
-    second: darkGreyMetalFloor_13
+      213: -8360504305557528643
+    second: bumpyHazardMetalFloorTileset_13
+  - first:
+      213: 2444587506201570442
+    second: bumpyHazardMetalFloorTileset_14
+  - first:
+      213: 2398929413073429002
+    second: bumpyHazardMetalFloorTileset_15
+  - first:
+      213: -4641041133818310221
+    second: bumpyHazardMetalFloorTileset_16
+  - first:
+      213: 5246740625764533994
+    second: bumpyHazardMetalFloorTileset_17
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -73,7 +85,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -85,8 +97,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 6
+  spritePivot: {x: 0, y: 0}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -106,7 +118,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,7 +130,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -130,7 +142,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -141,91 +153,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TLCornerO
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 316b255f5e03fd910800000000000000
-      internalID: 1864262534976157203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TSide
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f4b61bae852d1dc0800000000000000
-      internalID: -3666733226923739911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TRCornerO
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6688eede79eaca460800000000000000
-      internalID: 7254365067342153830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: darkGreyMetalFloor_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8fc26c691b0043090800000000000000
-      internalID: -8055813070720193288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LSide
+      name: bumpyHazardMetalFloorTileset_0
       rect:
         serializedVersion: 2
         x: 0
@@ -233,20 +161,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b31517ae642203e50800000000000000
-      internalID: 6786962326423687483
+      spriteID: de0734839f58b9dc0800000000000000
+      internalID: -3631161369106878227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fill
+      name: bumpyHazardMetalFloorTileset_1
       rect:
         serializedVersion: 2
         x: 32
@@ -254,20 +182,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edd17d735adcaae90800000000000000
-      internalID: -7013567360185983522
+      spriteID: 9e53b16df907d3930800000000000000
+      internalID: 4124576665535460841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RSide
+      name: bumpyHazardMetalFloorTileset_2
       rect:
         serializedVersion: 2
         x: 64
@@ -275,20 +203,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6318eb9473589e60800000000000000
-      internalID: 7969211300929082219
+      spriteID: 7b0e5b66667317370800000000000000
+      internalID: 8318490899679404215
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: darkGreyMetalFloor_7
+      name: bumpyHazardMetalFloorTileset_3
       rect:
         serializedVersion: 2
         x: 96
@@ -296,20 +224,62 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ffe7080fb4992110800000000000000
-      internalID: 1236683120884314100
+      spriteID: 36964618c2fe4c600800000000000000
+      internalID: 487777634091297123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BLCornerO
+      name: bumpyHazardMetalFloorTileset_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7017ff54184b570800000000000000
+      internalID: 8481546135883810791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8874c38610ead05b0800000000000000
+      internalID: -5400469057080375416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_6
       rect:
         serializedVersion: 2
         x: 0
@@ -317,20 +287,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7175280b9797ecfa0800000000000000
-      internalID: -5778547708310431977
+      spriteID: 0a34bbb9c4f25f3a0800000000000000
+      internalID: -6632342870156426336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BSide
+      name: bumpyHazardMetalFloorTileset_7
       rect:
         serializedVersion: 2
         x: 32
@@ -338,20 +308,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b9703f2759c386a0800000000000000
-      internalID: -6448088865173374537
+      spriteID: 8fcec5a60b0768650800000000000000
+      internalID: 6234794637142060280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BRCornerO
+      name: bumpyHazardMetalFloorTileset_8
       rect:
         serializedVersion: 2
         x: 64
@@ -359,20 +329,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b70b86b9a67f608f0800000000000000
-      internalID: -574499865197236101
+      spriteID: a58f99aa9bd6105d0800000000000000
+      internalID: -3098074424455595942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: darkGreyMetalFloor_11
+      name: bumpyHazardMetalFloorTileset_9
       rect:
         serializedVersion: 2
         x: 96
@@ -380,20 +350,104 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61d4c82adec1b6700800000000000000
-      internalID: 534552787733466390
+      spriteID: 1a5740120143c9d60800000000000000
+      internalID: 7898245090379068833
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllSide
+      name: bumpyHazardMetalFloorTileset_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a3c6811f94ed8cd0800000000000000
+      internalID: -2554134041804225628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de973effd89907400800000000000000
+      internalID: 319924408705841645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b8741ff8b25ff570800000000000000
+      internalID: 8502605576005777593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_13
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf9e1441a589fb80800000000000000
+      internalID: -8360504305557528643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_14
       rect:
         serializedVersion: 2
         x: 64
@@ -401,20 +455,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91bdd8b3668ab0c10800000000000000
-      internalID: 2020894014845082393
+      spriteID: a8ca089826bece120800000000000000
+      internalID: 2444587506201570442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: darkGreyMetalFloor_13
+      name: bumpyHazardMetalFloorTileset_15
       rect:
         serializedVersion: 2
         x: 96
@@ -422,14 +476,56 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9146e6a190626f780800000000000000
-      internalID: -8649684213778455527
+      spriteID: a026a735795ba4120800000000000000
+      internalID: 2398929413073429002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b198c69da5b79fb0800000000000000
+      internalID: -4641041133818310221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bumpyHazardMetalFloorTileset_17
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae64e4bfcca20d840800000000000000
+      internalID: 5246740625764533994
       vertices: []
       indices: 
       edges: []
