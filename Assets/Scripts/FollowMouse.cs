@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ public class FollowMouse : MonoBehaviour
     public Camera camera;
     private Vector3 mousePosition;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
     void Update()
     {
         mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
