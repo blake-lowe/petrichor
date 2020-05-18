@@ -6,8 +6,8 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     public float moveSpeed;
-    public Camera camera;
-    private Vector3 mousePosition;
+    public new Camera camera;
+    private Vector3 _mousePosition;
 
     private void Start()
     {
@@ -16,8 +16,8 @@ public class FollowMouse : MonoBehaviour
 
     void Update()
     {
-        mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-        var targetPosition = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        _mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        var targetPosition = new Vector3(_mousePosition.x, _mousePosition.y, transform.position.z);
         transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
     }
 }

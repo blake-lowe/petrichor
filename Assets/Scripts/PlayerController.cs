@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public Animator animator;
+    public Transform cursorPosition;
     public float baseSpeed;
     public float crouchModifier;
     public float sprintModifier;
@@ -14,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _direction = new Vector2(0,0);
     private bool _isCrouching;
     private bool _isSprinting;
+    
+    private Vector2 _facing = new Vector2(0, 1);
 
     private void Awake()
     {
@@ -23,8 +27,6 @@ public class PlayerController : MonoBehaviour
         _controls.Player.crouch.canceled += EndCrouch;
         _controls.Player.sprint.started += StartSprint;
         _controls.Player.sprint.canceled += EndSprint;
-        //_controls.Player.direction.started += HandleMove;
-        //_controls.Player.direction.canceled += HandleMove;
     }
 
     private void OnEnable()
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Move Player
         _direction = _controls.Player.direction.ReadValue<Vector2>();
         var movement = _direction * baseSpeed;
         if (_isCrouching)
@@ -73,5 +76,12 @@ public class PlayerController : MonoBehaviour
             movement *= sprintModifier;
         }
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
+        //Set Animator Parameters
+        _facing = (cursorPosition.position - transform.position).normalized;
+        animator.SetFloat("FacingX", _facing.x);
+        animator.SetFloat("FacingY", _facing.y);
+        animator.SetBool("isSprinting", _isSprinting);
+        animator.SetBool("isCrouching", _isCrouching);
+        animator.SetBool("isMoving", _direction.sqrMagnitude > 0.005);
     }
 }

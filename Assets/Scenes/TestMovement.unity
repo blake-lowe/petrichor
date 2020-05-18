@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 348811216}
   - component: {fileID: 348811219}
   m_Layer: 0
-  m_Name: Mouse Position
+  m_Name: Cursor Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,6 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 412014601}
+  animator: {fileID: 1941366329}
+  cursorPosition: {fileID: 348811218}
   baseSpeed: 50
   crouchModifier: 0.5
   sprintModifier: 1.5
@@ -2209,6 +2211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1941366327}
   - component: {fileID: 1941366328}
+  - component: {fileID: 1941366329}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -2269,7 +2272,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ed2456119fcb98244bbf4968f18b7fba, type: 3}
+  m_Sprite: {fileID: 4773624061641355723, guid: 93f9001f84aff8b4eb482a099af89c9b,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2280,6 +2284,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1941366329
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941366326}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c2266b0da2f88be4fb4626bab134c402, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2041261153
 GameObject:
   m_ObjectHideFlags: 0
