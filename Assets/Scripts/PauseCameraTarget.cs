@@ -9,6 +9,8 @@ public class PauseCameraTarget : MonoBehaviour
     public float speed = 1;
     public bool isPaused = false;
     public Transform playerPosition;
+    public CinemachineVirtualCamera pauseVCAM;
+    
     
     private Controls _controls;
     private Vector2 _direction = new Vector2(0,0);
