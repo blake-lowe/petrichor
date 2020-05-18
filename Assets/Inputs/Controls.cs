@@ -164,7 +164,7 @@ public class @Controls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5f7b513f-c237-4f20-885c-1ddcf10a3422"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KBM"",
@@ -175,22 +175,11 @@ public class @Controls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""bb4053f9-d20f-4f8c-9883-7c5f24e480c0"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""rightLeg"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""100a4164-6065-4fa4-b750-c1debb47d342"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""leftHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -202,17 +191,6 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""leftHand"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5de94d34-7a75-4675-8c15-cee005e9f436"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""rightHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
