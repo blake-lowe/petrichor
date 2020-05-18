@@ -158,4 +158,12 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 1
+    functionName: OnFadeComplete
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: ec1f2d4280982084997e87ef9c15522e,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

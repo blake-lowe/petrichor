@@ -14,6 +14,7 @@ public class GameStateController : MonoBehaviour
     
     private Controls _controls;
     private bool _isPaused = false;
+    private int _levelToLoadIndex;
 
     private void Awake()
     {
@@ -61,5 +62,16 @@ public class GameStateController : MonoBehaviour
     {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+    }
+
+    public void FadeToLevel(int levelIndex)
+    {
+        sceneTransitionAnimator.SetTrigger("FadeOut");
+        _levelToLoadIndex = levelIndex;
+    }
+
+    public void OnFadeComplete()
+    {
+        SceneManager.LoadScene(_levelToLoadIndex);
     }
 }
