@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 0
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -1733,7 +1733,7 @@ PrefabInstance:
     - target: {fileID: 4124524054018700464, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: orthographic size
-      value: 5
+      value: 4.19
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700464, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
@@ -1753,12 +1753,12 @@ PrefabInstance:
     - target: {fileID: 4124524054018700465, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: m_RefResolutionX
-      value: 1280
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700465, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: m_RefResolutionY
-      value: 720
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700465, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
@@ -1774,6 +1774,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CropFrameY
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124524054018700465, guid: 6dc629d6450abd443ae405e9e4ae7f60,
+        type: 3}
+      propertyPath: m_UpscaleRT
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700467, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
@@ -2241,6 +2246,7 @@ GameObject:
   - component: {fileID: 1713154202}
   - component: {fileID: 1713154204}
   - component: {fileID: 1713154203}
+  - component: {fileID: 1713154205}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -2291,13 +2297,13 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 1
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1521022526}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 5
+    OrthographicSize: 4.19
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -2310,6 +2316,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 829603395}
+--- !u!114 &1713154205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713154201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusOffset: 0
+  m_Profile: {fileID: 0}
 --- !u!1 &1901473316
 GameObject:
   m_ObjectHideFlags: 0
