@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2792,10 +2792,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e0204fd8326224cbc61799a986f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.08
+  speed: 1
   isPaused: 0
-  playerPosition: {fileID: 928176187}
-  pauseVCAM: {fileID: 0}
+  playerPosition: {fileID: 412014600}
+  pauseVCAM: {fileID: 813343963}
 --- !u!1 &1700321111
 GameObject:
   m_ObjectHideFlags: 0
@@ -9266,12 +9266,12 @@ PrefabInstance:
     - target: {fileID: 4124524054018700367, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.1899998
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700367, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.9000001
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700367, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
