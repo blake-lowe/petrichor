@@ -36,7 +36,7 @@ public class PauseCameraTarget : MonoBehaviour
         var movement = new Vector3(_direction.x * speed, _direction.y * speed, 0);
         if (isPaused)
         {
-            transform.Translate(movement * Time.deltaTime);
+            transform.Translate(movement * Time.unscaledDeltaTime);
         }
         else
         {
