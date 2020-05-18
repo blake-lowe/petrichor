@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _direction = new Vector2(0,0);
     private bool _isCrouching;
     private bool _isSprinting;
-    
+
+    private int _stillFramesCount;
     private Vector2 _facing = new Vector2(0, 1);
 
     private void Awake()
@@ -82,6 +83,15 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("FacingY", _facing.y);
         animator.SetBool("isSprinting", _isSprinting);
         animator.SetBool("isCrouching", _isCrouching);
-        animator.SetBool("isMoving", _direction.sqrMagnitude > 0.005);
+        if (_direction.sqrMagnitude < 0.005)
+        {
+            _stillFramesCount++;
+        }
+        else
+        {
+            _stillFramesCount = 0;
+        }
+        animator.SetBool("isMoving", _stillFramesCount < 3);
+        animator.SetBool("isReversing", Vector2.Dot(_direction, _facing) < 0);
     }
 }
