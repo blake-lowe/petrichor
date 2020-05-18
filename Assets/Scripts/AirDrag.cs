@@ -6,7 +6,7 @@ public class AirDrag : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float minimumSpeed;
-    public float dragConstant;
+    public float dragConstant = 0.25f;
 
     void FixedUpdate()
     {

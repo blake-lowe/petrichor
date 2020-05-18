@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,12 @@ public class GameStateController : MonoBehaviour
 
     public GameObject pausePanel;
     public Animator sceneTransitionAnimator;
+    public PauseCameraTarget pauseCameraTarget;
+    public GameObject gameplayVCAM;
+    public GameObject pauseVCAM;
+    public PlayerController playerController;
+    
+    
     
     private Controls _controls;
     private bool _isPaused = false;
@@ -43,11 +50,13 @@ public class GameStateController : MonoBehaviour
         if (_isPaused)
         {
             _isPaused = false;
+            pauseCameraTarget.isPaused = false;
             UnpauseGame();
         }
         else
         {
             _isPaused = true;
+            pauseCameraTarget.isPaused = true;
             PauseGame();
         }
     }
@@ -56,21 +65,29 @@ public class GameStateController : MonoBehaviour
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
+        //disable and reenable camera to set switch to it
+        pauseVCAM.SetActive(true);
+        gameplayVCAM.SetActive(false);
+        playerController.isPaused = true;
     }
 
     private void UnpauseGame()
     {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        //disable and reenable camera to set switch to it
+        gameplayVCAM.SetActive(true);
+        pauseVCAM.SetActive(false);
+        playerController.isPaused = false;
     }
 
-    public void FadeToLevel(int levelIndex)
+    public void FadeToLevel(int levelIndex)//called by other classes
     {
         sceneTransitionAnimator.SetTrigger("FadeOut");
         _levelToLoadIndex = levelIndex;
     }
 
-    public void OnFadeComplete()
+    public void OnFadeComplete()//called by animation event
     {
         SceneManager.LoadScene(_levelToLoadIndex);
     }
