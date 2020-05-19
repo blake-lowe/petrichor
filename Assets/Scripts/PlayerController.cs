@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
                     rightSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = leftHandSpriteSide;
+                rightHandSpriteRenderer.sprite = rightHandSpriteSide;
                 rightHandSpriteRenderer.flipX = false;
                 _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + thisPosition;
                 //Left hand
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
                     leftSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = leftHandSpriteSide;
+                rightHandSpriteRenderer.sprite = rightHandSpriteSide;
                 rightHandSpriteRenderer.flipX = true;
                 _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + thisPosition;
                 //Left hand
@@ -219,13 +219,13 @@ public class PlayerController : MonoBehaviour
                 rightHandSpriteRenderer.sortingOrder =
                     downSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 rightHandSpriteRenderer.sprite = rightHandSpriteTop;
-                rightHandSpriteRenderer.flipX = true;
+                rightHandSpriteRenderer.flipX = false;
                 _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
                     downSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 leftHandSpriteRenderer.sprite = leftHandSpriteTop;
-                leftHandSpriteRenderer.flipX = false;
+                leftHandSpriteRenderer.flipX = true;
                 _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + thisPosition;
             }
         }

@@ -702,8 +702,8 @@ MonoBehaviour:
   rightRelativePosRH: {x: 0, y: -0.05}
   rightSortBelowRH: 0
   leftHandSpriteRenderer: {fileID: 2025846808}
-  leftHandSpriteSide: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
-  leftHandSpriteTop: {fileID: 21300000, guid: 3da86074a26be6e4c8ab5ff981cadb90, type: 3}
+  leftHandSpriteSide: {fileID: 21300000, guid: 1213f80d60b126c44bfcba8be414b6d1, type: 3}
+  leftHandSpriteTop: {fileID: 21300000, guid: 5077423a646e28042a4371946a840b70, type: 3}
   upRelativePosLH: {x: -0.15, y: 0}
   upSortBelowLH: 1
   downRelativePosLH: {x: 0.15, y: 0}
@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 452969969}
   - component: {fileID: 452969968}
   m_Layer: 5
-  m_Name: Right Hand Item Name
+  m_Name: Left Hand Item Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ak-47
+  m_text: pistol
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1491,7 +1491,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1499,7 +1499,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &608365261
@@ -3078,7 +3078,7 @@ GameObject:
   - component: {fileID: 810386206}
   - component: {fileID: 810386205}
   m_Layer: 5
-  m_Name: Left Hand Item Sprite
+  m_Name: Left Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3121,7 +3121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fc0cab4e86178640be0d9199833351f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f775419298a57a442b45a86d95b61dd3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3568,7 +3568,7 @@ GameObject:
   - component: {fileID: 1023120443}
   - component: {fileID: 1023120442}
   m_Layer: 5
-  m_Name: Right Hand Item Sprite
+  m_Name: Right Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4912,7 +4912,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -4920,7 +4920,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2025846809
