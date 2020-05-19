@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Homebrew;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,20 +13,47 @@ public class PlayerController : MonoBehaviour
     public float crouchModifier;
     public float sprintModifier;
     public bool isPaused;
-    
-    
+
+    public SpriteRenderer playerSprite;
+
+    [Foldout("Right Hand")] public SpriteRenderer rightHandSprite;
+    [Foldout("Right Hand")] public Vector2 upRelativePosRH;
+    [Foldout("Right Hand")] public bool upSortBelowRH = true;
+    [Foldout("Right Hand")] public Vector2 downRelativePosRH;
+    [Foldout("Right Hand")] public bool downSortBelowRH = false;
+    [Foldout("Right Hand")] public Vector2 leftRelativePosRH;
+    [Foldout("Right Hand")] public bool leftSortBelowRH = true;
+    [Foldout("Right Hand")] public Vector2 rightRelativePosRH;
+    [Foldout("Right Hand")] public bool rightSortBelowRH = false;
+
+    [Foldout("Left Hand")] public SpriteRenderer leftHandSprite;
+    [Foldout("Left Hand")] public Vector2 upRelativePosLH;
+    [Foldout("Left Hand")] public bool upSortBelowLH = true;
+    [Foldout("Left Hand")] public Vector2 downRelativePosLH;
+    [Foldout("Left Hand")] public bool downSortBelowLH = false;
+    [Foldout("Left Hand")] public Vector2 leftRelativePosLH;
+    [Foldout("Left Hand")] public bool leftSortBelowLH = false;
+    [Foldout("Left Hand")] public Vector2 rightRelativePosLH;
+    [Foldout("Left Hand")] public bool rightSortBelowLH = true;
+
     private Controls _controls;
-    private Vector2 _direction = new Vector2(0,0);
+    private Vector2 _direction = new Vector2(0, 0);
     private bool _isCrouching;
     private bool _isSprinting;
 
     private int _stillFramesCount;
     private Vector2 _facing = new Vector2(0, 1);
 
+    private int _playerSpriteSortingOrder;
+    private Vector3 _transformPositionRH;
+    private Quaternion _transformRotationRH;
+    private Vector3 _transformPositionLH;
+    private Quaternion _transformRotationLH;
+
     private void Awake()
     {
         _controls = new Controls();
-        
+
         _controls.Player.crouch.started += StartCrouch;
         _controls.Player.crouch.canceled += EndCrouch;
         _controls.Player.sprint.started += StartSprint;
@@ -39,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _controls.Player.Enable();
+        _playerSpriteSortingOrder = playerSprite.sortingOrder;
     }
 
     private void StartCrouch(InputAction.CallbackContext context)
@@ -70,7 +99,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Right Hand Action");
         }
     }
-    
+
     private void HandleLeftHand(InputAction.CallbackContext context)
     {
         if (!isPaused)
@@ -78,7 +107,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Left Hand Action");
         }
     }
-    
+
     private void HandleRightLeg(InputAction.CallbackContext context)
     {
         if (!isPaused)
@@ -86,7 +115,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Right Leg Action");
         }
     }
-    
+
     private void HandleLeftLeg(InputAction.CallbackContext context)
     {
         if (!isPaused)
@@ -109,6 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             movement *= sprintModifier;
         }
+
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
         //Set Animator Parameters
         _facing = (cursorPosition.position - transform.position).normalized;
@@ -124,7 +154,74 @@ public class PlayerController : MonoBehaviour
         {
             _stillFramesCount = 0;
         }
+
         animator.SetBool("isMoving", _stillFramesCount < 3);
         animator.SetBool("isReversing", Vector2.Dot(_direction, _facing) < 0);
+        //Calculate Hand Item Positions and Rotations
+        if (Mathf.Abs(_facing.x) > Mathf.Abs(_facing.y)) //horizontal facing
+        {
+            if (_facing.x > 0) //facing right
+            {
+                //Right hand
+                rightHandSprite.sortingOrder =
+                    rightSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + transform.position;
+                //Left hand
+                leftHandSprite.sortingOrder =
+                    rightSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionLH = new Vector3(rightRelativePosLH.x, rightRelativePosLH.y, 0) + transform.position;
+            }
+            else //facing left
+            {
+                //Right hand
+                rightHandSprite.sortingOrder =
+                    leftSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + transform.position;
+                //Left hand
+                leftHandSprite.sortingOrder =
+                    leftSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + transform.position;
+            }
+        }
+        else //vertical facing
+        {
+            if (_facing.y > 0) //facing up
+            {
+                //Right hand
+                rightHandSprite.sortingOrder =
+                    upSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionRH = new Vector3(upRelativePosRH.x, upRelativePosRH.y, 0) + transform.position;
+                //Left hand
+                leftHandSprite.sortingOrder =
+                    upSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionLH = new Vector3(upRelativePosLH.x, upRelativePosLH.y, 0) + transform.position;
+            }
+            else //facing down
+            {
+                //Right hand
+                rightHandSprite.sortingOrder =
+                    downSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + transform.position;
+                //Left hand
+                leftHandSprite.sortingOrder =
+                    downSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + transform.position;
+            }
+        }
+
+        var cursorPos = cursorPosition.transform.position;
+        var flipFactorRH = rightHandSprite.flipX ? -180 : 0;
+        var flipFactorLH = leftHandSprite.flipX ? -180 : 0;
+        _transformRotationRH = Quaternion.Euler(new Vector3(0, 0,
+            Mathf.Atan2(cursorPos.y - _transformPositionRH.y,
+                cursorPos.x - _transformPositionRH.x) *
+            Mathf.Rad2Deg + flipFactorRH));
+        _transformRotationLH = Quaternion.Euler(new Vector3(0, 0,
+            Mathf.Atan2(cursorPos.y - _transformPositionLH.y,
+                cursorPos.x - _transformPositionLH.x) *
+            Mathf.Rad2Deg + flipFactorLH));
+
+        rightHandSprite.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
+        leftHandSprite.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
     }
 }
