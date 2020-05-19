@@ -10,7 +10,7 @@ public class PauseCameraTarget : MonoBehaviour
     public bool isPaused = false;
     public Transform playerPosition;
     public float maxSqrSeparationDist = 1f;
-    public new Camera camera;
+    public Camera mainCamera;
     public float cameraDistance = 10f;
     public float angleFudgeFactor = 0.01f;
     public float currentSqrSeparationDist;
@@ -39,7 +39,9 @@ public class PauseCameraTarget : MonoBehaviour
     {
         _direction = _controls.Player.direction.ReadValue<Vector2>();
         var movement = new Vector3(_direction.x * speed, _direction.y * speed, 0);
-        var screenCenterPoint = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2,
+        // ReSharper disable once PossibleLossOfFraction
+        var screenCenterPoint = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2,
+            // ReSharper disable once PossibleLossOfFraction
             Screen.height / 2, cameraDistance));
         var vectorToCenter = screenCenterPoint - transform.position;
         if (isPaused)

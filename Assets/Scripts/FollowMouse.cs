@@ -6,7 +6,7 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     public float moveSpeed;
-    public new Camera camera;
+    public Camera mainCamera;
     private Vector3 _mousePosition;
 
     private void Start()
@@ -14,9 +14,9 @@ public class FollowMouse : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
-        _mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        _mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var targetPosition = new Vector3(_mousePosition.x, _mousePosition.y, transform.position.z);
         transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
     }

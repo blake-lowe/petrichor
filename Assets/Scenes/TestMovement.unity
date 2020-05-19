@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  camera: {fileID: 391573644}
+  mainCamera: {fileID: 391573644}
 --- !u!4 &348811218
 Transform:
   m_ObjectHideFlags: 0
@@ -689,23 +689,28 @@ MonoBehaviour:
   sprintModifier: 1.5
   isPaused: 0
   playerSprite: {fileID: 1941366328}
-  rightHandSprite: {fileID: 553872030}
-  upRelativePosRH: {x: 0.25, y: 0}
+  rightHandSpriteRenderer: {fileID: 553872030}
+  rightHandSpriteSide: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678,
+    type: 3}
+  rightHandSpriteTop: {fileID: 21300000, guid: 3da86074a26be6e4c8ab5ff981cadb90, type: 3}
+  upRelativePosRH: {x: 0.15, y: 0}
   upSortBelowRH: 1
-  downRelativePosRH: {x: -0.25, y: 0}
+  downRelativePosRH: {x: -0.15, y: 0}
   downSortBelowRH: 0
-  leftRelativePosRH: {x: 0, y: 0.25}
+  leftRelativePosRH: {x: 0, y: 0.05}
   leftSortBelowRH: 1
-  rightRelativePosRH: {x: 0, y: -0.25}
+  rightRelativePosRH: {x: 0, y: -0.05}
   rightSortBelowRH: 0
-  leftHandSprite: {fileID: 2025846808}
-  upRelativePosLH: {x: -0.25, y: 0}
+  leftHandSpriteRenderer: {fileID: 2025846808}
+  leftHandSpriteSide: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
+  leftHandSpriteTop: {fileID: 21300000, guid: 3da86074a26be6e4c8ab5ff981cadb90, type: 3}
+  upRelativePosLH: {x: -0.15, y: 0}
   upSortBelowLH: 1
-  downRelativePosLH: {x: 0.25, y: 0}
+  downRelativePosLH: {x: 0.15, y: 0}
   downSortBelowLH: 0
-  leftRelativePosLH: {x: 0, y: -0.25}
+  leftRelativePosLH: {x: 0, y: -0.05}
   leftSortBelowLH: 0
-  rightRelativePosLH: {x: 0, y: 0.25}
+  rightRelativePosLH: {x: 0, y: 0.05}
   rightSortBelowLH: 1
 --- !u!70 &412014604
 CapsuleCollider2D:
@@ -1140,7 +1145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -62.7}
+  m_AnchoredPosition: {x: 0, y: -62.69922}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &461970129
@@ -1295,7 +1300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 51.8}
+  m_AnchoredPosition: {x: 0, y: 51.80078}
   m_SizeDelta: {x: 292.2, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &553806459
@@ -1427,7 +1432,7 @@ GameObject:
   - component: {fileID: 553872029}
   - component: {fileID: 553872030}
   m_Layer: 0
-  m_Name: Right Hand Item Sprite
+  m_Name: Right Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,7 +1491,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fc0cab4e86178640be0d9199833351f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4171,7 +4176,7 @@ MonoBehaviour:
   isPaused: 0
   playerPosition: {fileID: 928176187}
   maxSqrSeparationDist: 4
-  camera: {fileID: 391573644}
+  mainCamera: {fileID: 391573644}
   cameraDistance: 10
   angleFudgeFactor: 0.4
   currentSqrSeparationDist: 0
@@ -4448,7 +4453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100.4, y: -89.1}
+  m_AnchoredPosition: {x: -100.39844, y: -89.09961}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700321113
@@ -4654,7 +4659,7 @@ GameObject:
   - component: {fileID: 1941366328}
   - component: {fileID: 1941366329}
   m_Layer: 0
-  m_Name: Player Sprite
+  m_Name: Player Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,7 +4867,7 @@ GameObject:
   - component: {fileID: 2025846809}
   - component: {fileID: 2025846808}
   m_Layer: 0
-  m_Name: Left Hand Item Sprite
+  m_Name: Left Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4907,7 +4912,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fc0cab4e86178640be0d9199833351f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bae532dc1ec15df47987ade853dc3678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

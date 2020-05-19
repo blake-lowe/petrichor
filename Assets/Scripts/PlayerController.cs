@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer playerSprite;
 
-    [Foldout("Right Hand")] public SpriteRenderer rightHandSprite;
+    [Foldout("Right Hand")] public SpriteRenderer rightHandSpriteRenderer;
+    [Foldout("Right Hand")] public Sprite rightHandSpriteSide;
+    [Foldout("Right Hand")] public Sprite rightHandSpriteTop;
     [Foldout("Right Hand")] public Vector2 upRelativePosRH;
     [Foldout("Right Hand")] public bool upSortBelowRH = true;
     [Foldout("Right Hand")] public Vector2 downRelativePosRH;
@@ -26,7 +28,9 @@ public class PlayerController : MonoBehaviour
     [Foldout("Right Hand")] public Vector2 rightRelativePosRH;
     [Foldout("Right Hand")] public bool rightSortBelowRH = false;
 
-    [Foldout("Left Hand")] public SpriteRenderer leftHandSprite;
+    [Foldout("Left Hand")] public SpriteRenderer leftHandSpriteRenderer;
+    [Foldout("Left Hand")] public Sprite leftHandSpriteSide;
+    [Foldout("Left Hand")] public Sprite leftHandSpriteTop;
     [Foldout("Left Hand")] public Vector2 upRelativePosLH;
     [Foldout("Left Hand")] public bool upSortBelowLH = true;
     [Foldout("Left Hand")] public Vector2 downRelativePosLH;
@@ -158,29 +162,38 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isMoving", _stillFramesCount < 3);
         animator.SetBool("isReversing", Vector2.Dot(_direction, _facing) < 0);
         //Calculate Hand Item Positions and Rotations
+        var thisPosition = transform.position;
         if (Mathf.Abs(_facing.x) > Mathf.Abs(_facing.y)) //horizontal facing
         {
             if (_facing.x > 0) //facing right
             {
                 //Right hand
-                rightHandSprite.sortingOrder =
+                rightHandSpriteRenderer.sortingOrder =
                     rightSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + transform.position;
+                rightHandSpriteRenderer.sprite = leftHandSpriteSide;
+                rightHandSpriteRenderer.flipX = false;
+                _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + thisPosition;
                 //Left hand
-                leftHandSprite.sortingOrder =
+                leftHandSpriteRenderer.sortingOrder =
                     rightSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionLH = new Vector3(rightRelativePosLH.x, rightRelativePosLH.y, 0) + transform.position;
+                leftHandSpriteRenderer.sprite = leftHandSpriteSide;
+                leftHandSpriteRenderer.flipX = false;
+                _transformPositionLH = new Vector3(rightRelativePosLH.x, rightRelativePosLH.y, 0) + thisPosition;
             }
             else //facing left
             {
                 //Right hand
-                rightHandSprite.sortingOrder =
+                rightHandSpriteRenderer.sortingOrder =
                     leftSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + transform.position;
+                rightHandSpriteRenderer.sprite = leftHandSpriteSide;
+                rightHandSpriteRenderer.flipX = true;
+                _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + thisPosition;
                 //Left hand
-                leftHandSprite.sortingOrder =
+                leftHandSpriteRenderer.sortingOrder =
                     leftSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + transform.position;
+                leftHandSpriteRenderer.sprite = leftHandSpriteSide;
+                leftHandSpriteRenderer.flipX = true;
+                _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + thisPosition;
             }
         }
         else //vertical facing
@@ -188,40 +201,48 @@ public class PlayerController : MonoBehaviour
             if (_facing.y > 0) //facing up
             {
                 //Right hand
-                rightHandSprite.sortingOrder =
+                rightHandSpriteRenderer.sortingOrder =
                     upSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionRH = new Vector3(upRelativePosRH.x, upRelativePosRH.y, 0) + transform.position;
+                rightHandSpriteRenderer.sprite = rightHandSpriteTop;
+                rightHandSpriteRenderer.flipX = false;
+                _transformPositionRH = new Vector3(upRelativePosRH.x, upRelativePosRH.y, 0) + thisPosition;
                 //Left hand
-                leftHandSprite.sortingOrder =
+                leftHandSpriteRenderer.sortingOrder =
                     upSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionLH = new Vector3(upRelativePosLH.x, upRelativePosLH.y, 0) + transform.position;
+                leftHandSpriteRenderer.sprite = leftHandSpriteTop;
+                leftHandSpriteRenderer.flipX = true;
+                _transformPositionLH = new Vector3(upRelativePosLH.x, upRelativePosLH.y, 0) + thisPosition;
             }
             else //facing down
             {
                 //Right hand
-                rightHandSprite.sortingOrder =
+                rightHandSpriteRenderer.sortingOrder =
                     downSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + transform.position;
+                rightHandSpriteRenderer.sprite = rightHandSpriteTop;
+                rightHandSpriteRenderer.flipX = true;
+                _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + thisPosition;
                 //Left hand
-                leftHandSprite.sortingOrder =
+                leftHandSpriteRenderer.sortingOrder =
                     downSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + transform.position;
+                leftHandSpriteRenderer.sprite = leftHandSpriteTop;
+                leftHandSpriteRenderer.flipX = false;
+                _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + thisPosition;
             }
         }
 
         var cursorPos = cursorPosition.transform.position;
-        var flipFactorRH = rightHandSprite.flipX ? -180 : 0;
-        var flipFactorLH = leftHandSprite.flipX ? -180 : 0;
+        var flipFactorRh = rightHandSpriteRenderer.flipX ? -180 : 0;
+        var flipFactorLh = leftHandSpriteRenderer.flipX ? -180 : 0;
         _transformRotationRH = Quaternion.Euler(new Vector3(0, 0,
             Mathf.Atan2(cursorPos.y - _transformPositionRH.y,
                 cursorPos.x - _transformPositionRH.x) *
-            Mathf.Rad2Deg + flipFactorRH));
+            Mathf.Rad2Deg + flipFactorRh));
         _transformRotationLH = Quaternion.Euler(new Vector3(0, 0,
             Mathf.Atan2(cursorPos.y - _transformPositionLH.y,
                 cursorPos.x - _transformPositionLH.x) *
-            Mathf.Rad2Deg + flipFactorLH));
+            Mathf.Rad2Deg + flipFactorLh));
 
-        rightHandSprite.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
-        leftHandSprite.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
+        rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
+        leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
     }
 }
