@@ -30630,7 +30630,7 @@ PrefabInstance:
     - target: {fileID: 4124524054018700465, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
       propertyPath: m_PixelSnapping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4124524054018700467, guid: 6dc629d6450abd443ae405e9e4ae7f60,
         type: 3}
