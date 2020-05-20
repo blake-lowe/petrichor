@@ -16,8 +16,8 @@ public class GameStateController : MonoBehaviour
     public GameObject gameplayVCAM;
     public GameObject pauseVCAM;
     public PlayerController playerController;
-    
-    
+
+    public int mainMenuSceneIndex;
     
     private Controls _controls;
     private bool _isPaused = false;
@@ -89,6 +89,14 @@ public class GameStateController : MonoBehaviour
 
     public void OnFadeComplete()//called by animation event
     {
+        UnpauseGame();
         SceneManager.LoadScene(_levelToLoadIndex);
     }
+
+    public void DoLoadMainMenu()
+    {
+        FadeToLevel(mainMenuSceneIndex);
+    }
+    
+    
 }
