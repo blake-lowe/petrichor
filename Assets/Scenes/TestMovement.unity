@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!198 &115238268 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3248506232490269843, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1578625898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &186574892
 GameObject:
   m_ObjectHideFlags: 0
@@ -23265,7 +23271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1957103861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29772,6 +29778,11 @@ PrefabInstance:
       propertyPath: cursorPosition
       value: 
       objectReference: {fileID: 348811218}
+    - target: {fileID: 1439075056415586504, guid: 462ed9b5336d7c54e80ec57022d64ea6,
+        type: 3}
+      propertyPath: rightHandBullets
+      value: 
+      objectReference: {fileID: 115238268}
     - target: {fileID: 1439075056415586507, guid: 462ed9b5336d7c54e80ec57022d64ea6,
         type: 3}
       propertyPath: m_LocalPosition.x

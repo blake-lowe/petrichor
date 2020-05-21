@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
     [Foldout("Right Hand")] public bool leftSortBelowRH = true;
     [Foldout("Right Hand")] public Vector2 rightRelativePosRH;
     [Foldout("Right Hand")] public bool rightSortBelowRH = false;
-
+    [Foldout("Right Hand")] public ParticleSystem rightHandBullets;
+    
     [Foldout("Left Hand")] public SpriteRenderer leftHandSpriteRenderer;
     [Foldout("Left Hand")] public Sprite leftHandSpriteSide;
     [Foldout("Left Hand")] public Sprite leftHandSpriteTop;
@@ -43,7 +44,9 @@ public class PlayerController : MonoBehaviour
     [Foldout("Left Hand")] public bool leftSortBelowLH = false;
     [Foldout("Left Hand")] public Vector2 rightRelativePosLH;
     [Foldout("Left Hand")] public bool rightSortBelowLH = true;
-
+    [Foldout("Left Hand")] public ParticleSystem leftHandBullets;
+    
+    
     private Controls _controls;
     private Vector2 _direction = new Vector2(0, 0);
     private bool _isCrouching;
@@ -66,10 +69,14 @@ public class PlayerController : MonoBehaviour
         _controls.Player.crouch.canceled += EndCrouch;
         _controls.Player.sprint.started += StartSprint;
         _controls.Player.sprint.canceled += EndSprint;
-        _controls.Player.rightHand.performed += HandleRightHand;
-        _controls.Player.leftHand.performed += HandleLeftHand;
-        _controls.Player.rightLeg.performed += HandleRightLeg;
-        _controls.Player.leftLeg.performed += HandleLeftLeg;
+        _controls.Player.rightHand.started += HandleRightHandStart;
+        _controls.Player.leftHand.started += HandleLeftHandStart;
+        _controls.Player.rightLeg.started += HandleRightLegStart;
+        _controls.Player.leftLeg.started += HandleLeftLegStart;
+        _controls.Player.rightHand.canceled += HandleRightHandCancel;
+        _controls.Player.leftHand.canceled += HandleLeftHandCancel;
+        _controls.Player.rightLeg.canceled += HandleRightLegCancel;
+        _controls.Player.leftLeg.canceled += HandleLeftLegCancel;
     }
 
     private void OnEnable()
@@ -100,36 +107,67 @@ public class PlayerController : MonoBehaviour
         _isSprinting = false;
     }
 
-    private void HandleRightHand(InputAction.CallbackContext context)
+    private void HandleRightHandStart(InputAction.CallbackContext context)
     {
         if (!isPaused)
         {
-            Debug.Log("Right Hand Action");
+            if (rightHandBullets != null)
+            {
+                rightHandBullets.Play();
+            }
         }
     }
 
-    private void HandleLeftHand(InputAction.CallbackContext context)
+    private void HandleLeftHandStart(InputAction.CallbackContext context)
     {
         if (!isPaused)
         {
-            Debug.Log("Left Hand Action");
+            if (leftHandBullets != null)
+            {
+                leftHandBullets.Play();
+            }
+        }
+    }
+    
+    private void HandleRightHandCancel(InputAction.CallbackContext context)
+    {
+        if (rightHandBullets != null)
+        {
+            rightHandBullets.Stop();
         }
     }
 
-    private void HandleRightLeg(InputAction.CallbackContext context)
+    private void HandleLeftHandCancel(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (leftHandBullets != null)
         {
-            Debug.Log("Right Leg Action");
+            leftHandBullets.Stop();
         }
     }
 
-    private void HandleLeftLeg(InputAction.CallbackContext context)
+    private void HandleRightLegStart(InputAction.CallbackContext context)
     {
         if (!isPaused)
         {
-            Debug.Log("Left Leg Action");
+            Debug.Log("Right Leg Action Start");
         }
+    }
+
+    private void HandleLeftLegStart(InputAction.CallbackContext context)
+    {
+        if (!isPaused)
+        {
+            Debug.Log("Left Leg Action Start");
+        }
+    }
+    private void HandleRightLegCancel(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    private void HandleLeftLegCancel(InputAction.CallbackContext context)
+    {
+        
     }
 
     private void FixedUpdate()
