@@ -175,13 +175,13 @@ public class PlayerController : MonoBehaviour
                 rightHandSpriteRenderer.sortingOrder =
                     rightSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 rightHandSpriteRenderer.sprite = rightHandSpriteSide;
-                rightHandSpriteRenderer.flipX = false;
+                rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
                     rightSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 leftHandSpriteRenderer.sprite = leftHandSpriteSide;
-                leftHandSpriteRenderer.flipX = false;
+                leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, -1, 1);
                 _transformPositionLH = new Vector3(rightRelativePosLH.x, rightRelativePosLH.y, 0) + thisPosition;
             }
             else //facing left
@@ -190,13 +190,13 @@ public class PlayerController : MonoBehaviour
                 rightHandSpriteRenderer.sortingOrder =
                     leftSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 rightHandSpriteRenderer.sprite = rightHandSpriteSide;
-                rightHandSpriteRenderer.flipX = true;
+                rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, -1, 1);
                 _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
                     leftSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 leftHandSpriteRenderer.sprite = leftHandSpriteSide;
-                leftHandSpriteRenderer.flipX = true;
+                leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + thisPosition;
             }
         }
@@ -208,13 +208,13 @@ public class PlayerController : MonoBehaviour
                 rightHandSpriteRenderer.sortingOrder =
                     upSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 rightHandSpriteRenderer.sprite = rightHandSpriteTop;
-                rightHandSpriteRenderer.flipX = false;
+                rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionRH = new Vector3(upRelativePosRH.x, upRelativePosRH.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
                     upSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 leftHandSpriteRenderer.sprite = leftHandSpriteTop;
-                leftHandSpriteRenderer.flipX = true;
+                leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionLH = new Vector3(upRelativePosLH.x, upRelativePosLH.y, 0) + thisPosition;
             }
             else //facing down
@@ -223,13 +223,13 @@ public class PlayerController : MonoBehaviour
                 rightHandSpriteRenderer.sortingOrder =
                     downSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 rightHandSpriteRenderer.sprite = rightHandSpriteTop;
-                rightHandSpriteRenderer.flipX = false;
+                rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
                     downSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
                 leftHandSpriteRenderer.sprite = leftHandSpriteTop;
-                leftHandSpriteRenderer.flipX = true;
+                leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + thisPosition;
             }
         }

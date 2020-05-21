@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1439075056290040414}
   - component: {fileID: 1439075056290040413}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1439075056415586506}
   - component: {fileID: 1439075056415586511}
   - component: {fileID: 412014601}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: NoiseObject
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1439075056955660506}
   - component: {fileID: 1439075056955660507}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left Hand Item Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1439075057073555188}
   - component: {fileID: 1439075057073555195}
   - component: {fileID: 1439075057073555194}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1439075057580921949}
   - component: {fileID: 1439075057580921950}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
