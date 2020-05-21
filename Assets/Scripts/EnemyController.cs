@@ -33,4 +33,15 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        DamageInfo damageInfo = other.GetComponent<DamageInfo>();
+        var damage = 0f;
+        if (damageInfo != null)
+        {
+            damage = damageInfo.damage;
+        }
+        Debug.Log(damage + " damage taken by " + this.gameObject.name);
+    }
 }
