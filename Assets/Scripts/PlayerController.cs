@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     public float crouchModifier;
     public float sprintModifier;
     public bool isPaused;
+    public float crouchingNoise;
+    public float walkingNoise;
+    public float sprintingNoise;
+    private float noiseLevel;
 
     public SpriteRenderer playerSprite;
 
@@ -244,5 +248,27 @@ public class PlayerController : MonoBehaviour
 
         rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
         leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
+
+        if (_direction == new Vector2(0,0))
+        {
+            noiseLevel = 0;
+        }
+        else
+        {
+            if (_isCrouching)
+            {
+                noiseLevel = crouchingNoise;
+            }
+            else if (_isSprinting)
+            {
+                noiseLevel = sprintingNoise;
+            }
+            else
+            {
+                noiseLevel = walkingNoise;
+            }
+        }
+
+        GetComponent<NoiseSource>().noiseLevel = noiseLevel;
     }
 }
