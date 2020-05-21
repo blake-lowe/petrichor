@@ -18148,7 +18148,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1957116472, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99, type: 3}
 --- !u!1 &1636070629
 GameObject:
@@ -23362,6 +23363,31 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1957116469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3248506232490269840, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1578625898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1957116472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957116469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005dcacfe8672aa40aa7a74ed3871331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 115238268}
+  gunName: AK-47
+  damage: 3
+  isFullAuto: 1
+  fireRate: 4
+  spread: 1
+  bulletsPerShot: 1
 --- !u!1 &2003886510
 GameObject:
   m_ObjectHideFlags: 0
@@ -30085,10 +30111,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3248506233204395830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c178961cfd08784c9c7403505dc4e03, type: 3}
+  m_Script: {fileID: 11500000, guid: 005dcacfe8672aa40aa7a74ed3871331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 3248506233204395829}
+  gunName: Pistol
   damage: 1
+  isFullAuto: 0
+  fireRate: 1
+  spread: 0.5
+  bulletsPerShot: 1
 --- !u!1 &7673483704692742593
 GameObject:
   m_ObjectHideFlags: 0

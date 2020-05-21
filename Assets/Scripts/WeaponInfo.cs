@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponInfo : MonoBehaviour
 {
     public ParticleSystem ps;
+    public string gunName;
     public float damage;
     public bool isFullAuto;
     public float fireRate;
