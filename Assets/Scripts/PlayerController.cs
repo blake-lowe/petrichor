@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Homebrew;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [Foldout("Right Hand")] public bool rightSortBelowRH = false;
     [Foldout("Right Hand")] public ParticleSystem rightHandBullets;
     [Foldout("Right Hand")] public WeaponInfo rightHandWeaponInfo;
+    [Foldout("Right Hand")] public TextMeshProUGUI rightHandAmmoField;
     //[Foldout("Right Hand")] public Vector2 rightHandBulletsSidePos;
     //[Foldout("Right Hand")] public Vector2 rightHandBulletsTopPos;
     
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviour
     [Foldout("Left Hand")] public bool rightSortBelowLH = true;
     [Foldout("Left Hand")] public ParticleSystem leftHandBullets;
     [Foldout("Left Hand")] public WeaponInfo leftHandWeaponInfo;
+    [Foldout("Left Hand")] public TextMeshProUGUI leftHandAmmoField;
     //[Foldout("Left Hand")] public Vector2 leftHandBulletsSidePos;
     //[Foldout("Left Hand")] public Vector2 leftHandBulletsTopPos;
     
@@ -69,6 +72,8 @@ public class PlayerController : MonoBehaviour
     private float _noiseLevel;
     private float _nextFireTimeLh;
     private float _nextFireTimeRh;
+    private bool _isFiringLh;
+    private bool _isFiringRh;
 
     private void Awake()
     {
@@ -125,6 +130,7 @@ public class PlayerController : MonoBehaviour
                 if (Time.time > _nextFireTimeRh)
                 {
                     rightHandBullets.Play();
+                    _isFiringRh = true;
                     _nextFireTimeRh = Time.time + 1 / rightHandWeaponInfo.fireRate;
                 }
                 
@@ -141,6 +147,7 @@ public class PlayerController : MonoBehaviour
                 if (Time.time > _nextFireTimeLh)
                 {
                     leftHandBullets.Play();
+                    _isFiringRh = true;
                     _nextFireTimeLh = Time.time + 1 / leftHandWeaponInfo.fireRate;
                 }
             }
@@ -151,7 +158,8 @@ public class PlayerController : MonoBehaviour
     {
         if (rightHandBullets != null)
         {
-            rightHandBullets.Stop();
+            //rightHandBullets.Stop();
+            _isFiringRh = false;
         }
     }
 
@@ -159,7 +167,8 @@ public class PlayerController : MonoBehaviour
     {
         if (leftHandBullets != null)
         {
-            leftHandBullets.Stop();
+            //leftHandBullets.Stop();
+            _isFiringLh = false;
         }
     }
 
@@ -314,7 +323,10 @@ public class PlayerController : MonoBehaviour
 
         rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
         leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
-
+        
+        //handle firing of weapons, subtracting of ammunition
+        
+        //set noise level of player based on crouching/walking/sprinting status
         if (_direction == new Vector2(0,0))
         {
             _noiseLevel = 0;
