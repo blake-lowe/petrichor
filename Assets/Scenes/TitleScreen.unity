@@ -951,8 +951,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The enemy in the test scene reacts to noise. You make more noise when you
-    sprint and less noise when you crouch. He does not react to Line of Sight yet.
+  m_text: 'The enemy in the test scene reacts to noise. You make more noise when
+    you sprint and less noise when you crouch. He does not react to Line of Sight
+    yet.
+
+
+    You can fire the AK-47 with right mouse button!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 367e4f039a0216d4a94b73cab23bcf34, type: 2}
   m_sharedMaterial: {fileID: -8183084758058218450, guid: 367e4f039a0216d4a94b73cab23bcf34,
@@ -1022,12 +1026,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 305701369}
-    characterCount: 152
+    characterCount: 201
     spriteCount: 0
-    spaceCount: 30
-    wordCount: 31
+    spaceCount: 40
+    wordCount: 40
     linkCount: 0
-    lineCount: 5
+    lineCount: 8
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
