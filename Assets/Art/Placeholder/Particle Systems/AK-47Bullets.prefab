@@ -4790,7 +4790,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_RenderMode: 5
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4823,10 +4823,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3248506232490269840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c178961cfd08784c9c7403505dc4e03, type: 3}
+  m_Script: {fileID: 11500000, guid: 005dcacfe8672aa40aa7a74ed3871331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 3248506232490269843}
+  gunName: AK-47
   damage: 3
+  isFullAuto: 1
+  fireRate: 6
+  spread: 1
+  bulletsPerShot: 1
+  bulletsPerMagazine: 24
+  totalBullets: 200
+  currentBullets: 200
 --- !u!1 &3248506232648151092
 GameObject:
   m_ObjectHideFlags: 0
@@ -4942,7 +4951,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.035
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -9615,7 +9624,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 11
   m_RenderMode: 5
   m_SortMode: 0
   m_MinParticleSize: 0

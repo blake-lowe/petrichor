@@ -11,14 +11,23 @@ public class WeaponInfo : MonoBehaviour
     public float fireRate;
     public float spread;
     public int bulletsPerShot;
+    public int bulletsPerMagazine;
+    public int totalBullets;
+    public int currentBullets = 0;
 
-    private void OnAwake()
+    private void OnEnable()
     {
-        var sm = ps.shape;
-        sm.angle = spread;
-        ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, 1, 1/fireRate));
-        var m = ps.main;
-        m.loop = isFullAuto;
+        var sh = ps.shape;
+        sh.angle = spread;
+        var cycleCount = isFullAuto ? 0 : 1;//0 is infinite
+        ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, cycleCount, 1/fireRate));
+        var ma = ps.main;
+        ma.loop = isFullAuto;
     }
-    
+
+    public void ReduceCurrentBullets(int numBullets)
+    {
+        currentBullets -= numBullets;
+    }
+
 }

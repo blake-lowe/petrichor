@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float crouchingNoise;
     public float walkingNoise;
     public float sprintingNoise;
-    private float noiseLevel;
+    
 
     public SpriteRenderer playerSprite;
 
@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [Foldout("Right Hand")] public Vector2 rightRelativePosRH;
     [Foldout("Right Hand")] public bool rightSortBelowRH = false;
     [Foldout("Right Hand")] public ParticleSystem rightHandBullets;
+    [Foldout("Right Hand")] public WeaponInfo rightHandWeaponInfo;
+    //[Foldout("Right Hand")] public Vector2 rightHandBulletsSidePos;
+    //[Foldout("Right Hand")] public Vector2 rightHandBulletsTopPos;
     
     [Foldout("Left Hand")] public SpriteRenderer leftHandSpriteRenderer;
     [Foldout("Left Hand")] public Sprite leftHandSpriteSide;
@@ -45,7 +48,9 @@ public class PlayerController : MonoBehaviour
     [Foldout("Left Hand")] public Vector2 rightRelativePosLH;
     [Foldout("Left Hand")] public bool rightSortBelowLH = true;
     [Foldout("Left Hand")] public ParticleSystem leftHandBullets;
-    
+    [Foldout("Left Hand")] public WeaponInfo leftHandWeaponInfo;
+    //[Foldout("Left Hand")] public Vector2 leftHandBulletsSidePos;
+    //[Foldout("Left Hand")] public Vector2 leftHandBulletsTopPos;
     
     private Controls _controls;
     private Vector2 _direction = new Vector2(0, 0);
@@ -60,6 +65,10 @@ public class PlayerController : MonoBehaviour
     private Quaternion _transformRotationRH;
     private Vector3 _transformPositionLH;
     private Quaternion _transformRotationLH;
+    
+    private float _noiseLevel;
+    private float _nextFireTimeLh;
+    private float _nextFireTimeRh;
 
     private void Awake()
     {
@@ -113,7 +122,12 @@ public class PlayerController : MonoBehaviour
         {
             if (rightHandBullets != null)
             {
-                rightHandBullets.Play();
+                if (Time.time > _nextFireTimeRh)
+                {
+                    rightHandBullets.Play();
+                    _nextFireTimeRh = Time.time + 1 / rightHandWeaponInfo.fireRate;
+                }
+                
             }
         }
     }
@@ -124,7 +138,11 @@ public class PlayerController : MonoBehaviour
         {
             if (leftHandBullets != null)
             {
-                leftHandBullets.Play();
+                if (Time.time > _nextFireTimeLh)
+                {
+                    leftHandBullets.Play();
+                    _nextFireTimeLh = Time.time + 1 / leftHandWeaponInfo.fireRate;
+                }
             }
         }
     }
@@ -237,6 +255,11 @@ public class PlayerController : MonoBehaviour
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + thisPosition;
             }
+            //Bullet emitter positions
+            //rightHandBullets.gameObject.transform.position = new Vector3(rightHandBulletsSidePos.x, 
+                //rightHandBulletsSidePos.y, 0) + _transformPositionRH;
+            //leftHandBullets.gameObject.transform.position = new Vector3(leftHandBulletsSidePos.x, 
+                //leftHandBulletsSidePos.y, 0) + _transformPositionLH;
         }
         else //vertical facing
         {
@@ -270,6 +293,11 @@ public class PlayerController : MonoBehaviour
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + thisPosition;
             }
+            //Bullet emitter positions
+            //rightHandBullets.gameObject.transform.position = new Vector3(rightHandBulletsTopPos.x,
+                //rightHandBulletsSidePos.y, 0) + _transformPositionRH;
+            //leftHandBullets.gameObject.transform.position = new Vector3(leftHandBulletsTopPos.x, 
+                //leftHandBulletsSidePos.y, 0) + _transformPositionLH;
         }
 
         var cursorPos = cursorPosition.transform.position;
@@ -289,24 +317,24 @@ public class PlayerController : MonoBehaviour
 
         if (_direction == new Vector2(0,0))
         {
-            noiseLevel = 0;
+            _noiseLevel = 0;
         }
         else
         {
             if (_isCrouching)
             {
-                noiseLevel = crouchingNoise;
+                _noiseLevel = crouchingNoise;
             }
             else if (_isSprinting)
             {
-                noiseLevel = sprintingNoise;
+                _noiseLevel = sprintingNoise;
             }
             else
             {
-                noiseLevel = walkingNoise;
+                _noiseLevel = walkingNoise;
             }
         }
 
-        GetComponent<NoiseSource>().noiseLevel = noiseLevel;
+        GetComponent<NoiseSource>().noiseLevel = _noiseLevel;
     }
 }
