@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUIController : MonoBehaviour
 {
-    public string startGameSceneName;
+    public int startGameSceneIndex;
     public GameObject MainMenuCanvas;
+    public GameObject OptionsCanvas;
     public GameObject CreditsCanvas;
     public void doExitGame()//called by ui
     {
@@ -16,18 +17,24 @@ public class MainMenuUIController : MonoBehaviour
 
     public void doStartGame() //called by ui
     {
-        Debug.Log("Starting Game");
-        SceneManager.LoadScene(startGameSceneName);
+        SceneManager.LoadScene(startGameSceneIndex);
     }
 
-    public void doOpenCredits()
+    public void doOpenCredits()//called by ui
     {
         MainMenuCanvas.SetActive(false);
         CreditsCanvas.SetActive(true);
     }
 
-    public void doOpenMainMenu()
+    public void doOpenOptions()//called by ui
     {
+        MainMenuCanvas.SetActive(false);
+        OptionsCanvas.SetActive(true);
+    }
+
+    public void doOpenMainMenu()//called by ui
+    {
+        OptionsCanvas.SetActive(false);
         CreditsCanvas.SetActive(false);
         MainMenuCanvas.SetActive(true);
     }
