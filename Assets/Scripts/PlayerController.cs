@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Homebrew;
@@ -97,6 +99,8 @@ public class PlayerController : MonoBehaviour
     {
         _controls.Player.Enable();
         _playerSpriteSortingOrder = playerSprite.sortingOrder;
+        leftHandAmmoField.text = string.Format("%d/%d", leftHandWeaponInfo.currentBullets, leftHandWeaponInfo.totalBullets);
+        rightHandAmmoField.text = string.Format("%d/%d", rightHandWeaponInfo.currentBullets, rightHandWeaponInfo.totalBullets);
     }
 
     private void StartCrouch(InputAction.CallbackContext context)
@@ -129,11 +133,22 @@ public class PlayerController : MonoBehaviour
             {
                 if (Time.time > _nextFireTimeRh)
                 {
-                    rightHandBullets.Play();
-                    _isFiringRh = true;
-                    _nextFireTimeRh = Time.time + 1 / rightHandWeaponInfo.fireRate;
+                    if (rightHandWeaponInfo.currentBullets > 0)
+                    {
+                        rightHandBullets.Play();
+                        rightHandWeaponInfo.ReduceCurrentBullets(1);
+                        _nextFireTimeRh = Time.time + 1 / rightHandWeaponInfo.fireRate;
+                        if (rightHandWeaponInfo.isFullAuto)
+                        {
+                            _isFiringRh = true;
+                        }
+                    }
+                    else
+                    {
+                        _isFiringRh = false;
+                    }
+                    
                 }
-                
             }
         }
     }
@@ -146,9 +161,21 @@ public class PlayerController : MonoBehaviour
             {
                 if (Time.time > _nextFireTimeLh)
                 {
-                    leftHandBullets.Play();
-                    _isFiringRh = true;
-                    _nextFireTimeLh = Time.time + 1 / leftHandWeaponInfo.fireRate;
+                    if (leftHandWeaponInfo.currentBullets > 0)
+                    {
+                        leftHandBullets.Play();
+                        leftHandWeaponInfo.ReduceCurrentBullets(1);
+                        _nextFireTimeLh = Time.time + 1 / leftHandWeaponInfo.fireRate;
+                        if (leftHandWeaponInfo.isFullAuto)
+                        {
+                            _isFiringLh = true;
+                        }
+                    }
+                    else
+                    {
+                        _isFiringLh = false;
+                    }
+                    
                 }
             }
         }
@@ -199,6 +226,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var currentTime = Time.time;
         //Move Player
         _direction = _controls.Player.direction.ReadValue<Vector2>();
         var movement = _direction * baseSpeed;
@@ -324,7 +352,41 @@ public class PlayerController : MonoBehaviour
         rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
         leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
         
-        //handle firing of weapons, subtracting of ammunition
+        //handle firing of full auto weapons, subtracting of ammunition
+        //left hand
+        if (_isFiringLh & currentTime > _nextFireTimeLh)
+        {
+            if (leftHandWeaponInfo.currentBullets > 0)
+            {
+                leftHandBullets.Play();
+                leftHandWeaponInfo.ReduceCurrentBullets(1);
+                _nextFireTimeLh = currentTime + 1 / leftHandWeaponInfo.fireRate;
+            }
+            else
+            {
+                _isFiringLh = false;
+            }
+           
+        }
+        //right hand
+        if (_isFiringRh & currentTime > _nextFireTimeRh)
+        {
+            if (rightHandWeaponInfo.currentBullets > 0)
+            {
+                rightHandBullets.Play();
+                rightHandWeaponInfo.ReduceCurrentBullets(1);
+                _nextFireTimeRh = currentTime + 1 / rightHandWeaponInfo.fireRate;
+            }
+            else
+            {
+                _isFiringRh = false;
+            }
+            
+        }
+        //update ui of ammo levels
+        leftHandAmmoField.text = $"{leftHandWeaponInfo.currentBullets}/{leftHandWeaponInfo.totalBullets}";
+        rightHandAmmoField.text = $"{rightHandWeaponInfo.currentBullets}/{rightHandWeaponInfo.totalBullets}";
+        
         
         //set noise level of player based on crouching/walking/sprinting status
         if (_direction == new Vector2(0,0))

@@ -6,8 +6,9 @@ using System;
 public class EnemyController : MonoBehaviour
 {
     public Animator animator;
+    public ParticleSystem hitPS;
     private GameObject[] noiseObjects;
-    
+
     private void Start()
     {
         noiseObjects = GameObject.FindGameObjectsWithTag("NoiseObject");
@@ -43,5 +44,11 @@ public class EnemyController : MonoBehaviour
             damage = damageInfo.damage;
         }
         Debug.Log(damage + " damage taken by " + this.gameObject.name);
+        if (hitPS != null)
+        {
+            var ma = hitPS.main;
+            ma.startLifetime = new ParticleSystem.MinMaxCurve(0.07f*damage, 0.2f*damage);
+            hitPS.Play();
+        }
     }
 }
