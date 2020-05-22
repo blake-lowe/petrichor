@@ -17,6 +17,7 @@
       <Path>Library/PackageCache/com.unity.inputsystem@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.mathematics@1.1.0</Path>
       <Path>Library/PackageCache/com.unity.postprocessing@2.3.0</Path>
+      <Path>Library/PackageCache/com.unity.recorder@2.2.0-preview.4</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.core@7.1.8</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.universal@7.1.8</Path>
       <Path>Library/PackageCache/com.unity.shadergraph@7.1.8</Path>
@@ -33,6 +34,7 @@
       <Path>Builds</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>
