@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "New Item", menuName = "Item")]
 public class Item : ScriptableObject
 {
-    private string _name = "unassigned";
-    private string _description = "unassigned";
-
-    public string Name => _name;
-
-    public string Description => _description;
+    public new string name = "unassigned";
+    public string description = "unassigned";
 }
