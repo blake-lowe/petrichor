@@ -26,7 +26,7 @@ public class WeaponInfo : MonoBehaviour
         sh.angle = spread;
         ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, 1, 1/fireRate));
         var ma = ps.main;
-        ma.loop = isFullAuto;
+        ma.loop = false;
     }
 
     public void ReduceCurrentBullets(int numBullets)
