@@ -8,7 +8,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private FieldOfView fieldOfView;
     public Animator animator;
     public ParticleSystem hitPS;
+    public AIPath aiPath;
     private GameObject[] noiseObjects;
+    private Vector2 _facing;
 
     private void Start()
     {
@@ -34,8 +36,28 @@ public class EnemyController : MonoBehaviour
                 GetComponent<AIDestinationSetter>().target = gameObject.transform;
             }
         }
-        fieldOfView.SetOrigin(transform.position);
-        //fieldOfView.SetAimDirection()
+
+
+        //set animator parameters and facing
+        var xVel = aiPath.velocity.x;
+        var yVel = aiPath.velocity.y;
+        if (aiPath.velocity.sqrMagnitude > 0.001)
+        {
+            animator.SetBool("isMoving", true);
+            _facing.x = aiPath.velocity.normalized.x;
+            _facing.y = aiPath.velocity.normalized.y;
+        }else
+        {
+            animator.SetBool("isMoving", false);
+        }
+        animator.SetFloat("Horizontal", _facing.x);
+        animator.SetFloat("Vertical", _facing.y);
+        
+        if (fieldOfView)//if not null
+        {
+            fieldOfView.SetOrigin(transform.position);
+            fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
+        }
     }
 
     private void OnParticleCollision(GameObject other)
