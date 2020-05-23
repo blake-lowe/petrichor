@@ -8,7 +8,6 @@ public class GroundItemRenderer : MonoBehaviour
     public SpriteRenderer sr;
     public Weapon weapon;
     
-    // Start is called before the first frame update
     private void OnEnable()
     {
         if (sr == null)
@@ -22,9 +21,10 @@ public class GroundItemRenderer : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        sr.sprite = weapon.spriteGround;
     }
+
+    
 }
