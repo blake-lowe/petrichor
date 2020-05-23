@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65be1b9649fa341afadaa9068c8df7, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  name: Pistol
+  description: Short-barrelled projectile weapon
+  spriteUI: {fileID: 21300000, guid: f775419298a57a442b45a86d95b61dd3, type: 3}
+  spriteGround: {fileID: 21300000, guid: 1213f80d60b126c44bfcba8be414b6d1, type: 3}
+  spriteSide: {fileID: 21300000, guid: 1213f80d60b126c44bfcba8be414b6d1, type: 3}
+  spriteTop: {fileID: 21300000, guid: 5077423a646e28042a4371946a840b70, type: 3}
+  bullets: {fileID: 3646075287460268374, guid: 406510e75323f1e4ea1cc5a252185a03, type: 3}
+  weaponInfo: {fileID: 3248506233204395832, guid: 406510e75323f1e4ea1cc5a252185a03,
+    type: 3}
+  enemyWeaponInfo: {fileID: 3248506233204395832, guid: 406510e75323f1e4ea1cc5a252185a03,
+    type: 3}

@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundItemRenderer : MonoBehaviour
+{
+    public SpriteRenderer sr;
+    public Weapon weapon;
+    
+    // Start is called before the first frame update
+    private void OnEnable()
+    {
+        if (sr == null)
+        {
+            sr = gameObject.GetComponent<SpriteRenderer>();
+        }
+
+        if (sr == null)
+        {
+            Debug.Log("Sprite renderer not set", gameObject);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
