@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private LayerMask layerMask;
+    public LayerMask layerMask;
     private Mesh mesh;
     private Vector3 origin;
     private float startingAngle;
