@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,15 +11,30 @@ public class FieldOfView : MonoBehaviour
     private float startingAngle;
     public float fov;
     public float viewDistance;
+    public MeshFilter meshFilter;
+
+    private void OnEnable()
+    {
+        if (!meshFilter)
+        {
+            meshFilter = GetComponent<MeshFilter>();
+        }
+
+        if (!meshFilter)
+        {
+            Debug.Log("Mesh filter not assigned", gameObject);
+        }
+    }
 
     void Start()
     {
         mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
+        meshFilter.mesh = mesh;
         origin = Vector3.zero;
     }
     private void Update()
     {
+
         int rayCount = 50;
         float angle = startingAngle;
         float angleIncrease = fov / rayCount;
@@ -35,7 +51,7 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 vertex;
             RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, layerMask);
-            if (raycastHit2D.collider == null)
+            if (!raycastHit2D.collider) //if is null
             {
                 // no hit
                 vertex = origin + GetVectorFromAngle(angle) * viewDistance;

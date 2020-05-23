@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Homebrew;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -23,37 +22,37 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer playerSprite;
 
-    [Foldout("Right Hand")] public SpriteRenderer rightHandSpriteRenderer;
-    [Foldout("Right Hand")] public Sprite rightHandSpriteSide;
-    [Foldout("Right Hand")] public Sprite rightHandSpriteTop;
-    [Foldout("Right Hand")] public Vector2 upRelativePosRH;
-    [Foldout("Right Hand")] public bool upSortBelowRH = true;
-    [Foldout("Right Hand")] public Vector2 downRelativePosRH;
-    [Foldout("Right Hand")] public bool downSortBelowRH = false;
-    [Foldout("Right Hand")] public Vector2 leftRelativePosRH;
-    [Foldout("Right Hand")] public bool leftSortBelowRH = true;
-    [Foldout("Right Hand")] public Vector2 rightRelativePosRH;
-    [Foldout("Right Hand")] public bool rightSortBelowRH = false;
-    [Foldout("Right Hand")] public ParticleSystem rightHandBullets;
-    [Foldout("Right Hand")] public WeaponInfo rightHandWeaponInfo;
-    [Foldout("Right Hand")] public TextMeshProUGUI rightHandAmmoField;
+    public SpriteRenderer rightHandSpriteRenderer;
+    public Sprite rightHandSpriteSide;
+    public Sprite rightHandSpriteTop;
+    public Vector2 upRelativePosRH;
+    public bool upSortBelowRH = true;
+    public Vector2 downRelativePosRH;
+    public bool downSortBelowRH = false;
+    public Vector2 leftRelativePosRH;
+    public bool leftSortBelowRH = true;
+    public Vector2 rightRelativePosRH;
+    public bool rightSortBelowRH = false;
+    public ParticleSystem rightHandBullets;
+    public WeaponInfo rightHandWeaponInfo;
+    public TextMeshProUGUI rightHandAmmoField;
     //[Foldout("Right Hand")] public Vector2 rightHandBulletsSidePos;
     //[Foldout("Right Hand")] public Vector2 rightHandBulletsTopPos;
     
-    [Foldout("Left Hand")] public SpriteRenderer leftHandSpriteRenderer;
-    [Foldout("Left Hand")] public Sprite leftHandSpriteSide;
-    [Foldout("Left Hand")] public Sprite leftHandSpriteTop;
-    [Foldout("Left Hand")] public Vector2 upRelativePosLH;
-    [Foldout("Left Hand")] public bool upSortBelowLH = true;
-    [Foldout("Left Hand")] public Vector2 downRelativePosLH;
-    [Foldout("Left Hand")] public bool downSortBelowLH = false;
-    [Foldout("Left Hand")] public Vector2 leftRelativePosLH;
-    [Foldout("Left Hand")] public bool leftSortBelowLH = false;
-    [Foldout("Left Hand")] public Vector2 rightRelativePosLH;
-    [Foldout("Left Hand")] public bool rightSortBelowLH = true;
-    [Foldout("Left Hand")] public ParticleSystem leftHandBullets;
-    [Foldout("Left Hand")] public WeaponInfo leftHandWeaponInfo;
-    [Foldout("Left Hand")] public TextMeshProUGUI leftHandAmmoField;
+    public SpriteRenderer leftHandSpriteRenderer;
+    public Sprite leftHandSpriteSide;
+    public Sprite leftHandSpriteTop;
+    public Vector2 upRelativePosLH;
+    public bool upSortBelowLH = true;
+    public Vector2 downRelativePosLH;
+    public bool downSortBelowLH = false;
+    public Vector2 leftRelativePosLH;
+    public bool leftSortBelowLH = false;
+    public Vector2 rightRelativePosLH;
+    public bool rightSortBelowLH = true;
+    public ParticleSystem leftHandBullets;
+    public WeaponInfo leftHandWeaponInfo;
+    public TextMeshProUGUI leftHandAmmoField;
     //[Foldout("Left Hand")] public Vector2 leftHandBulletsSidePos;
     //[Foldout("Left Hand")] public Vector2 leftHandBulletsTopPos;
     
