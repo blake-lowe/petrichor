@@ -54,6 +54,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "interact",
+                    "type": "Button",
+                    "id": "05b6e33b-ca10-4d61-ad93-d0da85181860",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "pause",
                     "type": "Button",
                     "id": "ec4c0600-4420-40dc-b512-42c4b34aebbd",
@@ -211,6 +219,17 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a07bfca9-87f1-4b4e-bc82-956901c95ed8",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

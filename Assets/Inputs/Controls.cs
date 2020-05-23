@@ -67,6 +67,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""05b6e33b-ca10-4d61-ad93-d0da85181860"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""pause"",
                     ""type"": ""Button"",
                     ""id"": ""ec4c0600-4420-40dc-b512-42c4b34aebbd"",
@@ -226,6 +234,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a07bfca9-87f1-4b4e-bc82-956901c95ed8"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -246,6 +265,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_leftHand = m_Player.FindAction("leftHand", throwIfNotFound: true);
         m_Player_rightLeg = m_Player.FindAction("rightLeg", throwIfNotFound: true);
         m_Player_leftLeg = m_Player.FindAction("leftLeg", throwIfNotFound: true);
+        m_Player_interact = m_Player.FindAction("interact", throwIfNotFound: true);
         m_Player_pause = m_Player.FindAction("pause", throwIfNotFound: true);
         m_Player_direction = m_Player.FindAction("direction", throwIfNotFound: true);
     }
@@ -303,6 +323,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_leftHand;
     private readonly InputAction m_Player_rightLeg;
     private readonly InputAction m_Player_leftLeg;
+    private readonly InputAction m_Player_interact;
     private readonly InputAction m_Player_pause;
     private readonly InputAction m_Player_direction;
     public struct PlayerActions
@@ -315,6 +336,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @leftHand => m_Wrapper.m_Player_leftHand;
         public InputAction @rightLeg => m_Wrapper.m_Player_rightLeg;
         public InputAction @leftLeg => m_Wrapper.m_Player_leftLeg;
+        public InputAction @interact => m_Wrapper.m_Player_interact;
         public InputAction @pause => m_Wrapper.m_Player_pause;
         public InputAction @direction => m_Wrapper.m_Player_direction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -344,6 +366,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @leftLeg.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
                 @leftLeg.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
                 @leftLeg.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
+                @interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
@@ -372,6 +397,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @leftLeg.started += instance.OnLeftLeg;
                 @leftLeg.performed += instance.OnLeftLeg;
                 @leftLeg.canceled += instance.OnLeftLeg;
+                @interact.started += instance.OnInteract;
+                @interact.performed += instance.OnInteract;
+                @interact.canceled += instance.OnInteract;
                 @pause.started += instance.OnPause;
                 @pause.performed += instance.OnPause;
                 @pause.canceled += instance.OnPause;
@@ -399,6 +427,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnLeftHand(InputAction.CallbackContext context);
         void OnRightLeg(InputAction.CallbackContext context);
         void OnLeftLeg(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
     }
