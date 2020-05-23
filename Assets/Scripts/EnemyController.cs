@@ -5,7 +5,9 @@ using Pathfinding;
 using System;
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private FieldOfView fieldOfView;
+    [SerializeField] private FieldOfView prefabFieldOfView;
+    private FieldOfView fieldOfView;
+
     public Animator animator;
     public ParticleSystem hitPS;
     public AIPath aiPath;
@@ -15,6 +17,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         noiseObjects = GameObject.FindGameObjectsWithTag("NoiseObject");
+        fieldOfView = Instantiate(prefabFieldOfView, null).GetComponent<FieldOfView>();
     }
     
     private void Update()
@@ -53,11 +56,8 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("Horizontal", _facing.x);
         animator.SetFloat("Vertical", _facing.y);
         
-        if (fieldOfView)//if not null
-        {
-            fieldOfView.SetOrigin(transform.position);
-            fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
-        }
+        fieldOfView.SetOrigin(transform.position);
+        fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
     }
 
     private void OnParticleCollision(GameObject other)

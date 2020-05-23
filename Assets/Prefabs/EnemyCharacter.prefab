@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5878749826745761125}
   - component: {fileID: 5878749826745761130}
   - component: {fileID: 5878749826745761121}
+  - component: {fileID: 661047358}
   m_Layer: 10
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -153,9 +154,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce6d7fe31426064abb3213c834c5df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfView: {fileID: 0}
-  animator: {fileID: 0}
+  prefabFieldOfView: {fileID: 3530378891128465138, guid: cc7da9f3cbae37543ba45c0493da31d1,
+    type: 3}
+  animator: {fileID: 661047358}
   hitPS: {fileID: 7449502089044796815}
+  aiPath: {fileID: 5878749826745761124}
+--- !u!95 &661047358
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878749826745761131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 802422977c4b47f49b77e94b96bcc540, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5878749828705090655
 GameObject:
   m_ObjectHideFlags: 0
