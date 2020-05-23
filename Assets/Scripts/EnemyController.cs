@@ -5,6 +5,7 @@ using Pathfinding;
 using System;
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private FieldOfView fieldOfView;
     public Animator animator;
     public ParticleSystem hitPS;
     private GameObject[] noiseObjects;
@@ -33,6 +34,8 @@ public class EnemyController : MonoBehaviour
                 GetComponent<AIDestinationSetter>().target = gameObject.transform;
             }
         }
+        fieldOfView.SetOrigin(transform.position);
+        //fieldOfView.SetAimDirection()
     }
 
     private void OnParticleCollision(GameObject other)

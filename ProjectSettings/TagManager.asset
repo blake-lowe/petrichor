@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - NoiseObject
+  - Obstacle
   layers:
   - Default
   - TransparentFX
