@@ -1,23 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Pathfinding;
-using System;
 public class EnemyController : MonoBehaviour
 {
-    //[SerializeField] private FieldOfView prefabFieldOfView;
     public FieldOfView fieldOfView;
+    public float fov;
+    public float viewDistance;
+    public GameObject player;
 
     public Animator animator;
     public ParticleSystem hitPS;
     public AIPath aiPath;
     private GameObject[] noiseObjects;
     private Vector2 _facing;
+    private bool seesPlayer;
 
     private void Start()
     {
         noiseObjects = GameObject.FindGameObjectsWithTag("NoiseObject");
-        //fieldOfView = Instantiate(prefabFieldOfView, transform).GetComponent<FieldOfView>();
+        fieldOfView.SetViewDistance(viewDistance);
+        fieldOfView.SetFov(fov);
+        seesPlayer = false;
+        _facing = Vector2.right;
     }
     
     private void Update()
@@ -61,8 +67,30 @@ public class EnemyController : MonoBehaviour
         fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
         //correct field of view game object position;
         fieldOfView.transform.position = Vector3.zero;
-    }
 
+        FindPlayer();
+    }
+    private void FindPlayer()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < viewDistance)
+        {
+            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+            if (Vector3.Angle(_facing, dirToPlayer) <= (fov / 2))
+            {
+                RaycastHit2D raycast = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance);
+                if (raycast.collider)
+                {
+                    //raycast hit something
+                    if (PrefabUtility.GetCorrespondingObjectFromSource(raycast.collider.gameObject) == PrefabUtility.GetCorrespondingObjectFromSource(player))
+                    {
+                        //raycast hit player
+                        seesPlayer = true;
+                        Debug.Log("how is this happening");
+                    }
+                }
+            }
+        }
+    }
     private void OnParticleCollision(GameObject other)
     {
         WeaponInfo damageInfo = other.GetComponent<WeaponInfo>();

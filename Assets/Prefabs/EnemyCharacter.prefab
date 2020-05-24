@@ -4986,6 +4986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: {fileID: 7935292721271258790}
+  fov: 90
+  viewDistance: 5
+  player: {fileID: 0}
   animator: {fileID: 7935292720336149115}
   hitPS: {fileID: 684019385363101642}
   aiPath: {fileID: 4578561570729504545}
@@ -5137,8 +5140,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  fov: 90
-  viewDistance: 5
   meshFilter: {fileID: 7935292721271258785}
 --- !u!33 &7935292721271258785
 MeshFilter:
