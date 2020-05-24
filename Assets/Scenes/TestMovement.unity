@@ -26932,7 +26932,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 16b490dadec25bf4bb11bf067527cdd4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 7
 --- !u!19719996 &2041261159
 TilemapCollider2D:
@@ -27201,11 +27201,6 @@ PrefabInstance:
     - target: {fileID: 2947224675774745597, guid: 168a60262b5f64d439a7f54ae9ad9376,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6403386396808137057, guid: 168a60262b5f64d439a7f54ae9ad9376,
-        type: 3}
-      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8602666151719577293, guid: 168a60262b5f64d439a7f54ae9ad9376,
@@ -37053,12 +37048,12 @@ PrefabInstance:
     - target: {fileID: 4578561570729504547, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.11
+      value: -0.266
       objectReference: {fileID: 0}
     - target: {fileID: 4578561570729504547, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.79
+      value: -0.461
       objectReference: {fileID: 0}
     - target: {fileID: 4578561570729504547, guid: e71e9339e723110448a461dcea417099,
         type: 3}
