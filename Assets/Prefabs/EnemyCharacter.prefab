@@ -4832,6 +4832,7 @@ GameObject:
   - component: {fileID: 4578561570729504553}
   - component: {fileID: 4578561570729504548}
   - component: {fileID: 7935292720336149115}
+  - component: {fileID: 1435626801}
   m_Layer: 10
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -4941,7 +4942,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4578561570729504558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -4960,8 +4961,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.12943125, y: 0.14656365}
-      - {x: 0.12079477, y: 0.49911904}
-      - {x: -0.120714664, y: 0.49444306}
+      - {x: 0.12909475, y: 0.49635243}
+      - {x: -0.120714664, y: 0.49720973}
       - {x: -0.12812328, y: 0.15705478}
       - {x: -0.24802858, y: 0.15767157}
       - {x: -0.24542725, y: -0.14972746}
@@ -4986,6 +4987,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: {fileID: 7935292721271258790}
+  fov: 90
+  viewDistance: 5
+  player: {fileID: 0}
   animator: {fileID: 7935292720336149115}
   hitPS: {fileID: 684019385363101642}
   aiPath: {fileID: 4578561570729504545}
@@ -5008,6 +5012,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &1435626801
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578561570729504558}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 16b490dadec25bf4bb11bf067527cdd4, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!1 &4578561572520930842
 GameObject:
   m_ObjectHideFlags: 0
@@ -5137,8 +5157,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  fov: 90
-  viewDistance: 5
   meshFilter: {fileID: 7935292721271258785}
 --- !u!33 &7935292721271258785
 MeshFilter:

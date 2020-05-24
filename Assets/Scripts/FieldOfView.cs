@@ -9,8 +9,8 @@ public class FieldOfView : MonoBehaviour
     private Mesh mesh;
     private Vector3 origin;
     private float startingAngle;
-    public float fov;
-    public float viewDistance;
+    private float fov;
+    private float viewDistance;
     public MeshFilter meshFilter;
 
     private void OnEnable()
@@ -80,6 +80,14 @@ public class FieldOfView : MonoBehaviour
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+    }
+    public void SetFov(float fov)
+    {
+        this.fov = fov;
+    }
+    public void SetViewDistance(float viewDistance)
+    {
+        this.viewDistance = viewDistance;
     }
     public void SetOrigin(Vector3 origin)
     {

@@ -1,42 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Pathfinding;
-using System;
 public class EnemyController : MonoBehaviour
 {
-    //[SerializeField] private FieldOfView prefabFieldOfView;
     public FieldOfView fieldOfView;
+    public float fov;
+    public float viewDistance;
+    public GameObject player;
 
     public Animator animator;
     public ParticleSystem hitPS;
     public AIPath aiPath;
-    private GameObject[] noiseObjects;
+    private NoiseSource[] noiseObjects;
     private Vector2 _facing;
+    private bool seesPlayer;
 
     private void Start()
     {
-        noiseObjects = GameObject.FindGameObjectsWithTag("NoiseObject");
-        //fieldOfView = Instantiate(prefabFieldOfView, transform).GetComponent<FieldOfView>();
+        noiseObjects = FindObjectsOfType<NoiseSource>();
+        fieldOfView.SetViewDistance(viewDistance);
+        fieldOfView.SetFov(fov);
+        seesPlayer = false;
+        _facing = Vector2.right;
     }
     
     private void Update()
     {
-        GameObject noiseObject;
-        Vector2 vectorDifference;
+        // enemy listens to noises
+        GameObject gameObject;
         float noiseLevel;
         GetComponent<AIDestinationSetter>().target = null;
         for (int i = 0; i < noiseObjects.Length; i++)
         {
-            noiseObject = noiseObjects[i];
-            Vector2 enemyVector = new Vector2(transform.position.x, transform.position.y);
-            Vector2 objectVector = new Vector2(noiseObject.transform.position.x, noiseObject.transform.position.y);
-            vectorDifference = enemyVector - objectVector;
-            noiseLevel = noiseObject.GetComponent<NoiseSource>().noiseLevel;
-
-            if (vectorDifference.magnitude < noiseLevel)
+            gameObject = noiseObjects[i].gameObject;
+            noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
+            if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
             {
-                GetComponent<AIDestinationSetter>().target = noiseObject.transform;
+                GetComponent<AIDestinationSetter>().target = gameObject.transform;
             }
         }
 
@@ -61,8 +63,29 @@ public class EnemyController : MonoBehaviour
         fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
         //correct field of view game object position;
         fieldOfView.transform.position = Vector3.zero;
-    }
 
+        FindPlayer();
+    }
+    private void FindPlayer()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < viewDistance)
+        {
+            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+            if (Vector3.Angle(_facing, dirToPlayer) <= (fov / 2))
+            {
+                RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance);
+                if (ray.collider)
+                {
+                    //raycast hit something
+                    if (ray.collider.tag == "Player")
+                    {
+                        //raycast hit player
+                        seesPlayer = true;
+                    }
+                }
+            }
+        }
+    }
     private void OnParticleCollision(GameObject other)
     {
         WeaponInfo damageInfo = other.GetComponent<WeaponInfo>();
