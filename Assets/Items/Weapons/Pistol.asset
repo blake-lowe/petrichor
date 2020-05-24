@@ -14,13 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pistol
   description: Short-barrelled projectile weapon
-  spriteUI: {fileID: 21300000, guid: f775419298a57a442b45a86d95b61dd3, type: 3}
+  spriteUi: {fileID: 21300000, guid: f775419298a57a442b45a86d95b61dd3, type: 3}
   spriteGround: {fileID: 21300000, guid: 1213f80d60b126c44bfcba8be414b6d1, type: 3}
   spriteSide: {fileID: 21300000, guid: 1213f80d60b126c44bfcba8be414b6d1, type: 3}
   spriteTop: {fileID: 21300000, guid: 5077423a646e28042a4371946a840b70, type: 3}
   weaponPrefab: {fileID: 3646075287460268373, guid: 406510e75323f1e4ea1cc5a252185a03,
-    type: 3}
-  weaponInfo: {fileID: 3248506233204395832, guid: 406510e75323f1e4ea1cc5a252185a03,
     type: 3}
   enemyWeaponInfo: {fileID: 3248506233204395832, guid: 406510e75323f1e4ea1cc5a252185a03,
     type: 3}
