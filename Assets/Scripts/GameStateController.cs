@@ -11,6 +11,7 @@ public class GameStateController : MonoBehaviour
 {
 
     public GameObject pausePanel;
+    public GameObject swapPanel;
     public Animator sceneTransitionAnimator;
     public PauseCameraTarget pauseCameraTarget;
     public GameObject gameplayVCAM;
@@ -61,7 +62,7 @@ public class GameStateController : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
@@ -75,6 +76,7 @@ public class GameStateController : MonoBehaviour
     {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        swapPanel.SetActive(false);
         //disable and reenable camera to set switch to it
         gameplayVCAM.SetActive(true);
         pauseVCAM.SetActive(false);

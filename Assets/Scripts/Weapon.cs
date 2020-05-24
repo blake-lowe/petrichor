@@ -9,7 +9,6 @@ public class Weapon : Item
     public Sprite spriteGround;
     public Sprite spriteSide;
     public Sprite spriteTop;
-    public ParticleSystem bullets;
-    public WeaponInfo weaponInfo;
+    public GameObject weaponPrefab;
     public WeaponInfo enemyWeaponInfo;
 }

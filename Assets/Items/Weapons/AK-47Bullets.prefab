@@ -4851,7 +4851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b6cded29b9e5d43907eca5cd4ae094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseLevel: 0
+  noiseLevel: 10
 --- !u!1 &3248506232648151092
 GameObject:
   m_ObjectHideFlags: 0
