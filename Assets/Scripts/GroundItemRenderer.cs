@@ -7,7 +7,8 @@ public class GroundItemRenderer : MonoBehaviour
 {
     public SpriteRenderer sr;
     public Weapon weapon;
-    
+    public AmmoCounter ammoCounter;
+
     private void OnEnable()
     {
         if (sr == null)

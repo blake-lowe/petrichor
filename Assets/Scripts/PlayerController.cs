@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,43 +19,63 @@ public class PlayerController : MonoBehaviour
     public float crouchingNoise;
     public float walkingNoise;
     public float sprintingNoise;
-    
+    public float interactRadiusSqr;
+    public GameStateController gameStateController;
+    public NoiseSource noiseSource;
 
     public SpriteRenderer playerSprite;
 
-    public SpriteRenderer rightHandSpriteRenderer;
-    public Sprite rightHandSpriteSide;
-    public Sprite rightHandSpriteTop;
-    public Vector2 upRelativePosRH;
-    public bool upSortBelowRH = true;
-    public Vector2 downRelativePosRH;
-    public bool downSortBelowRH = false;
-    public Vector2 leftRelativePosRH;
-    public bool leftSortBelowRH = true;
-    public Vector2 rightRelativePosRH;
-    public bool rightSortBelowRH = false;
-    public ParticleSystem rightHandBullets;
-    public WeaponInfo rightHandWeaponInfo;
-    public TextMeshProUGUI rightHandAmmoField;
-    //[Foldout("Right Hand")] public Vector2 rightHandBulletsSidePos;
-    //[Foldout("Right Hand")] public Vector2 rightHandBulletsTopPos;
+    public GameObject groundItemPrefab;
+    public Transform groundItemsParent;
     
+    private bool _isRightHandFull = false;
+    public SpriteRenderer rightHandSpriteRenderer;
+    public Image rightHandSpriteRendererUi;
+    public GameObject rightHandParticleSystemParent;
+    public TextMeshProUGUI rightHandNameField;
+    public TextMeshProUGUI rightHandAmmoField;
+    public Weapon rightHandWeapon;
+    
+    private Sprite _rightHandSpriteSide;
+    private Sprite _rightHandSpriteTop;
+    private ParticleSystem _rightHandBullets;
+    private WeaponInfo _rightHandWeaponInfo;
+    public AmmoCounter rightHandAmmoCounter;
+    
+    public Vector2 upRelativePosRh;
+    public bool upSortBelowRh = true;
+    public Vector2 downRelativePosRh;
+    public bool downSortBelowRh = false;
+    public Vector2 leftRelativePosRh;
+    public bool leftSortBelowRh = true;
+    public Vector2 rightRelativePosRh;
+    public bool rightSortBelowRh = false;
+    
+    
+
+    private bool _isLeftHandFull = false;
     public SpriteRenderer leftHandSpriteRenderer;
-    public Sprite leftHandSpriteSide;
-    public Sprite leftHandSpriteTop;
-    public Vector2 upRelativePosLH;
-    public bool upSortBelowLH = true;
-    public Vector2 downRelativePosLH;
-    public bool downSortBelowLH = false;
-    public Vector2 leftRelativePosLH;
-    public bool leftSortBelowLH = false;
-    public Vector2 rightRelativePosLH;
-    public bool rightSortBelowLH = true;
-    public ParticleSystem leftHandBullets;
-    public WeaponInfo leftHandWeaponInfo;
+    public Image leftHandSpriteRendererUi;
+    public GameObject leftHandParticleSystemParent;
+    public TextMeshProUGUI leftHandNameField;
     public TextMeshProUGUI leftHandAmmoField;
-    //[Foldout("Left Hand")] public Vector2 leftHandBulletsSidePos;
-    //[Foldout("Left Hand")] public Vector2 leftHandBulletsTopPos;
+    public Weapon leftHandWeapon;
+    
+    private Sprite _leftHandSpriteSide;
+    private Sprite _leftHandSpriteTop;
+    private ParticleSystem _leftHandBullets;
+    private WeaponInfo _leftHandWeaponInfo;
+    public AmmoCounter leftHandAmmoCounter;
+    
+    public Vector2 upRelativePosLh;
+    public bool upSortBelowLh = true;
+    public Vector2 downRelativePosLh;
+    public bool downSortBelowLh = false;
+    public Vector2 leftRelativePosLh;
+    public bool leftSortBelowLh = false;
+    public Vector2 rightRelativePosLh;
+    public bool rightSortBelowLh = true;
+    
     
     private Controls _controls;
     private Vector2 _direction = new Vector2(0, 0);
@@ -65,16 +86,27 @@ public class PlayerController : MonoBehaviour
     private Vector2 _facing = new Vector2(0, 1);
 
     private int _playerSpriteSortingOrder;
-    private Vector3 _transformPositionRH;
-    private Quaternion _transformRotationRH;
-    private Vector3 _transformPositionLH;
-    private Quaternion _transformRotationLH;
+    private Vector3 _transformPositionRh;
+    private Quaternion _transformRotationRh;
+    private Vector3 _transformPositionLh;
+    private Quaternion _transformRotationLh;
     
     private float _noiseLevel;
     private float _nextFireTimeLh;
     private float _nextFireTimeRh;
     private bool _isFiringLh;
     private bool _isFiringRh;
+
+    private Weapon _weaponToSwap;
+    private AmmoCounter _weaponToSwapAmmoCounter;
+    private GameObject _weaponToSwapGameObject;
+    
+    private static readonly int FacingX = Animator.StringToHash("FacingX");
+    private static readonly int FacingY = Animator.StringToHash("FacingY");
+    private static readonly int IsSprinting = Animator.StringToHash("isSprinting");
+    private static readonly int IsCrouching = Animator.StringToHash("isCrouching");
+    private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    private static readonly int IsReversing = Animator.StringToHash("isReversing");
 
     private void Awake()
     {
@@ -92,14 +124,41 @@ public class PlayerController : MonoBehaviour
         _controls.Player.leftHand.canceled += HandleLeftHandCancel;
         _controls.Player.rightLeg.canceled += HandleRightLegCancel;
         _controls.Player.leftLeg.canceled += HandleLeftLegCancel;
+        _controls.Player.interact.performed += HandleInteract;
     }
 
     private void OnEnable()
     {
         _controls.Player.Enable();
         _playerSpriteSortingOrder = playerSprite.sortingOrder;
-        leftHandAmmoField.text = string.Format("%d/%d", leftHandWeaponInfo.currentBullets, leftHandWeaponInfo.totalBullets);
-        rightHandAmmoField.text = string.Format("%d/%d", rightHandWeaponInfo.currentBullets, rightHandWeaponInfo.totalBullets);
+        leftHandAmmoField.text = _isLeftHandFull ? 
+            $"{leftHandAmmoCounter.currentAmmo}/{leftHandAmmoCounter.totalAmmo}" : "";
+        rightHandAmmoField.text = _isRightHandFull ? 
+            $"{rightHandAmmoCounter.currentAmmo}/{rightHandAmmoCounter.totalAmmo}" : "";
+        if (rightHandWeapon)
+        {
+            InitializeAmmoCounter(rightHandWeapon.weaponPrefab.GetComponent<WeaponInfo>(), "right");
+            Equip(rightHandWeapon, rightHandAmmoCounter, "right");
+        }
+        if (leftHandWeapon)
+        {
+            InitializeAmmoCounter(leftHandWeapon.weaponPrefab.GetComponent<WeaponInfo>(), "left");
+            Equip(leftHandWeapon, leftHandAmmoCounter, "left");
+        }
+    }
+
+    private void InitializeAmmoCounter(WeaponInfo original, string hand)
+    {
+        if (hand.Equals("left"))
+        {
+            leftHandAmmoCounter.currentAmmo = original.currentBullets;
+            leftHandAmmoCounter.totalAmmo = original.totalBullets;
+        }
+        else if (hand.Equals("right"))
+        {
+            rightHandAmmoCounter.currentAmmo = original.currentBullets;
+            rightHandAmmoCounter.totalAmmo = original.totalBullets;
+        }
     }
 
     private void StartCrouch(InputAction.CallbackContext context)
@@ -128,16 +187,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPaused)
         {
-            if (rightHandBullets != null)
+            if (rightHandWeapon)
             {
                 if (Time.time > _nextFireTimeRh)
                 {
-                    if (rightHandWeaponInfo.currentBullets > 0)
+                    if (rightHandAmmoCounter.currentAmmo > 0)
                     {
-                        rightHandBullets.Play();
-                        rightHandWeaponInfo.ReduceCurrentBullets(1);
-                        _nextFireTimeRh = Time.time + 1 / rightHandWeaponInfo.fireRate;
-                        if (rightHandWeaponInfo.isFullAuto)
+                        _rightHandBullets.Play();
+                        rightHandAmmoCounter.currentAmmo--;
+                        _nextFireTimeRh = Time.time + 1 / _rightHandWeaponInfo.fireRate;
+                        if (_rightHandWeaponInfo.isFullAuto)
                         {
                             _isFiringRh = true;
                         }
@@ -156,16 +215,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPaused)
         {
-            if (leftHandBullets != null)
+            if (leftHandWeapon)
             {
                 if (Time.time > _nextFireTimeLh)
                 {
-                    if (leftHandWeaponInfo.currentBullets > 0)
+                    if (leftHandAmmoCounter.currentAmmo > 0)
                     {
-                        leftHandBullets.Play();
-                        leftHandWeaponInfo.ReduceCurrentBullets(1);
-                        _nextFireTimeLh = Time.time + 1 / leftHandWeaponInfo.fireRate;
-                        if (leftHandWeaponInfo.isFullAuto)
+                        _leftHandBullets.Play();
+                        leftHandAmmoCounter.currentAmmo--;
+                        _nextFireTimeLh = Time.time + 1 / _leftHandWeaponInfo.fireRate;
+                        if (_leftHandWeaponInfo.isFullAuto)
                         {
                             _isFiringLh = true;
                         }
@@ -182,18 +241,16 @@ public class PlayerController : MonoBehaviour
     
     private void HandleRightHandCancel(InputAction.CallbackContext context)
     {
-        if (rightHandBullets != null)
+        if (_rightHandBullets)
         {
-            //rightHandBullets.Stop();
             _isFiringRh = false;
         }
     }
 
     private void HandleLeftHandCancel(InputAction.CallbackContext context)
     {
-        if (leftHandBullets != null)
+        if (_leftHandBullets)
         {
-            //leftHandBullets.Stop();
             _isFiringLh = false;
         }
     }
@@ -223,6 +280,166 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void HandleInteract(InputAction.CallbackContext context)
+    {
+        //find closest interactable object
+        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+        GameObject closest = interactables[0];
+        var minDistance = Mathf.Infinity;
+        foreach (GameObject interactable in interactables)
+        {
+            var thisDistance = (interactable.transform.position - transform.position).sqrMagnitude;
+            if (thisDistance < minDistance)
+            {
+                minDistance = thisDistance;
+                closest = interactable;
+            }
+        }
+
+        if (minDistance > interactRadiusSqr) { return; }//if object too far away
+        //handle based on attached script
+        var gir = closest.GetComponent<GroundItemRenderer>();
+        if (gir)//dropped weapon
+        {
+            if (!_isLeftHandFull)
+            {
+                Equip(gir.weapon, gir.ammoCounter, "left");
+                Destroy(closest);
+            }
+            else if(!_isRightHandFull)
+            {
+                Equip(gir.weapon, gir.ammoCounter, "right");
+                Destroy(closest);
+            }
+            else
+            {
+                _weaponToSwap = gir.weapon;
+                _weaponToSwapAmmoCounter = gir.ammoCounter;
+                _weaponToSwapGameObject = closest;
+                gameStateController.swapPanel.SetActive(true);
+                gameStateController.PauseGame();
+            }
+        }
+    }
+
+    public void DropRight()
+    {
+        var tempWeapon = rightHandWeapon;
+        var tempAmmoCounter = rightHandAmmoCounter;
+        Unequip("right");
+        var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
+        var gir = groundItem.GetComponent<GroundItemRenderer>();
+        gir.weapon = tempWeapon;
+        gir.ammoCounter = tempAmmoCounter;
+        groundItem.transform.position = transform.position;
+        
+    }
+
+    public void DropLeft()
+    {
+        var tempWeapon = leftHandWeapon;
+        var tempAmmoCounter = leftHandAmmoCounter;
+        Unequip("left");
+        var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
+        var gir = groundItem.GetComponent<GroundItemRenderer>();
+        gir.weapon = tempWeapon;
+        gir.ammoCounter = tempAmmoCounter;
+        groundItem.transform.position = transform.position;
+    }
+
+    public void SwapRight()
+    {
+        DropRight();
+        Equip(_weaponToSwap, _weaponToSwapAmmoCounter, "right");
+        Destroy(_weaponToSwapGameObject);
+        gameStateController.swapPanel.SetActive(false);
+    }
+
+    public void SwapLeft()
+    {
+        DropLeft();
+        Equip(_weaponToSwap, _weaponToSwapAmmoCounter, "left");
+        Destroy(_weaponToSwapGameObject);
+        gameStateController.swapPanel.SetActive(false);
+    }
+    
+
+    private void Unequip(string hand)//hand = "left"/"right"
+    {
+        if (hand.Equals("left"))
+        {
+            leftHandWeapon = null;
+            _leftHandBullets = null;
+            foreach (Transform child in leftHandParticleSystemParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            _leftHandSpriteSide = null;
+            _leftHandSpriteTop = null;
+            leftHandSpriteRenderer.sprite = null;
+            _leftHandWeaponInfo = null;
+            leftHandSpriteRendererUi.sprite = null;
+            leftHandSpriteRendererUi.color = new Color(1, 1, 1, 0);//make the placeholder sprite transparent
+            leftHandNameField.text = "empty";
+            leftHandAmmoField.text = "";
+            _isLeftHandFull = false;
+        }
+        else if (hand.Equals("right"))
+        {
+            rightHandWeapon = null;
+            rightHandWeapon = null;
+            rightHandSpriteRenderer.sprite = null;
+            _rightHandBullets = null;
+            foreach (Transform child in rightHandParticleSystemParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            _rightHandSpriteSide = null;
+            _rightHandSpriteTop = null;
+            _rightHandWeaponInfo = null;
+            rightHandSpriteRendererUi.sprite = null;
+            rightHandSpriteRendererUi.color = new Color(1, 1, 1, 0);//make the placeholder sprite transparent
+            rightHandNameField.text = "empty";
+            rightHandAmmoField.text = "";
+            _isRightHandFull = false;
+        }
+        
+        
+    }
+    private void Equip(Weapon weapon, AmmoCounter ammoCounter, string hand)//hand = "left"/"right"
+    {
+        if (hand.Equals("left"))
+        {
+            leftHandWeapon = weapon;
+            var leftHandParticleSystemChild = Instantiate(weapon.weaponPrefab, leftHandParticleSystemParent.transform);
+            _leftHandBullets = leftHandParticleSystemChild.GetComponent<ParticleSystem>();
+            _leftHandSpriteSide = weapon.spriteSide;
+            _leftHandSpriteTop = weapon.spriteTop;
+            _leftHandWeaponInfo = leftHandParticleSystemChild.GetComponent<WeaponInfo>();
+            leftHandAmmoCounter = ammoCounter;
+            leftHandSpriteRendererUi.sprite = weapon.spriteUi;
+            leftHandSpriteRendererUi.color = new Color(1, 1, 1, 1);
+            leftHandNameField.text = weapon.name;
+            leftHandAmmoField.text = $"{leftHandAmmoCounter.currentAmmo}/{leftHandAmmoCounter.totalAmmo}";
+            _isLeftHandFull = true;
+        }
+        else if (hand.Equals("right"))
+        {
+            rightHandWeapon = weapon;
+            var rightHandParticleSystemChild = Instantiate(weapon.weaponPrefab, rightHandParticleSystemParent.transform);
+            _rightHandBullets = rightHandParticleSystemChild.GetComponent<ParticleSystem>();
+            _rightHandSpriteSide = weapon.spriteSide;
+            _rightHandSpriteTop = weapon.spriteTop;
+            _rightHandWeaponInfo = rightHandParticleSystemChild.GetComponent<WeaponInfo>();
+            rightHandAmmoCounter = ammoCounter;
+            rightHandSpriteRendererUi.sprite = weapon.spriteUi;
+            rightHandSpriteRendererUi.color = new Color(1, 1, 1, 1);
+            rightHandNameField.text = weapon.name;
+            rightHandAmmoField.text = $"{rightHandAmmoCounter.currentAmmo}/{rightHandAmmoCounter.totalAmmo}";
+            _isRightHandFull = true;
+        }
+    }
+
     private void FixedUpdate()
     {
         var currentTime = Time.time;
@@ -242,10 +459,10 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
         //Set Animator Parameters
         _facing = (cursorPosition.position - transform.position).normalized;
-        animator.SetFloat("FacingX", _facing.x);
-        animator.SetFloat("FacingY", _facing.y);
-        animator.SetBool("isSprinting", _isSprinting);
-        animator.SetBool("isCrouching", _isCrouching);
+        animator.SetFloat(FacingX, _facing.x);
+        animator.SetFloat(FacingY, _facing.y);
+        animator.SetBool(IsSprinting, _isSprinting);
+        animator.SetBool(IsCrouching, _isCrouching);
         if (_direction.sqrMagnitude < 0.005)
         {
             _stillFramesCount++;
@@ -255,8 +472,8 @@ public class PlayerController : MonoBehaviour
             _stillFramesCount = 0;
         }
 
-        animator.SetBool("isMoving", _stillFramesCount < 3);
-        animator.SetBool("isReversing", Vector2.Dot(_direction, _facing) < 0);
+        animator.SetBool(IsMoving, _stillFramesCount < 3);
+        animator.SetBool(IsReversing, Vector2.Dot(_direction, _facing) < 0);
         //Calculate Hand Item Positions and Rotations
         var thisPosition = transform.position;
         if (Mathf.Abs(_facing.x) > Mathf.Abs(_facing.y)) //horizontal facing
@@ -265,37 +482,32 @@ public class PlayerController : MonoBehaviour
             {
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
-                    rightSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = rightHandSpriteSide;
+                    rightSortBelowRh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                rightHandSpriteRenderer.sprite = _rightHandSpriteSide;
                 rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionRH = new Vector3(rightRelativePosRH.x, rightRelativePosRH.y, 0) + thisPosition;
+                _transformPositionRh = new Vector3(rightRelativePosRh.x, rightRelativePosRh.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
-                    rightSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                leftHandSpriteRenderer.sprite = leftHandSpriteSide;
+                    rightSortBelowLh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                leftHandSpriteRenderer.sprite = _leftHandSpriteSide;
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, -1, 1);
-                _transformPositionLH = new Vector3(rightRelativePosLH.x, rightRelativePosLH.y, 0) + thisPosition;
+                _transformPositionLh = new Vector3(rightRelativePosLh.x, rightRelativePosLh.y, 0) + thisPosition;
             }
             else //facing left
             {
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
-                    leftSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = rightHandSpriteSide;
+                    leftSortBelowRh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                rightHandSpriteRenderer.sprite = _rightHandSpriteSide;
                 rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, -1, 1);
-                _transformPositionRH = new Vector3(leftRelativePosRH.x, leftRelativePosRH.y, 0) + thisPosition;
+                _transformPositionRh = new Vector3(leftRelativePosRh.x, leftRelativePosRh.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
-                    leftSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                leftHandSpriteRenderer.sprite = leftHandSpriteSide;
+                    leftSortBelowLh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                leftHandSpriteRenderer.sprite = _leftHandSpriteSide;
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionLH = new Vector3(leftRelativePosLH.x, leftRelativePosLH.y, 0) + thisPosition;
+                _transformPositionLh = new Vector3(leftRelativePosLh.x, leftRelativePosLh.y, 0) + thisPosition;
             }
-            //Bullet emitter positions
-            //rightHandBullets.gameObject.transform.position = new Vector3(rightHandBulletsSidePos.x, 
-                //rightHandBulletsSidePos.y, 0) + _transformPositionRH;
-            //leftHandBullets.gameObject.transform.position = new Vector3(leftHandBulletsSidePos.x, 
-                //leftHandBulletsSidePos.y, 0) + _transformPositionLH;
         }
         else //vertical facing
         {
@@ -303,63 +515,62 @@ public class PlayerController : MonoBehaviour
             {
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
-                    upSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = rightHandSpriteTop;
+                    upSortBelowRh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                rightHandSpriteRenderer.sprite = _rightHandSpriteTop;
                 rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionRH = new Vector3(upRelativePosRH.x, upRelativePosRH.y, 0) + thisPosition;
+                _transformPositionRh = new Vector3(upRelativePosRh.x, upRelativePosRh.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
-                    upSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                leftHandSpriteRenderer.sprite = leftHandSpriteTop;
+                    upSortBelowLh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                leftHandSpriteRenderer.sprite = _leftHandSpriteTop;
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionLH = new Vector3(upRelativePosLH.x, upRelativePosLH.y, 0) + thisPosition;
+                _transformPositionLh = new Vector3(upRelativePosLh.x, upRelativePosLh.y, 0) + thisPosition;
             }
             else //facing down
             {
                 //Right hand
                 rightHandSpriteRenderer.sortingOrder =
-                    downSortBelowRH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                rightHandSpriteRenderer.sprite = rightHandSpriteTop;
+                    downSortBelowRh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                rightHandSpriteRenderer.sprite = _rightHandSpriteTop;
                 rightHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionRH = new Vector3(downRelativePosRH.x, downRelativePosRH.y, 0) + thisPosition;
+                _transformPositionRh = new Vector3(downRelativePosRh.x, downRelativePosRh.y, 0) + thisPosition;
                 //Left hand
                 leftHandSpriteRenderer.sortingOrder =
-                    downSortBelowLH ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
-                leftHandSpriteRenderer.sprite = leftHandSpriteTop;
+                    downSortBelowLh ? _playerSpriteSortingOrder - 1 : _playerSpriteSortingOrder + 1;
+                leftHandSpriteRenderer.sprite = _leftHandSpriteTop;
                 leftHandSpriteRenderer.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                _transformPositionLH = new Vector3(downRelativePosLH.x, downRelativePosLH.y, 0) + thisPosition;
+                _transformPositionLh = new Vector3(downRelativePosLh.x, downRelativePosLh.y, 0) + thisPosition;
             }
-            //Bullet emitter positions
-            //rightHandBullets.gameObject.transform.position = new Vector3(rightHandBulletsTopPos.x,
-                //rightHandBulletsSidePos.y, 0) + _transformPositionRH;
-            //leftHandBullets.gameObject.transform.position = new Vector3(leftHandBulletsTopPos.x, 
-                //leftHandBulletsSidePos.y, 0) + _transformPositionLH;
         }
 
         var cursorPos = cursorPosition.transform.position;
         var flipFactorRh = rightHandSpriteRenderer.flipX ? -180 : 0;
         var flipFactorLh = leftHandSpriteRenderer.flipX ? -180 : 0;
-        _transformRotationRH = Quaternion.Euler(new Vector3(0, 0,
-            Mathf.Atan2(cursorPos.y - _transformPositionRH.y,
-                cursorPos.x - _transformPositionRH.x) *
+        _transformRotationRh = Quaternion.Euler(new Vector3(0, 0,
+            Mathf.Atan2(cursorPos.y - _transformPositionRh.y,
+                cursorPos.x - _transformPositionRh.x) *
             Mathf.Rad2Deg + flipFactorRh));
-        _transformRotationLH = Quaternion.Euler(new Vector3(0, 0,
-            Mathf.Atan2(cursorPos.y - _transformPositionLH.y,
-                cursorPos.x - _transformPositionLH.x) *
+        _transformRotationLh = Quaternion.Euler(new Vector3(0, 0,
+            Mathf.Atan2(cursorPos.y - _transformPositionLh.y,
+                cursorPos.x - _transformPositionLh.x) *
             Mathf.Rad2Deg + flipFactorLh));
 
-        rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRH, _transformRotationRH);
-        leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLH, _transformRotationLH);
+        rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRh, _transformRotationRh);
+        leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLh, _transformRotationLh);
+        
+        //only display weapons hands are full
+        leftHandSpriteRenderer.gameObject.SetActive(_isLeftHandFull);
+        rightHandSpriteRenderer.gameObject.SetActive(_isRightHandFull);
         
         //handle firing of full auto weapons, subtracting of ammunition
         //left hand
         if (_isFiringLh & currentTime > _nextFireTimeLh)
         {
-            if (leftHandWeaponInfo.currentBullets > 0)
+            if (leftHandAmmoCounter.currentAmmo > 0)
             {
-                leftHandBullets.Play();
-                leftHandWeaponInfo.ReduceCurrentBullets(1);
-                _nextFireTimeLh = currentTime + 1 / leftHandWeaponInfo.fireRate;
+                _leftHandBullets.Play();
+                leftHandAmmoCounter.currentAmmo--;
+                _nextFireTimeLh = currentTime + 1 / _leftHandWeaponInfo.fireRate;
             }
             else
             {
@@ -370,11 +581,11 @@ public class PlayerController : MonoBehaviour
         //right hand
         if (_isFiringRh & currentTime > _nextFireTimeRh)
         {
-            if (rightHandWeaponInfo.currentBullets > 0)
+            if (rightHandAmmoCounter.currentAmmo > 0)
             {
-                rightHandBullets.Play();
-                rightHandWeaponInfo.ReduceCurrentBullets(1);
-                _nextFireTimeRh = currentTime + 1 / rightHandWeaponInfo.fireRate;
+                _rightHandBullets.Play();
+                rightHandAmmoCounter.currentAmmo--;
+                _nextFireTimeRh = currentTime + 1 / _rightHandWeaponInfo.fireRate;
             }
             else
             {
@@ -383,10 +594,11 @@ public class PlayerController : MonoBehaviour
             
         }
         //update ui of ammo levels
-        leftHandAmmoField.text = $"{leftHandWeaponInfo.currentBullets}/{leftHandWeaponInfo.totalBullets}";
-        rightHandAmmoField.text = $"{rightHandWeaponInfo.currentBullets}/{rightHandWeaponInfo.totalBullets}";
-        
-        
+        leftHandAmmoField.text = _isLeftHandFull ? 
+            $"{leftHandAmmoCounter.currentAmmo}/{leftHandAmmoCounter.totalAmmo}" : "";
+        rightHandAmmoField.text = _isRightHandFull ? 
+            $"{rightHandAmmoCounter.currentAmmo}/{rightHandAmmoCounter.totalAmmo}" : "";
+
         //set noise level of player based on crouching/walking/sprinting status
         if (_direction == new Vector2(0,0))
         {
@@ -408,6 +620,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        GetComponent<NoiseSource>().noiseLevel = _noiseLevel;
+        noiseSource.noiseLevel = _noiseLevel;
     }
 }

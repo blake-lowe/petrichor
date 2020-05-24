@@ -50,23 +50,21 @@ public class GameStateController : MonoBehaviour
     {
         if (_isPaused)
         {
-            _isPaused = false;
-            pauseCameraTarget.isPaused = false;
             UnpauseGame();
         }
         else
         {
-            _isPaused = true;
-            pauseCameraTarget.isPaused = true;
             PauseGame();
         }
     }
 
     public void PauseGame()
     {
+        _isPaused = true;
         Time.timeScale = 0;
         pausePanel.SetActive(true);
-        //disable and reenable camera to set switch to it
+        pauseCameraTarget.isPaused = true;
+        //switch live camera
         pauseVCAM.SetActive(true);
         gameplayVCAM.SetActive(false);
         playerController.isPaused = true;
@@ -74,10 +72,12 @@ public class GameStateController : MonoBehaviour
 
     private void UnpauseGame()
     {
+        _isPaused = false;
         Time.timeScale = 1;
         pausePanel.SetActive(false);
         swapPanel.SetActive(false);
-        //disable and reenable camera to set switch to it
+        pauseCameraTarget.isPaused = false;
+        //switch live camera
         gameplayVCAM.SetActive(true);
         pauseVCAM.SetActive(false);
         playerController.isPaused = false;
