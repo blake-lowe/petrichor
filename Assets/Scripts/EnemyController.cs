@@ -22,21 +22,21 @@ public class EnemyController : MonoBehaviour
     
     private void Update()
     {
-        GameObject gameObject;
+        GameObject noiseObject;
         Vector2 vectorDifference;
         float noiseLevel;
         GetComponent<AIDestinationSetter>().target = null;
         for (int i = 0; i < noiseObjects.Length; i++)
         {
-            gameObject = noiseObjects[i];
+            noiseObject = noiseObjects[i];
             Vector2 enemyVector = new Vector2(transform.position.x, transform.position.y);
-            Vector2 objectVector = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+            Vector2 objectVector = new Vector2(noiseObject.transform.position.x, noiseObject.transform.position.y);
             vectorDifference = enemyVector - objectVector;
-            noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
+            noiseLevel = noiseObject.GetComponent<NoiseSource>().noiseLevel;
 
             if (vectorDifference.magnitude < noiseLevel)
             {
-                GetComponent<AIDestinationSetter>().target = gameObject.transform;
+                GetComponent<AIDestinationSetter>().target = noiseObject.transform;
             }
         }
 
