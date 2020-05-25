@@ -19,6 +19,8 @@ public class WeaponInfo : MonoBehaviour
 
     private int _lastCurrentBullets;
 
+    public List<ParticleCollisionEvent> collisionEvents;
+
     private void OnEnable()//set relevant shader parameters
     {
         var sh = ps.shape;
@@ -26,5 +28,10 @@ public class WeaponInfo : MonoBehaviour
         ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, 1, 1 / fireRate));
         var ma = ps.main;
         ma.loop = false;
+    }
+
+    private void Start()
+    {
+        collisionEvents = new List<ParticleCollisionEvent>();
     }
 }

@@ -19,7 +19,7 @@ public class MainMenuUIController : MonoBehaviour
     public AudioMixer audioMixer;
     public TextMeshProUGUI volumeText;
     public Slider volumeSlider;
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown resolutionDropdown;
     
     private Resolution[] _resolutions;
     
