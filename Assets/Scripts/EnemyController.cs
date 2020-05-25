@@ -17,14 +17,20 @@ public class EnemyController : MonoBehaviour
     private Vector2 _facing;
     private bool seesPlayer;
 
+    public bool isPatrolling = true;
+    public bool isInvestigatingNoise = false;
+    public bool isAttackingPlayer = false;
+
+    private Vector3 temp;
+
     private void Start()
     {
-        //noiseObjects = FindObjectsOfType<NoiseSource>();
+        noiseObjects = FindObjectsOfType<NoiseSource>();
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
         seesPlayer = false;
-        noiseObjects = null;
         _facing = Vector2.right;
+        temp = Vector3.zero;
     }
     private void FixedUpdate()
     {
@@ -42,19 +48,23 @@ public class EnemyController : MonoBehaviour
         GameObject gameObject;
         float noiseLevel;
         GetComponent<AIDestinationSetter>().target = null;
-        if (noiseObjects != null)
+        for (int i = 0; i < noiseObjects.Length; i++)
         {
-            for (int i = 0; i < noiseObjects.Length; i++)
+            gameObject = noiseObjects[i].gameObject;
+            noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
+            if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
             {
-                gameObject = noiseObjects[i].gameObject;
-                noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
-                if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
-                {
-                    GetComponent<AIDestinationSetter>().target = gameObject.transform;
-                }
+                isInvestigatingNoise = true;
+                isPatrolling = false;
+                GetComponent<AIDestinationSetter>().target = gameObject.transform;
+                temp = gameObject.transform.position;
             }
         }
-
+        if (isInvestigatingNoise && Vector3.Distance(transform.position, temp) < 0.2)
+        {
+            isInvestigatingNoise = false;
+            isPatrolling = true;
+        }
 
         //set animator parameters and facing
         var xVel = aiPath.velocity.x;
@@ -93,7 +103,10 @@ public class EnemyController : MonoBehaviour
                     if (ray.collider.tag == "Player")
                     {
                         //raycast hit player
-                        seesPlayer = true;
+                        isPatrolling = false;
+                        isInvestigatingNoise = false;
+                        isAttackingPlayer = true;
+                        GetComponent<AIDestinationSetter>().target = player.transform; //this is temporary
                     }
                 }
             }

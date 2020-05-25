@@ -4953,6 +4953,9 @@ MonoBehaviour:
   animator: {fileID: 7935292720336149115}
   hitPS: {fileID: 684019385363101642}
   aiPath: {fileID: 4578561570729504545}
+  isPatrolling: 0
+  isInvestigatingNoise: 0
+  isAttackingPlayer: 0
 --- !u!95 &7935292720336149115
 Animator:
   serializedVersion: 3
