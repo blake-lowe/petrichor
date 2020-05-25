@@ -4827,7 +4827,7 @@ GameObject:
   - component: {fileID: 3248506233204395833}
   m_Layer: 9
   m_Name: PistolBullets
-  m_TagString: NoiseObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

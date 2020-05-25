@@ -29,6 +29,10 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         // enemy listens to noises
+        
+        //TODO this line must be called less frequently and put it in fixed updates
+        noiseObjects = FindObjectsOfType<NoiseSource>();
+        //
         GameObject gameObject;
         float noiseLevel;
         GetComponent<AIDestinationSetter>().target = null;
