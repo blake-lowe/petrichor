@@ -19,6 +19,8 @@ public class WeaponInfo : MonoBehaviour
     public NoiseSource ns;
     
     private float _timeToDisableNoise;
+
+    private int _lastCurrentBullets;
     
     private void OnEnable()
     {
