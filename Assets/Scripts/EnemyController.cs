@@ -23,26 +23,35 @@ public class EnemyController : MonoBehaviour
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
         seesPlayer = false;
+        noiseObjects = null;
         _facing = Vector2.right;
     }
-    
+    private void FixedUpdate()
+    {
+        int tick = 0;
+        if (tick >= 25) // calls every half a second (FixedUpdate is called every 0.02 seconds)
+        {
+            noiseObjects = FindObjectsOfType<NoiseSource>();
+            tick = 0;
+        }
+        tick++;
+    }
     private void Update()
     {
         // enemy listens to noises
-        
-        //TODO this line must be called less frequently and put it in fixed updates
-        noiseObjects = FindObjectsOfType<NoiseSource>();
-        //
         GameObject gameObject;
         float noiseLevel;
         GetComponent<AIDestinationSetter>().target = null;
-        for (int i = 0; i < noiseObjects.Length; i++)
+        if (noiseObjects != null)
         {
-            gameObject = noiseObjects[i].gameObject;
-            noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
-            if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
+            for (int i = 0; i < noiseObjects.Length; i++)
             {
-                GetComponent<AIDestinationSetter>().target = gameObject.transform;
+                gameObject = noiseObjects[i].gameObject;
+                noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
+                if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
+                {
+                    GetComponent<AIDestinationSetter>().target = gameObject.transform;
+                }
             }
         }
 
