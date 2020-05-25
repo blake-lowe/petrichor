@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
     public float sprintingNoise;
     public float interactRadiusSqr;
     public GameStateController gameStateController;
-    public NoiseSource noiseSource;
+    public NoiseSource playerNoiseSource;
+    public NoiseSource rightHandNoiseSource;
+    public NoiseSource leftHandNoiseSource;
 
     public SpriteRenderer playerSprite;
 
@@ -100,6 +102,10 @@ public class PlayerController : MonoBehaviour
     private Weapon _weaponToSwap;
     private AmmoCounter _weaponToSwapAmmoCounter;
     private GameObject _weaponToSwapGameObject;
+
+    private float _stopNoiseTimeRh;
+    private float _stopNoiseTimeLh;
+    private float _weaponNoiseDuration;
     
     private static readonly int FacingX = Animator.StringToHash("FacingX");
     private static readonly int FacingY = Animator.StringToHash("FacingY");
@@ -200,6 +206,9 @@ public class PlayerController : MonoBehaviour
                         {
                             _isFiringRh = true;
                         }
+
+                        rightHandNoiseSource.noiseLevel = _rightHandWeaponInfo.noiseLevel;
+                        _stopNoiseTimeRh = Time.time + _rightHandWeaponInfo.noiseDuration;
                     }
                     else
                     {
@@ -228,6 +237,8 @@ public class PlayerController : MonoBehaviour
                         {
                             _isFiringLh = true;
                         }
+                        leftHandNoiseSource.noiseLevel = _leftHandWeaponInfo.noiseLevel;
+                        _stopNoiseTimeLh = Time.time + _leftHandWeaponInfo.noiseDuration;
                     }
                     else
                     {
@@ -571,6 +582,8 @@ public class PlayerController : MonoBehaviour
                 _leftHandBullets.Play();
                 leftHandAmmoCounter.currentAmmo--;
                 _nextFireTimeLh = currentTime + 1 / _leftHandWeaponInfo.fireRate;
+                leftHandNoiseSource.noiseLevel = _leftHandWeaponInfo.noiseLevel;
+                _stopNoiseTimeLh = Time.time + _leftHandWeaponInfo.noiseDuration;
             }
             else
             {
@@ -586,12 +599,23 @@ public class PlayerController : MonoBehaviour
                 _rightHandBullets.Play();
                 rightHandAmmoCounter.currentAmmo--;
                 _nextFireTimeRh = currentTime + 1 / _rightHandWeaponInfo.fireRate;
+                rightHandNoiseSource.noiseLevel = _rightHandWeaponInfo.noiseLevel;
+                _stopNoiseTimeRh = Time.time + _rightHandWeaponInfo.noiseDuration;
             }
             else
             {
                 _isFiringRh = false;
             }
             
+        }
+        //stop weapon noise sources if enough time has passed
+        if (currentTime > _stopNoiseTimeLh)
+        {
+            leftHandNoiseSource.noiseLevel = 0;
+        }
+        if (currentTime > _stopNoiseTimeRh)
+        {
+            rightHandNoiseSource.noiseLevel = 0;
         }
         //update ui of ammo levels
         leftHandAmmoField.text = _isLeftHandFull ? 
@@ -620,6 +644,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        noiseSource.noiseLevel = _noiseLevel;
+        playerNoiseSource.noiseLevel = _noiseLevel;
     }
 }

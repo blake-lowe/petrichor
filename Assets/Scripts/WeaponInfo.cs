@@ -16,33 +16,15 @@ public class WeaponInfo : MonoBehaviour
     public int currentBullets = 0;
     public int noiseLevel = 0;
     public float noiseDuration = 1;
-    public NoiseSource ns;
-    
-    private float _timeToDisableNoise;
 
     private int _lastCurrentBullets;
-    
-    private void OnEnable()
+
+    private void OnEnable()//set relevant shader parameters
     {
         var sh = ps.shape;
         sh.angle = spread;
-        ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, 1, 1/fireRate));
+        ps.emission.SetBurst(0, new ParticleSystem.Burst(0, bulletsPerShot, 1, 1 / fireRate));
         var ma = ps.main;
         ma.loop = false;
-    }
-
-    public void ReduceCurrentBullets(int numBullets)
-    {
-        currentBullets -= numBullets;
-        ns.noiseLevel = noiseLevel;
-        _timeToDisableNoise = Time.time + noiseDuration;
-    }
-
-    public void FixedUpdate()
-    {
-        if (Time.time > _timeToDisableNoise)
-        {
-            ns.noiseLevel = 0;
-        }
     }
 }

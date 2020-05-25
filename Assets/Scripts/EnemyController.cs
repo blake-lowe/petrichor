@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        noiseObjects = FindObjectsOfType<NoiseSource>();
+        //noiseObjects = FindObjectsOfType<NoiseSource>();
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
         seesPlayer = false;
