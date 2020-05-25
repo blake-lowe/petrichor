@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -25,7 +26,7 @@ public class MainMenuUIController : MonoBehaviour
     private void Start()
     {
         volumeText.text = Mathf.RoundToInt(((volumeSlider.value + 80) / 80) * 100).ToString() + "%";
-        _resolutions = Screen.resolutions;
+        _resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
         var currentResolutionIndex = 0;
