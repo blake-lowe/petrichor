@@ -101,11 +101,23 @@ public class EnemyController : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        WeaponInfo damageInfo = other.GetComponent<WeaponInfo>();
-        var damage = 0f;
-        if (damageInfo != null)
+        //get collisionEvent
+        
+        var weaponInfo = other.GetComponent<WeaponInfo>();
+        var ps = other.GetComponent<ParticleSystem>();
+        var collisionEvents = weaponInfo.collisionEvents;
+        ParticlePhysicsExtensions.GetCollisionEvents(other.GetComponent<ParticleSystem>(), gameObject,
+            collisionEvents);
+        
+        foreach (var collisionEvent in collisionEvents)
         {
-            damage = damageInfo.damage;
+            Debug.Log(collisionEvent.intersection);
+        }
+        
+        var damage = 0f;
+        if (weaponInfo != null)
+        {
+            damage = weaponInfo.damage;
         }
         Debug.Log(damage + " damage taken by " + this.gameObject.name);
         if (hitPS != null)
