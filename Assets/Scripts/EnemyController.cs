@@ -111,20 +111,20 @@ public class EnemyController : MonoBehaviour
         
         foreach (var collisionEvent in collisionEvents)
         {
-            Debug.Log(collisionEvent.intersection);
-        }
-        
-        var damage = 0f;
-        if (weaponInfo != null)
-        {
-            damage = weaponInfo.damage;
-        }
-        Debug.Log(damage + " damage taken by " + this.gameObject.name);
-        if (hitPS != null)
-        {
-            var ma = hitPS.main;
-            ma.startLifetime = new ParticleSystem.MinMaxCurve(0.07f*damage, 0.2f*damage);
-            hitPS.Play();
+            //handle collision effects
+            var damage = 0f;
+            if (weaponInfo != null)
+            {
+                damage = weaponInfo.damage;
+            }
+            Debug.Log(damage + " damage taken by " + this.gameObject.name);
+            if (hitPS != null)
+            {
+                hitPS.transform.position = collisionEvent.intersection;
+                var ma = hitPS.main;
+                ma.startLifetime = new ParticleSystem.MinMaxCurve(0.07f*damage, 0.2f*damage);
+                hitPS.Play();
+            }
         }
     }
 }
