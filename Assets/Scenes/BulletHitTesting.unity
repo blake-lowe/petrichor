@@ -16847,6 +16847,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 684019385363101641, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101641, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101641, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101641, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].cycleCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 684019385363101642, guid: e71e9339e723110448a461dcea417099,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4578561570729504547, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: m_LocalPosition.x
