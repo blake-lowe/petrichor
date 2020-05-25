@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour
     public AIPath aiPath;
     private NoiseSource[] noiseObjects;
     private Vector2 _facing;
-    private bool seesPlayer;
 
     public bool isPatrolling = true;
     public bool isInvestigatingNoise = false;
@@ -28,7 +27,6 @@ public class EnemyController : MonoBehaviour
         noiseObjects = FindObjectsOfType<NoiseSource>();
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
-        seesPlayer = false;
         _facing = Vector2.right;
         temp = Vector3.zero;
     }
@@ -47,7 +45,10 @@ public class EnemyController : MonoBehaviour
         // enemy listens to noises
         GameObject gameObject;
         float noiseLevel;
-        GetComponent<AIDestinationSetter>().target = null;
+        if (isInvestigatingNoise)
+        {
+            GetComponent<AIDestinationSetter>().target = null;
+        }
         for (int i = 0; i < noiseObjects.Length; i++)
         {
             gameObject = noiseObjects[i].gameObject;
