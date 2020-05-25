@@ -242,7 +242,7 @@ MonoBehaviour:
   leftHandParticleSystemParent: {fileID: 5783424369196161508}
   leftHandNameField: {fileID: 0}
   leftHandAmmoField: {fileID: 0}
-  leftHandWeapon: {fileID: 11400000, guid: 7515ce794432de54891ee61b215adf84, type: 2}
+  leftHandWeapon: {fileID: 0}
   leftHandAmmoCounter: {fileID: 849241896413764418}
   upRelativePosLh: {x: -0.2, y: 0}
   upSortBelowLh: 1

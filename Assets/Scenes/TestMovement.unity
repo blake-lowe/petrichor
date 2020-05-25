@@ -6257,8 +6257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72df1b55a06e6ea44b69f329442265f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAmmo: 0
-  totalAmmo: 0
+  currentAmmo: 200
+  totalAmmo: 200
 --- !u!212 &698515723
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27271,8 +27271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72df1b55a06e6ea44b69f329442265f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAmmo: 0
-  totalAmmo: 0
+  currentAmmo: 200
+  totalAmmo: 200
 --- !u!4 &5325265291678542456
 Transform:
   m_ObjectHideFlags: 0
@@ -27438,6 +27438,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6403386397341381028, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: rightHandWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e31e23f30b17e3c429d881153abf7b62,
+        type: 2}
     - target: {fileID: 8602666151719577293, guid: 168a60262b5f64d439a7f54ae9ad9376,
         type: 3}
       propertyPath: m_Name
