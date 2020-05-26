@@ -21,13 +21,13 @@ public class FollowMouse : MonoBehaviour
         if (isUsingScreenSpace)
         {
             _mousePosition = Input.mousePosition;
-            transform.SetPositionAndRotation(_mousePosition, Quaternion.identity);
+            transform.position = _mousePosition;
         }
         else
         {
             _mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var targetPosition = new Vector3(_mousePosition.x, _mousePosition.y, transform.position.z);
-            transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
+            transform.position = targetPosition;
         }
         
     }
