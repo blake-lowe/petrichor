@@ -139,8 +139,8 @@ public class EnemyController : MonoBehaviour
                 var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
                 hitPS.transform.position = position;
                 hitPS.transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, angle));
-                var ma = hitPS.main;
-                ma.startLifetime = new ParticleSystem.MinMaxCurve(0.07f*damage, 0.2f*damage);
+                //var ma = hitPS.main;
+                //ma.startLifetime = new ParticleSystem.MinMaxCurve(0.07f*damage, 0.2f*damage);
                 hitPS.Play();
             }
         }
