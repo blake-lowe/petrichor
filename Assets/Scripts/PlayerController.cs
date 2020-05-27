@@ -504,6 +504,18 @@ public class PlayerController : MonoBehaviour
         var thisPosition = transform.position;
         if (Mathf.Abs(_facing.x) > Mathf.Abs(_facing.y)) //horizontal facing
         {
+            //correct particle emitters for handle length
+            if (_isRightHandFull)
+            {
+                rightHandParticleSystemParent.transform.position = 
+                    rightHandSpriteRenderer.transform.position + new Vector3(0, rightHandWeapon.handleLength, 0);
+            }
+
+            if (_isLeftHandFull)
+            {
+                leftHandParticleSystemParent.transform.position = 
+                    leftHandSpriteRenderer.transform.position + new Vector3(0, leftHandWeapon.handleLength, 0);
+            }
             if (_facing.x > 0) //facing right
             {
                 //Right hand
@@ -537,6 +549,9 @@ public class PlayerController : MonoBehaviour
         }
         else //vertical facing
         {
+            //correct particle emitters for handle length
+            rightHandParticleSystemParent.transform.position = rightHandSpriteRenderer.transform.position;
+            leftHandParticleSystemParent.transform.position = leftHandSpriteRenderer.transform.position;
             if (_facing.y > 0) //facing up
             {
                 //Right hand

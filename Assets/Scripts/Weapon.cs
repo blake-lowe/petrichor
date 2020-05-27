@@ -9,6 +9,7 @@ public class Weapon : Item
     public Sprite spriteGround;
     public Sprite spriteSide;
     public Sprite spriteTop;
+    public float handleLength;
     public GameObject weaponPrefab;
     public WeaponInfo enemyWeaponInfo;
 }
