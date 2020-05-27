@@ -293,42 +293,49 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext context)
     {
-        //find closest interactable object
-        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-        GameObject closest = interactables[0];
-        var minDistance = Mathf.Infinity;
-        foreach (GameObject interactable in interactables)
+        if (!isPaused)
         {
-            var thisDistance = (interactable.transform.position - transform.position).sqrMagnitude;
-            if (thisDistance < minDistance)
+            //find closest interactable object
+            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+            GameObject closest = interactables[0];
+            var minDistance = Mathf.Infinity;
+            foreach (GameObject interactable in interactables)
             {
-                minDistance = thisDistance;
-                closest = interactable;
+                var thisDistance = (interactable.transform.position - transform.position).sqrMagnitude;
+                if (thisDistance < minDistance)
+                {
+                    minDistance = thisDistance;
+                    closest = interactable;
+                }
             }
-        }
 
-        if (minDistance > interactRadiusSqr) { return; }//if object too far away
-        //handle based on attached script
-        var gir = closest.GetComponent<GroundItemRenderer>();
-        if (gir)//dropped weapon
-        {
-            if (!_isLeftHandFull)
+            if (minDistance > interactRadiusSqr)
             {
-                Equip(gir.weapon, gir.ammoCounter, "left");
-                Destroy(closest);
-            }
-            else if(!_isRightHandFull)
+                return;
+            } //if object too far away
+
+            //handle based on attached script
+            var gir = closest.GetComponent<GroundItemRenderer>();
+            if (gir) //dropped weapon
             {
-                Equip(gir.weapon, gir.ammoCounter, "right");
-                Destroy(closest);
-            }
-            else
-            {
-                _weaponToSwap = gir.weapon;
-                _weaponToSwapAmmoCounter = gir.ammoCounter;
-                _weaponToSwapGameObject = closest;
-                gameStateController.swapPanel.SetActive(true);
-                gameStateController.PauseGame();
+                if (!_isLeftHandFull)
+                {
+                    Equip(gir.weapon, gir.ammoCounter, "left");
+                    Destroy(closest);
+                }
+                else if (!_isRightHandFull)
+                {
+                    Equip(gir.weapon, gir.ammoCounter, "right");
+                    Destroy(closest);
+                }
+                else
+                {
+                    _weaponToSwap = gir.weapon;
+                    _weaponToSwapAmmoCounter = gir.ammoCounter;
+                    _weaponToSwapGameObject = closest;
+                    gameStateController.swapPanel.SetActive(true);
+                    gameStateController.PauseGame();
+                }
             }
         }
     }
@@ -360,7 +367,10 @@ public class PlayerController : MonoBehaviour
 
     public void SwapRight()
     {
-        DropRight();
+        if (_isRightHandFull)
+        {
+            DropRight();
+        }
         Equip(_weaponToSwap, _weaponToSwapAmmoCounter, "right");
         Destroy(_weaponToSwapGameObject);
         gameStateController.swapPanel.SetActive(false);
@@ -368,7 +378,10 @@ public class PlayerController : MonoBehaviour
 
     public void SwapLeft()
     {
-        DropLeft();
+        if (_isLeftHandFull)
+        {
+            DropLeft();
+        }
         Equip(_weaponToSwap, _weaponToSwapAmmoCounter, "left");
         Destroy(_weaponToSwapGameObject);
         gameStateController.swapPanel.SetActive(false);
@@ -414,6 +427,7 @@ public class PlayerController : MonoBehaviour
             rightHandAmmoField.text = "";
             _isRightHandFull = false;
         }
+        //gameStateController.UnpauseGame();
         
         
     }
@@ -449,6 +463,7 @@ public class PlayerController : MonoBehaviour
             rightHandAmmoField.text = $"{rightHandAmmoCounter.currentAmmo}/{rightHandAmmoCounter.totalAmmo}";
             _isRightHandFull = true;
         }
+        //gameStateController.UnpauseGame();
     }
 
     private void FixedUpdate()

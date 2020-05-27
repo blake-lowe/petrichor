@@ -36,14 +36,9 @@ public class GameStateController : MonoBehaviour
         _controls.Player.Enable();
     }
 
-    void Start()
+    private void Start()
     {
         pausePanel.SetActive(false);
-    }
-    
-    void Update()
-    {
-        
     }
 
     private void HandlePause(InputAction.CallbackContext context)
@@ -70,7 +65,7 @@ public class GameStateController : MonoBehaviour
         playerController.isPaused = true;
     }
 
-    private void UnpauseGame()
+    public void UnpauseGame()
     {
         _isPaused = false;
         Time.timeScale = 1;
