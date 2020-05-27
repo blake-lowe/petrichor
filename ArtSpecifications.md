@@ -6,7 +6,7 @@
   * Weapon_TOP
   * Weapon_UI
   * Weapon_GROUND
-* The side view and top view must have the barrel end in the exact same pixel. To achieve this it is necessary to have the same canvas size. Preferably, this barrel end will be centered on the vertical axis in the 16x16 canvas
+* The side view and top view must have the barrel end in the exact same horizontal position. To achieve this it is necessary to have the same canvas size. Preferably, this barrel end will be centered on the vertical axis in the 16x16 canvas
 * The UI sprite should have the body of the weapon centered in the canvas.
 * The Ground sprite should be identical to the UI sprite except have a white border around it
   * If the canvas size must be extended to 18x18 to achieve this that's okay
