@@ -17,7 +17,8 @@ MonoBehaviour:
   spriteUi: {fileID: 21300000, guid: 0fc0cab4e86178640be0d9199833351f, type: 3}
   spriteGround: {fileID: 21300000, guid: 0c6046a6913a9134a9dbe2f7f12b06a4, type: 3}
   spriteSide: {fileID: 21300000, guid: a56329f151d1282419a19a3950ce5846, type: 3}
-  spriteTop: {fileID: 21300000, guid: 974a99b6395e8a84e84c7cca5f1511a2, type: 3}
+  spriteTop: {fileID: 21300000, guid: 8a5df28a238b322429462584e952c92b, type: 3}
+  handleLength: 0.09
   weaponPrefab: {fileID: 3248506232490269840, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99,
     type: 3}
   enemyWeaponInfo: {fileID: 1957116472, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99, type: 3}
