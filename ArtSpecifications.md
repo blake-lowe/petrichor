@@ -30,3 +30,9 @@ AK-27_GROUND:
 
 <img src="/Assets/Art/Placeholder/Items/AK-47/AK-47_GROUND.png" width="256">
  
+# Terrain Sprites
+* Size exactly 32x32
+* Should be in the style of the game i.e. darker or more desaturated colors
+* Should have a complete tile set as detailed here:
+
+<img src="https://lh3.googleusercontent.com/proxy/tC5aE-3-1qkTgAP6D85mdxBHhUD18oMmhMdiJ8DaKivlikDgneev-FWV2Yxrc9d1LBY-WARKUkI0sDseR-loCGHUL7NQa-sj_2QfBzdZANs6NeDI4BlvXcUhMA" width="512">
