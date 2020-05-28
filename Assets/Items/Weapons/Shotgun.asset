@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65be1b9649fa341afadaa9068c8df7, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  name: Shotgun
+  description: Firearm that fires many small pellets
+  spriteUi: {fileID: 21300000, guid: c4c3e64fee6ccbe4ba5f6ae880005eae, type: 3}
+  spriteGround: {fileID: 21300000, guid: 5bd1b1ab199656741b124e231358048f, type: 3}
+  spriteSide: {fileID: 21300000, guid: 0e459c1ec47b5f04cbfa9becea0789d6, type: 3}
+  spriteTop: {fileID: 21300000, guid: 93147f939dc78c240827d55538dea4d1, type: 3}
+  handleLength: 0.055
+  weaponPrefab: {fileID: 6725543912431583323, guid: e6b91f178bd1bff41b035c0aec13de5a,
+    type: 3}
+  enemyWeaponInfo: {fileID: 4817052373994866230, guid: e6b91f178bd1bff41b035c0aec13de5a,
+    type: 3}
