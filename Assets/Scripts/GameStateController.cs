@@ -41,6 +41,14 @@ public class GameStateController : MonoBehaviour
         pausePanel.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (playerController.isDead)
+        {
+            //do death things
+        }
+    }
+
     private void HandlePause(InputAction.CallbackContext context)
     {
         if (_isPaused)

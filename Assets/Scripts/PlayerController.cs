@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _direction = new Vector2(0, 0);
     private bool _isCrouching;
     private bool _isSprinting;
+    public bool isDead = false;
 
     private int _stillFramesCount;
     private Vector2 _facing = new Vector2(0, 1);
@@ -674,5 +675,10 @@ public class PlayerController : MonoBehaviour
         }
 
         playerNoiseSource.noiseLevel = _noiseLevel;
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        isDead = true;
     }
 }
