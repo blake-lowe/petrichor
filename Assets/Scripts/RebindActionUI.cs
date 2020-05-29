@@ -321,6 +321,11 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindOperation.Start();
         }
 
+        protected void Start()
+        {
+            UpdateBindingDisplay();
+        }
+
         protected void OnEnable()
         {
             if (s_RebindActionUIs == null)
@@ -446,4 +451,5 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         {
         }
     }
+    
 }

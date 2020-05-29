@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsReversing = Animator.StringToHash("isReversing");
 
-    private void Awake()
+    private void Start()
     {
         _controls = new Controls();
 
@@ -131,10 +131,9 @@ public class PlayerController : MonoBehaviour
         _controls.Player.rightLeg.canceled += HandleRightLegCancel;
         _controls.Player.leftLeg.canceled += HandleLeftLegCancel;
         _controls.Player.interact.performed += HandleInteract;
-    }
+        
+        
 
-    private void OnEnable()
-    {
         _controls.Player.Enable();
         _playerSpriteSortingOrder = playerSprite.sortingOrder;
         leftHandAmmoField.text = _isLeftHandFull ? 

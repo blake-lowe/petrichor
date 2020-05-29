@@ -25,6 +25,15 @@ public class MainMenuUIController : MonoBehaviour
     
     private void Start()
     {
+        if (PlayerPrefs.HasKey("masterVolume"))
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("masterVolume", volumeSlider.value);
+            
+        }
         volumeText.text = Mathf.RoundToInt(((volumeSlider.value + 80) / 80) * 100).ToString() + "%";
         _resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         resolutionDropdown.ClearOptions();
@@ -96,6 +105,8 @@ public class MainMenuUIController : MonoBehaviour
     {
         volumeText.text = Mathf.RoundToInt(((volume + 80) / 80) * 100).ToString() + "%";
         audioMixer.SetFloat("Master Volume", volume);
+        PlayerPrefs.SetFloat("masterVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public void SetFullscreen(bool isFullscreen)
