@@ -20,6 +20,8 @@ public class EnemyController : MonoBehaviour
     public bool isInvestigatingNoise = false;
     public bool isAttackingPlayer = false;
 
+    public AlertSystem alertsystem;
+
     private Vector3 temp;
 
     private void Start()
@@ -106,7 +108,11 @@ public class EnemyController : MonoBehaviour
                         //raycast hit player
                         isPatrolling = false;
                         isInvestigatingNoise = false;
-                        isAttackingPlayer = true;
+                        //isAttackingPlayer = true;
+                        alertsystem.SoundAlarm();
+
+
+
                         GetComponent<AIDestinationSetter>().target = player.transform; //this is temporary
                     }
                 }
