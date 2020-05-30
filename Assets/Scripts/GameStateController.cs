@@ -45,7 +45,8 @@ public class GameStateController : MonoBehaviour
     {
         if (playerController.isDead)
         {
-            //do death things
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //other death code like the glitch effect
         }
     }
 

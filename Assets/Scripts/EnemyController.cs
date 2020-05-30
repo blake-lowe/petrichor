@@ -5,6 +5,9 @@ using UnityEditor;
 using Pathfinding;
 public class EnemyController : MonoBehaviour
 {
+    public float startingHealth;
+    private float _health;
+
     public FieldOfView fieldOfView;
     public float fov;
     public float viewDistance;
@@ -138,6 +141,7 @@ public class EnemyController : MonoBehaviour
                 damage = weaponInfo.damage;
             }
             Debug.Log(damage + " damage taken by " + this.gameObject.name);
+            _health -= damage;
             if (hitPS != null)
             {
                 var position = collisionEvent.intersection;
