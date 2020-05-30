@@ -9640,7 +9640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 6725543912431583320}
   gunName: Shotgun
-  damage: 0.5
+  damage: 1.5
   isFullAuto: 0
   fireRate: 1
   spread: 15

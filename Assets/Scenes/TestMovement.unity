@@ -27344,7 +27344,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &840079937871152586
+--- !u!1001 &7090256904866459965
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -46936,6 +46936,26 @@ PrefabInstance:
     - target: {fileID: 2947224675774745597, guid: 168a60262b5f64d439a7f54ae9ad9376,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095163348244581268, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095163348244581268, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095163348244581268, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.237
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403386396808137057, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8602666151719577293, guid: 168a60262b5f64d439a7f54ae9ad9376,

@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     public float fov;
     public float viewDistance;
     public GameObject player;
-
+    public Collider2D collider2d;
     public Animator animator;
     public ParticleSystem hitPS;
     public AIPath aiPath;
@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     public AlertSystem alertsystem;
 
     private Vector3 temp;
+    private static readonly int KillTriggerID = Animator.StringToHash("kill");
 
     private void Start()
     {
@@ -34,6 +35,7 @@ public class EnemyController : MonoBehaviour
         fieldOfView.SetFov(fov);
         _facing = Vector2.right;
         temp = Vector3.zero;
+        _health = startingHealth;
     }
     private void FixedUpdate()
     {
@@ -122,6 +124,15 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    private void Kill()
+    {
+        animator.SetTrigger(KillTriggerID);
+        aiPath.enabled = false;
+        collider2d.enabled = false;
+        fieldOfView.gameObject.SetActive(false);
+    }
+    
     private void OnParticleCollision(GameObject other)
     {
         //get collisionEvent
@@ -142,6 +153,10 @@ public class EnemyController : MonoBehaviour
             }
             Debug.Log(damage + " damage taken by " + this.gameObject.name);
             _health -= damage;
+            if (_health <= 0)
+            {
+                Kill();
+            }
             if (hitPS != null)
             {
                 var position = collisionEvent.intersection;
