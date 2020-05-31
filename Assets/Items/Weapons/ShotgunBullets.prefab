@@ -9647,5 +9647,5 @@ MonoBehaviour:
   bulletsPerShot: 6
   totalBullets: 32
   currentBullets: 32
-  noiseLevel: 2
-  noiseDuration: 2
+  noiseLevel: 25
+  noiseDuration: 1

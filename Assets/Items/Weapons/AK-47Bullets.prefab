@@ -4835,7 +4835,7 @@ MonoBehaviour:
   bulletsPerShot: 1
   totalBullets: 200
   currentBullets: 200
-  noiseLevel: 10
+  noiseLevel: 100
   noiseDuration: 1
 --- !u!1 &3248506232648151092
 GameObject:

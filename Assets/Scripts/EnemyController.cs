@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour
         foreach (var noiseSource in _noiseSources)
         {
             noiseLevel = noiseSource.noiseLevel;
-            if (Vector3.SqrMagnitude(transform.position - noiseSource.transform.position) <= noiseLevel*noiseLevel)
+            if (Vector3.SqrMagnitude(transform.position - noiseSource.transform.position) <= noiseLevel)
             {
                 isInvestigatingNoise = true;
                 isPatrolling = false;
@@ -84,8 +84,6 @@ public class EnemyController : MonoBehaviour
         }
 
         //set animator parameters and facing
-        var xVel = aiPath.velocity.x;
-        var yVel = aiPath.velocity.y;
         if (aiPath.velocity.sqrMagnitude > 0.001)
         {
             animator.SetBool(IsMoving, true);
