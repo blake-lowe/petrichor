@@ -4946,6 +4946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 10
+  health: 0
   fieldOfView: {fileID: 7935292721271258790}
   fov: 90
   viewDistance: 5
@@ -4954,6 +4955,8 @@ MonoBehaviour:
   animator: {fileID: 6217050147678870255}
   hitPS: {fileID: 684019385363101642}
   aiPath: {fileID: 4578561570729504545}
+  facing: {x: 0, y: 0}
+  seesPlayer: 0
   isPatrolling: 0
   isInvestigatingNoise: 0
   isAttackingPlayer: 0

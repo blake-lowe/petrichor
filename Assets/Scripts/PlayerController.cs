@@ -267,6 +267,7 @@ public class PlayerController : MonoBehaviour
 
     private void UnarmedAttack()
     {
+        Debug.Log("Unarmed Attack");
         EnemyController closestEnemy;
         _nextStealthKillTime = Time.time + stealthKillDuration;
         EnemyController[] enemyControllers = FindObjectsOfType<EnemyController>();
@@ -289,9 +290,10 @@ public class PlayerController : MonoBehaviour
             return;
         }
                     
-        if (closestEnemy.seesPlayer)//check enemy sight
+        if (!closestEnemy.seesPlayer)//check enemy sight
         {
             //flip enemy so that the death anim plays more realistically.
+            /*
             if (closestEnemy.facing.x > closestEnemy.facing.y)
             {
                 closestEnemy.transform.localScale = new Vector3(-1, 1, 1);
@@ -300,6 +302,7 @@ public class PlayerController : MonoBehaviour
             {
                 closestEnemy.transform.localScale = new Vector3(1, -1, 1);
             }
+            */
             closestEnemy.health = 0;//kill enemy
             isFrozen = true; //freeze player
         }
@@ -529,7 +532,7 @@ public class PlayerController : MonoBehaviour
     {
         var currentTime = Time.time;
         //Move Player
-        _direction = _controls.Player.direction.ReadValue<Vector2>();
+        _direction = isFrozen ? Vector2.zero : _controls.Player.direction.ReadValue<Vector2>();
         var movement = _direction * baseSpeed;
         if (_isCrouching)
         {

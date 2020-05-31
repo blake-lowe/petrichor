@@ -55,6 +55,10 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
+        if (health <= 0)
+        {
+            Kill();
+        }
         // enemy listens to noises
         float noiseLevel;
         if (isInvestigatingNoise)
@@ -160,10 +164,6 @@ public class EnemyController : MonoBehaviour
             }
             Debug.Log(damage + " damage taken by " + this.gameObject.name);
             health -= damage;
-            if (health <= 0)
-            {
-                Kill();
-            }
             if (hitPS != null)
             {
                 var position = collisionEvent.intersection;
