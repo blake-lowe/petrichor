@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour
                 if (ray.collider)
                 {
                     //raycast hit something
-                    if (ray.collider.CompareTag("Player"))
+                    if (ray.collider.tag == "Player")
                     {
                         //raycast hit player
                         isPatrolling = false;
