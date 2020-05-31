@@ -267,7 +267,6 @@ public class PlayerController : MonoBehaviour
 
     private void UnarmedAttack()
     {
-        Debug.Log("Unarmed Attack");
         EnemyController closestEnemy;
         _nextStealthKillTime = Time.time + stealthKillDuration;
         EnemyController[] enemyControllers = FindObjectsOfType<EnemyController>();
@@ -283,6 +282,11 @@ public class PlayerController : MonoBehaviour
                     minDistSqr = distSqr;
                     closestEnemy = enemyController;
                 }
+            }
+
+            if (minDistSqr > stealthKillRadiusSqr)
+            {
+                return;
             }
         }
         else
@@ -305,10 +309,6 @@ public class PlayerController : MonoBehaviour
             */
             closestEnemy.health = 0;//kill enemy
             isFrozen = true; //freeze player
-        }
-        else
-        {
-            //failed attack. make noise?
         }
     }
     

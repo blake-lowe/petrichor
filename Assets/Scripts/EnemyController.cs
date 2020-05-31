@@ -126,14 +126,12 @@ public class EnemyController : MonoBehaviour
                         alertsystem.SoundAlarm();
                         seesPlayer = true;
                         _aiDestinationSetter.target = player.transform; //this is temporary
-                    }
-                    else
-                    {
-                        seesPlayer = false;
+                        return;
                     }
                 }
             }
         }
+        seesPlayer = false;
     }
 
     private void Kill()
@@ -151,8 +149,7 @@ public class EnemyController : MonoBehaviour
         var weaponInfo = other.GetComponent<WeaponInfo>();
         var ps = other.GetComponent<ParticleSystem>();
         var collisionEvents = weaponInfo.collisionEvents;
-        ParticlePhysicsExtensions.GetCollisionEvents(other.GetComponent<ParticleSystem>(), gameObject,
-            collisionEvents);
+        other.GetComponent<ParticleSystem>().GetCollisionEvents(gameObject, collisionEvents);
         
         foreach (var collisionEvent in collisionEvents)
         {
