@@ -2911,24 +2911,26 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'New this Build:
 
-    Sound in the main menu if you haven''t noticed.
-
-
-    The
-    enemy can now be killed. The player can also be killed. There are red projectiles
-    on the right side of the test level to kill the player. The level just resets
-    on a death for now.
+    Unarmed Kills. Sneak up behind an enemy by crouching
+    (ctrl) and use either left or right mouse with an empty hand to perform a stealth
+    kill.
 
 
     Previously Implemented:
 
-    Bullet Hit Effects are
-    now localized on the enemy where he is hit and oriented correctly for the bullet
-    angle.
+    Sound in the main menu if you haven''t
+    noticed.
 
 
-    You can drop/equip weapons now using the pause menu/interact key
-    respectively. '
+    The enemy can now be killed. The player can also be killed. There
+    are red projectiles on the right side of the test level to kill the player. The
+    level just resets on a death for now.
+
+
+    Bullet Hit Effects are now localized
+    on the enemy where he is hit and oriented correctly for the bullet angle.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 367e4f039a0216d4a94b73cab23bcf34, type: 2}
   m_sharedMaterial: {fileID: -8183084758058218450, guid: 367e4f039a0216d4a94b73cab23bcf34,
@@ -2998,10 +3000,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 305701369}
-    characterCount: 464
+    characterCount: 526
     spriteCount: 0
-    spaceCount: 85
-    wordCount: 84
+    spaceCount: 100
+    wordCount: 97
     linkCount: 0
     lineCount: 13
     pageCount: 1
@@ -14357,7 +14359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go Spacex! Go Dragon!
+  m_text: Go SpaceX! Go Endeavour!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 367e4f039a0216d4a94b73cab23bcf34, type: 2}
   m_sharedMaterial: {fileID: -8183084758058218450, guid: 367e4f039a0216d4a94b73cab23bcf34,
@@ -14427,7 +14429,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1724173164}
-    characterCount: 21
+    characterCount: 24
     spriteCount: 0
     spaceCount: 3
     wordCount: 4
