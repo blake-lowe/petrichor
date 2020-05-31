@@ -46958,6 +46958,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6403386397341381028, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: stealthKillRadiusSqr
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403386397341381028, guid: 168a60262b5f64d439a7f54ae9ad9376,
+        type: 3}
+      propertyPath: stealthKillDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8602666151719577293, guid: 168a60262b5f64d439a7f54ae9ad9376,
         type: 3}
       propertyPath: m_Name

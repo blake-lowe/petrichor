@@ -6,7 +6,7 @@ using Pathfinding;
 public class EnemyController : MonoBehaviour
 {
     public float startingHealth;
-    private float _health;
+    public float health;
 
     public FieldOfView fieldOfView;
     public float fov;
@@ -16,8 +16,9 @@ public class EnemyController : MonoBehaviour
     public Animator animator;
     public ParticleSystem hitPS;
     public AIPath aiPath;
-    private NoiseSource[] noiseObjects;
-    private Vector2 _facing;
+    private NoiseSource[] _noiseSources;
+    public Vector2 facing;
+    public bool seesPlayer;
 
     public bool isPatrolling = true;
     public bool isInvestigatingNoise = false;
@@ -26,46 +27,50 @@ public class EnemyController : MonoBehaviour
     public AlertSystem alertsystem;
 
     private Vector3 temp;
+    private int _tick;
+    private AIDestinationSetter _aiDestinationSetter;
     private static readonly int KillTriggerID = Animator.StringToHash("kill");
+    private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+    private static readonly int Vertical = Animator.StringToHash("Vertical");
 
     private void Start()
     {
-        noiseObjects = FindObjectsOfType<NoiseSource>();
+        _noiseSources = FindObjectsOfType<NoiseSource>();
+        _aiDestinationSetter = GetComponent<AIDestinationSetter>();
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
-        _facing = Vector2.right;
+        facing = Vector2.right;
         temp = Vector3.zero;
-        _health = startingHealth;
+        health = startingHealth;
     }
     private void FixedUpdate()
     {
-        int tick = 0;
-        if (tick >= 25) // calls every half a second (FixedUpdate is called every 0.02 seconds)
+        if (_tick >= 25) // calls every half a second (FixedUpdate is called every 0.02 seconds)
         {
-            noiseObjects = FindObjectsOfType<NoiseSource>();
-            tick = 0;
+            _noiseSources = FindObjectsOfType<NoiseSource>();
+            _tick = 0;
         }
-        tick++;
+        _tick++;
     }
     private void Update()
     {
         // enemy listens to noises
-        GameObject gameObject;
         float noiseLevel;
         if (isInvestigatingNoise)
         {
-            GetComponent<AIDestinationSetter>().target = null;
+            _aiDestinationSetter.target = null;
         }
-        for (int i = 0; i < noiseObjects.Length; i++)
+
+        foreach (var noiseSource in _noiseSources)
         {
-            gameObject = noiseObjects[i].gameObject;
-            noiseLevel = gameObject.GetComponent<NoiseSource>().noiseLevel;
-            if (Vector3.Distance(transform.position, gameObject.transform.position) <= noiseLevel)
+            noiseLevel = noiseSource.noiseLevel;
+            if (Vector3.SqrMagnitude(transform.position - noiseSource.transform.position) <= noiseLevel*noiseLevel)
             {
                 isInvestigatingNoise = true;
                 isPatrolling = false;
-                GetComponent<AIDestinationSetter>().target = gameObject.transform;
-                temp = gameObject.transform.position;
+                _aiDestinationSetter.target = noiseSource.transform;
+                temp = noiseSource.transform.position;
             }
         }
         if (isInvestigatingNoise && Vector3.Distance(transform.position, temp) < 0.2)
@@ -79,19 +84,19 @@ public class EnemyController : MonoBehaviour
         var yVel = aiPath.velocity.y;
         if (aiPath.velocity.sqrMagnitude > 0.001)
         {
-            animator.SetBool("isMoving", true);
-            _facing.x = aiPath.velocity.normalized.x;
-            _facing.y = aiPath.velocity.normalized.y;
+            animator.SetBool(IsMoving, true);
+            facing.x = aiPath.velocity.normalized.x;
+            facing.y = aiPath.velocity.normalized.y;
         }else
         {
-            animator.SetBool("isMoving", false);
+            animator.SetBool(IsMoving, false);
         }
-        animator.SetFloat("Horizontal", _facing.x);
-        animator.SetFloat("Vertical", _facing.y);
+        animator.SetFloat(Horizontal, facing.x);
+        animator.SetFloat(Vertical, facing.y);
         
         //set field of view position and rotation
         fieldOfView.SetOrigin(transform.position);
-        fieldOfView.SetAimDirection(new Vector3(_facing.x, _facing.y, 0));
+        fieldOfView.SetAimDirection(new Vector3(facing.x, facing.y, 0));
         //correct field of view game object position;
         fieldOfView.transform.position = Vector3.zero;
 
@@ -102,23 +107,25 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) < viewDistance)
         {
             Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
-            if (Vector3.Angle(_facing, dirToPlayer) <= (fov / 2))
+            if (Vector3.Angle(facing, dirToPlayer) <= (fov / 2))
             {
                 RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance);
                 if (ray.collider)
                 {
                     //raycast hit something
-                    if (ray.collider.tag == "Player")
+                    if (ray.collider.CompareTag("Player"))
                     {
                         //raycast hit player
                         isPatrolling = false;
                         isInvestigatingNoise = false;
                         //isAttackingPlayer = true;
                         alertsystem.SoundAlarm();
-
-
-
-                        GetComponent<AIDestinationSetter>().target = player.transform; //this is temporary
+                        seesPlayer = true;
+                        _aiDestinationSetter.target = player.transform; //this is temporary
+                    }
+                    else
+                    {
+                        seesPlayer = false;
                     }
                 }
             }
@@ -152,8 +159,8 @@ public class EnemyController : MonoBehaviour
                 damage = weaponInfo.damage;
             }
             Debug.Log(damage + " damage taken by " + this.gameObject.name);
-            _health -= damage;
-            if (_health <= 0)
+            health -= damage;
+            if (health <= 0)
             {
                 Kill();
             }

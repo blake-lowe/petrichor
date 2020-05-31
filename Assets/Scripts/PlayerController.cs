@@ -20,13 +20,16 @@ public class PlayerController : MonoBehaviour
     public float walkingNoise;
     public float sprintingNoise;
     public float interactRadiusSqr;
+    public float stealthKillRadiusSqr;
+    private float _nextStealthKillTime;
+    public float stealthKillDuration;
+    public bool isFrozen;
     public GameStateController gameStateController;
     public NoiseSource playerNoiseSource;
     public NoiseSource rightHandNoiseSource;
     public NoiseSource leftHandNoiseSource;
 
     public SpriteRenderer playerSprite;
-
     public GameObject groundItemPrefab;
     public Transform groundItemsParent;
     
@@ -133,8 +136,6 @@ public class PlayerController : MonoBehaviour
         _controls.Player.leftLeg.canceled += HandleLeftLegCancel;
         _controls.Player.interact.performed += HandleInteract;
         
-        
-
         _controls.Player.Enable();
         _playerSpriteSortingOrder = playerSprite.sortingOrder;
         leftHandAmmoField.text = _isLeftHandFull ? 
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleRightHandStart(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!isPaused && !isFrozen && !isDead)
         {
             if (rightHandWeapon)
             {
@@ -217,12 +218,19 @@ public class PlayerController : MonoBehaviour
                     
                 }
             }
+            else//unarmed attack
+            {
+                if (Time.time > _nextStealthKillTime)
+                {
+                    UnarmedAttack();
+                }
+            }
         }
     }
 
     private void HandleLeftHandStart(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!isPaused && !isFrozen && !isDead)
         {
             if (leftHandWeapon)
             {
@@ -247,6 +255,57 @@ public class PlayerController : MonoBehaviour
                     
                 }
             }
+            else
+            {
+                if (Time.time > _nextStealthKillTime)
+                {
+                    UnarmedAttack();
+                }
+            }
+        }
+    }
+
+    private void UnarmedAttack()
+    {
+        EnemyController closestEnemy;
+        _nextStealthKillTime = Time.time + stealthKillDuration;
+        EnemyController[] enemyControllers = FindObjectsOfType<EnemyController>();
+        if (enemyControllers.Length > 0)
+        {
+            var minDistSqr = Mathf.Infinity;
+            closestEnemy = enemyControllers[0];
+            foreach (var enemyController in enemyControllers)
+            {
+                var distSqr = (transform.position - enemyController.transform.position).sqrMagnitude;
+                if (distSqr < minDistSqr)
+                {
+                    minDistSqr = distSqr;
+                    closestEnemy = enemyController;
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+                    
+        if (closestEnemy.seesPlayer)//check enemy sight
+        {
+            //flip enemy so that the death anim plays more realistically.
+            if (closestEnemy.facing.x > closestEnemy.facing.y)
+            {
+                closestEnemy.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                closestEnemy.transform.localScale = new Vector3(1, -1, 1);
+            }
+            closestEnemy.health = 0;//kill enemy
+            isFrozen = true; //freeze player
+        }
+        else
+        {
+            //failed attack. make noise?
         }
     }
     
@@ -268,7 +327,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleRightLegStart(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!isPaused && !isFrozen && !isDead)
         {
             Debug.Log("Right Leg Action Start");
         }
@@ -276,7 +335,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLeftLegStart(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!isPaused && !isFrozen && !isDead)
         {
             Debug.Log("Left Leg Action Start");
         }
@@ -293,7 +352,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!isPaused && !isFrozen && !isDead)
         {
             //find closest interactable object
             GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
@@ -482,24 +541,37 @@ public class PlayerController : MonoBehaviour
             movement *= sprintModifier;
         }
 
+        if (currentTime > _nextStealthKillTime)
+        {
+            isFrozen = false;
+        }
+
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
         //Set Animator Parameters
-        _facing = (cursorPosition.position - transform.position).normalized;
-        animator.SetFloat(FacingX, _facing.x);
-        animator.SetFloat(FacingY, _facing.y);
-        animator.SetBool(IsSprinting, _isSprinting);
-        animator.SetBool(IsCrouching, _isCrouching);
-        if (_direction.sqrMagnitude < 0.005)
+        if (!isFrozen)
         {
-            _stillFramesCount++;
+            _facing = (cursorPosition.position - transform.position).normalized;
+            animator.SetFloat(FacingX, _facing.x);
+            animator.SetFloat(FacingY, _facing.y);
+            animator.SetBool(IsSprinting, _isSprinting);
+            animator.SetBool(IsCrouching, _isCrouching);
+            if (_direction.sqrMagnitude < 0.005)
+            {
+                _stillFramesCount++;
+            }
+            else
+            {
+                _stillFramesCount = 0;
+            }
+
+            animator.SetBool(IsMoving, _stillFramesCount < 3);
+            animator.SetBool(IsReversing, Vector2.Dot(_direction, _facing) < 0);
         }
         else
         {
-            _stillFramesCount = 0;
+            animator.SetBool(IsMoving, false);
         }
-
-        animator.SetBool(IsMoving, _stillFramesCount < 3);
-        animator.SetBool(IsReversing, Vector2.Dot(_direction, _facing) < 0);
+            
         //Calculate Hand Item Positions and Rotations
         var thisPosition = transform.position;
         if (Mathf.Abs(_facing.x) > Mathf.Abs(_facing.y)) //horizontal facing
@@ -595,10 +667,11 @@ public class PlayerController : MonoBehaviour
             Mathf.Atan2(cursorPos.y - _transformPositionLh.y,
                 cursorPos.x - _transformPositionLh.x) *
             Mathf.Rad2Deg + flipFactorLh));
-
-        rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRh, _transformRotationRh);
-        leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLh, _transformRotationLh);
-        
+        if (!isFrozen)
+        {
+            rightHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionRh, _transformRotationRh);
+            leftHandSpriteRenderer.transform.SetPositionAndRotation(_transformPositionLh, _transformRotationLh);
+        }
         //only display weapons hands are full
         leftHandSpriteRenderer.gameObject.SetActive(_isLeftHandFull);
         rightHandSpriteRenderer.gameObject.SetActive(_isRightHandFull);
