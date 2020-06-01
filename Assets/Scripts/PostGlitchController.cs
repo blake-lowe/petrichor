@@ -10,4 +10,14 @@ public class PostGlitchController : MonoBehaviour
     {
         gameStateController.ReloadScene();
     }
+
+    public void ScreenSpaceCameraUI()
+    {
+        gameStateController.ScreenSpaceCameraUI();
+    }
+
+    public void ScreenSpaceOverlayUI()
+    {
+        gameStateController.ScreenSpaceOverlayUI();
+    }
 }

@@ -9,9 +9,10 @@ using UnityEngine.UI;
 
 public class GameStateController : MonoBehaviour
 {
-
+    public GameObject hud;
     public GameObject pausePanel;
     public GameObject swapPanel;
+    public Canvas uiCanvas;
     public Animator sceneTransitionAnimator;
     public Animator glitchEffectAnimator;
     public PauseCameraTarget pauseCameraTarget;
@@ -26,16 +27,16 @@ public class GameStateController : MonoBehaviour
     private int _levelToLoadIndex;
     private static readonly int DoGlitch = Animator.StringToHash("doGlitch");
 
-    private void Awake()
-    {
-        _controls = new Controls();
-
-        _controls.Player.pause.performed += HandlePause;
-    }
-
     private void OnEnable()
     {
+        _controls = new Controls();
+        _controls.Player.pause.performed += HandlePause;
         _controls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.Player.pause.performed -= HandlePause;//without this an error is caused by reloading scene and pausing
     }
 
     private void Start()
@@ -55,6 +56,26 @@ public class GameStateController : MonoBehaviour
     {
         UnpauseGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void DisableHud()
+    {
+        hud.SetActive(false);
+    }
+
+    public void EnableHud()
+    {
+        hud.SetActive(true);
+    }
+
+    public void ScreenSpaceCameraUI()
+    {
+        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+    }
+
+    public void ScreenSpaceOverlayUI()
+    {
+        uiCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
     }
 
     private void HandlePause(InputAction.CallbackContext context)
