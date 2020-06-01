@@ -7,6 +7,9 @@ public class EnemyController : MonoBehaviour
 {
     public float startingHealth;
     public float health;
+    public float maxAwareness = 3;
+    public float awareness;
+    public float awareDuration = 1;
     public SpriteRenderer healthBar;
     public SpriteRenderer awarenessBar;
     public FieldOfView fieldOfView;
@@ -20,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private NoiseSource[] _noiseSources;
     public Vector2 facing;
     public bool seesPlayer;
+    public bool awareOfPlayer;
 
     public bool isPatrolling = true;
     public bool isInvestigatingNoise = false;
@@ -30,6 +34,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 temp;
     private int _tick;
     private AIDestinationSetter _aiDestinationSetter;
+    private float _stopAwareTime;
     private static readonly int KillTriggerID = Animator.StringToHash("kill");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
@@ -58,6 +63,7 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
+        var currentTime = Time.time;
         if (health <= 0)
         {
             Kill();
@@ -107,6 +113,39 @@ public class EnemyController : MonoBehaviour
         fieldOfView.transform.position = Vector3.zero;
 
         FindPlayer();
+        if (seesPlayer)
+        {
+            awareness += Time.deltaTime;
+        }
+        else if (currentTime > _stopAwareTime)
+        {
+            awareness -= Time.deltaTime;
+            awareOfPlayer = false;
+        }
+
+        if (awareness > maxAwareness)
+        {
+            awareness = maxAwareness;
+            _stopAwareTime = currentTime + awareDuration;
+            awareOfPlayer = true;
+        }
+
+        if (awareness < 0)
+        {
+            awareness = 0;
+        }
+        
+        //set awareness bar
+        if (awareness > 0 && health > 0)
+        {
+            awarenessBar.enabled = true;
+            var percentage = awareness / maxAwareness;
+            var t = awarenessBar.transform;
+            var scale = t.localScale;
+            t.localScale = new Vector3(16f * percentage, scale.y, scale.z);
+            var pos = t.position;
+            t.position = new Vector3(-0.25f * percentage +transform.position.x, pos.y, pos.z);
+        }
     }
     private void FindPlayer()
     {
