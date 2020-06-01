@@ -7,7 +7,8 @@ public class EnemyController : MonoBehaviour
 {
     public float startingHealth;
     public float health;
-
+    public SpriteRenderer healthBar;
+    public SpriteRenderer awarenessBar;
     public FieldOfView fieldOfView;
     public float fov;
     public float viewDistance;
@@ -43,6 +44,8 @@ public class EnemyController : MonoBehaviour
         facing = Vector2.right;
         temp = Vector3.zero;
         health = startingHealth;
+        healthBar.enabled = false;
+        awarenessBar.enabled = false;
     }
     private void FixedUpdate()
     {
@@ -59,6 +62,7 @@ public class EnemyController : MonoBehaviour
         {
             Kill();
         }
+        
         // enemy listens to noises
         float noiseLevel;
         if (isInvestigatingNoise)
@@ -138,6 +142,8 @@ public class EnemyController : MonoBehaviour
         aiPath.enabled = false;
         collider2d.enabled = false;
         fieldOfView.gameObject.SetActive(false);
+        healthBar.enabled = false;
+        awarenessBar.enabled = false;
     }
     
     private void OnParticleCollision(GameObject other)
@@ -157,8 +163,17 @@ public class EnemyController : MonoBehaviour
             {
                 damage = weaponInfo.damage;
             }
-            Debug.Log(damage + " damage taken by " + this.gameObject.name);
             health -= damage;
+            if (health < startingHealth)//update health bar
+            {
+                healthBar.enabled = true;
+                var percentage = health / startingHealth;
+                var t = healthBar.transform;
+                var scale = t.localScale;
+                t.localScale = new Vector3(16f * percentage, scale.y, scale.z);
+                var pos = t.position;
+                t.position = new Vector3(-0.25f * percentage +transform.position.x, pos.y, pos.z);
+            }
             if (hitPS != null)
             {
                 var position = collisionEvent.intersection;
