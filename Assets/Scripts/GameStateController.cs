@@ -13,6 +13,7 @@ public class GameStateController : MonoBehaviour
     public GameObject pausePanel;
     public GameObject swapPanel;
     public Animator sceneTransitionAnimator;
+    public Animator glitchEffectAnimator;
     public PauseCameraTarget pauseCameraTarget;
     public GameObject gameplayVCAM;
     public GameObject pauseVCAM;
@@ -23,6 +24,7 @@ public class GameStateController : MonoBehaviour
     private Controls _controls;
     private bool _isPaused = false;
     private int _levelToLoadIndex;
+    private static readonly int DoGlitch = Animator.StringToHash("doGlitch");
 
     private void Awake()
     {
@@ -41,13 +43,18 @@ public class GameStateController : MonoBehaviour
         pausePanel.SetActive(false);
     }
 
-    private void Update()
+    public void Respawn()
     {
-        if (playerController.isDead)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //other death code like the glitch effect
-        }
+        
+        _isPaused = true;
+        Time.timeScale = 0;
+        glitchEffectAnimator.SetTrigger(DoGlitch);
+    }
+
+    public void ReloadScene()
+    {
+        UnpauseGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void HandlePause(InputAction.CallbackContext context)

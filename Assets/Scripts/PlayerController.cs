@@ -548,6 +548,7 @@ public class PlayerController : MonoBehaviour
         {
             isFrozen = false;
         }
+        
 
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
         //Set Animator Parameters
@@ -755,6 +756,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        //player death
         isDead = true;
+        gameStateController.Respawn();
     }
 }
