@@ -4831,6 +4831,7 @@ GameObject:
   - component: {fileID: 4578561570729504544}
   - component: {fileID: 4578561570729504548}
   - component: {fileID: 1435626801}
+  - component: {fileID: 2676246320414737633}
   m_Layer: 10
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -4951,11 +4952,18 @@ MonoBehaviour:
   health: 0
   maxAwareness: 3
   awareness: 0
+  awareDuration: 1
   healthBar: {fileID: 7468451297468725939}
+  healthBarColor: {r: 0.90800005, g: 0.40587604, b: 0.84774524, a: 0.74509805}
   awarenessBar: {fileID: 7468451297080537636}
+  awarenessBarColor: {r: 0, g: 0.86666673, b: 0.90196085, a: 0.7490196}
+  awareOfPlayerColor: {r: 0.9215687, g: 0.627451, b: 0.023529414, a: 0.7490196}
   fieldOfView: {fileID: 7935292721271258790}
   fov: 90
   viewDistance: 5
+  raycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 769
   player: {fileID: 0}
   collider2d: {fileID: 1435626801}
   animator: {fileID: 6217050147678870255}
@@ -4963,6 +4971,7 @@ MonoBehaviour:
   aiPath: {fileID: 4578561570729504545}
   facing: {x: 0, y: 0}
   seesPlayer: 0
+  awareOfPlayer: 0
   isPatrolling: 0
   isInvestigatingNoise: 0
   isAttackingPlayer: 0
@@ -4983,6 +4992,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!50 &2676246320414737633
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578561570729504558}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 16b490dadec25bf4bb11bf067527cdd4, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &6217050147678870253
 GameObject:
   m_ObjectHideFlags: 0
@@ -5153,7 +5183,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0d5f3cf0fc4944b498dcaa1dfd39a4fe, type: 3}
   m_Color: {r: 0, g: 0.86666673, b: 0.90196085, a: 0.7490196}
   m_FlipX: 0
@@ -5234,7 +5264,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0d5f3cf0fc4944b498dcaa1dfd39a4fe, type: 3}
   m_Color: {r: 0.90800005, g: 0.40587604, b: 0.84774524, a: 0.74509805}
   m_FlipX: 0

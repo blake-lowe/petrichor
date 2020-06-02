@@ -404,27 +404,32 @@ public class PlayerController : MonoBehaviour
 
     public void DropRight()
     {
-        var tempWeapon = rightHandWeapon;
-        var tempAmmoCounter = rightHandAmmoCounter;
-        Unequip("right");
-        var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
-        var gir = groundItem.GetComponent<GroundItemRenderer>();
-        gir.weapon = tempWeapon;
-        gir.ammoCounter = tempAmmoCounter;
-        groundItem.transform.position = transform.position;
-        
+        if (_isRightHandFull)
+        {
+            var tempWeapon = rightHandWeapon;
+            var tempAmmoCounter = rightHandAmmoCounter;
+            Unequip("right");
+            var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
+            var gir = groundItem.GetComponent<GroundItemRenderer>();
+            gir.weapon = tempWeapon;
+            gir.ammoCounter = tempAmmoCounter;
+            groundItem.transform.position = transform.position;
+        }
     }
 
     public void DropLeft()
     {
-        var tempWeapon = leftHandWeapon;
-        var tempAmmoCounter = leftHandAmmoCounter;
-        Unequip("left");
-        var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
-        var gir = groundItem.GetComponent<GroundItemRenderer>();
-        gir.weapon = tempWeapon;
-        gir.ammoCounter = tempAmmoCounter;
-        groundItem.transform.position = transform.position;
+        if (_isLeftHandFull)
+        {
+            var tempWeapon = leftHandWeapon;
+            var tempAmmoCounter = leftHandAmmoCounter;
+            Unequip("left");
+            var groundItem = Instantiate(groundItemPrefab, groundItemsParent);
+            var gir = groundItem.GetComponent<GroundItemRenderer>();
+            gir.weapon = tempWeapon;
+            gir.ammoCounter = tempAmmoCounter;
+            groundItem.transform.position = transform.position;
+        }
     }
 
     public void SwapRight()
@@ -526,6 +531,29 @@ public class PlayerController : MonoBehaviour
             _isRightHandFull = true;
         }
         //gameStateController.UnpauseGame();
+    }
+
+    public void SwitchItemHands()
+    {
+        var tempWeapon = _isLeftHandFull ? leftHandWeapon : null;
+        var tempAmmoCounter = _isLeftHandFull ? leftHandAmmoCounter : null;
+        if (rightHandWeapon)
+        {
+            Equip(rightHandWeapon, rightHandAmmoCounter, "left");
+        }
+        else
+        {
+            Unequip("left");
+        }
+        if (tempWeapon)
+        {
+            Equip(tempWeapon, tempAmmoCounter, "right");
+        }
+        else
+        {
+            Unequip("right");
+        }
+        
     }
 
     private void FixedUpdate()

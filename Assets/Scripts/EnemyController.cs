@@ -11,10 +11,14 @@ public class EnemyController : MonoBehaviour
     public float awareness;
     public float awareDuration = 1;
     public SpriteRenderer healthBar;
+    public Color healthBarColor;
     public SpriteRenderer awarenessBar;
+    public Color awarenessBarColor;
+    public Color awareOfPlayerColor;
     public FieldOfView fieldOfView;
     public float fov;
     public float viewDistance;
+    public LayerMask raycastLayerMask;
     public GameObject player;
     public Collider2D collider2d;
     public Animator animator;
@@ -49,7 +53,9 @@ public class EnemyController : MonoBehaviour
         facing = Vector2.right;
         temp = Vector3.zero;
         health = startingHealth;
+        healthBar.color = healthBarColor;
         healthBar.enabled = false;
+        awarenessBar.color = awarenessBarColor;
         awarenessBar.enabled = false;
     }
     private void FixedUpdate()
@@ -113,6 +119,8 @@ public class EnemyController : MonoBehaviour
         fieldOfView.transform.position = Vector3.zero;
 
         FindPlayer();
+        
+        //calculate awareness
         if (seesPlayer)
         {
             awareness += Time.deltaTime;
@@ -134,6 +142,8 @@ public class EnemyController : MonoBehaviour
         {
             awareness = 0;
         }
+        //set awareness bar color
+        awarenessBar.color = awareOfPlayer ? awareOfPlayerColor : awarenessBarColor;
         
         //set awareness bar
         if (awareness > 0 && health > 0)
@@ -154,7 +164,7 @@ public class EnemyController : MonoBehaviour
             Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
             if (Vector3.Angle(facing, dirToPlayer) <= (fov / 2))
             {
-                RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance);
+                RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance, raycastLayerMask);
                 if (ray.collider)
                 {
                     //raycast hit something
