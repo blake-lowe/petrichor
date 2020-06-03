@@ -38,22 +38,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "rightLeg",
-                    "type": "Button",
-                    "id": "dc6db2cd-12cc-459d-b94d-fcf97772b518",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "leftLeg",
-                    "type": "Button",
-                    "id": "e1367cf9-bca5-418d-8e56-52046beb2a30",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "interact",
                     "type": "Button",
                     "id": "05b6e33b-ca10-4d61-ad93-d0da85181860",
@@ -73,6 +57,30 @@
                     "name": "direction",
                     "type": "Button",
                     "id": "5e62b521-d7b5-41db-b9ae-1945c2f14e89",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "directionalDash",
+                    "type": "Button",
+                    "id": "ca3c423b-a006-475e-86de-a08e3bd31ab1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "utility",
+                    "type": "Button",
+                    "id": "1200b558-622e-4b71-a602-d21bad102bfe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "augment1",
+                    "type": "Button",
+                    "id": "8763ed21-795f-40a5-a540-665973d684ec",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -158,28 +166,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5f7b513f-c237-4f20-885c-1ddcf10a3422",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KBM",
-                    "action": "leftLeg",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bb4053f9-d20f-4f8c-9883-7c5f24e480c0",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "rightLeg",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5856bb5e-2568-4f0c-a2e1-9063c1791fbe",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -232,6 +218,83 @@
                     "action": "interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d52f7f99-3e9b-45ab-88dc-f9abcbc3b7ca",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "utility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1126346d-6e49-493b-bc74-4561f4279509",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "augment1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "31e54efb-6fd5-4e81-8e6f-8f9389eaf859",
+                    "path": "2DVector",
+                    "interactions": "MultiTap",
+                    "processors": "Normalize(max=1)",
+                    "groups": "",
+                    "action": "directionalDash",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6dc01aed-43c3-476c-82d2-85ae09890588",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "directionalDash",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "64bb2aac-3441-4611-a5fa-3b92b7de0674",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "directionalDash",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d0ab133c-3caa-4763-841e-6c2fa29d3e14",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "directionalDash",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "795799e2-3267-4842-a07c-bab6a8c401ff",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "directionalDash",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

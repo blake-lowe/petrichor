@@ -51,22 +51,6 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""rightLeg"",
-                    ""type"": ""Button"",
-                    ""id"": ""dc6db2cd-12cc-459d-b94d-fcf97772b518"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""leftLeg"",
-                    ""type"": ""Button"",
-                    ""id"": ""e1367cf9-bca5-418d-8e56-52046beb2a30"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""interact"",
                     ""type"": ""Button"",
                     ""id"": ""05b6e33b-ca10-4d61-ad93-d0da85181860"",
@@ -86,6 +70,30 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""name"": ""direction"",
                     ""type"": ""Button"",
                     ""id"": ""5e62b521-d7b5-41db-b9ae-1945c2f14e89"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""directionalDash"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca3c423b-a006-475e-86de-a08e3bd31ab1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""utility"",
+                    ""type"": ""Button"",
+                    ""id"": ""1200b558-622e-4b71-a602-d21bad102bfe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""augment1"",
+                    ""type"": ""Button"",
+                    ""id"": ""8763ed21-795f-40a5-a540-665973d684ec"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -171,28 +179,6 @@ public class @Controls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5f7b513f-c237-4f20-885c-1ddcf10a3422"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""leftLeg"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bb4053f9-d20f-4f8c-9883-7c5f24e480c0"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""rightLeg"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""5856bb5e-2568-4f0c-a2e1-9063c1791fbe"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -245,6 +231,83 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d52f7f99-3e9b-45ab-88dc-f9abcbc3b7ca"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""utility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1126346d-6e49-493b-bc74-4561f4279509"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""augment1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""31e54efb-6fd5-4e81-8e6f-8f9389eaf859"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": ""Normalize(max=1)"",
+                    ""groups"": """",
+                    ""action"": ""directionalDash"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""6dc01aed-43c3-476c-82d2-85ae09890588"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""directionalDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""64bb2aac-3441-4611-a5fa-3b92b7de0674"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""directionalDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d0ab133c-3caa-4763-841e-6c2fa29d3e14"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""directionalDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""795799e2-3267-4842-a07c-bab6a8c401ff"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""directionalDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -263,11 +326,12 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_crouch = m_Player.FindAction("crouch", throwIfNotFound: true);
         m_Player_rightHand = m_Player.FindAction("rightHand", throwIfNotFound: true);
         m_Player_leftHand = m_Player.FindAction("leftHand", throwIfNotFound: true);
-        m_Player_rightLeg = m_Player.FindAction("rightLeg", throwIfNotFound: true);
-        m_Player_leftLeg = m_Player.FindAction("leftLeg", throwIfNotFound: true);
         m_Player_interact = m_Player.FindAction("interact", throwIfNotFound: true);
         m_Player_pause = m_Player.FindAction("pause", throwIfNotFound: true);
         m_Player_direction = m_Player.FindAction("direction", throwIfNotFound: true);
+        m_Player_directionalDash = m_Player.FindAction("directionalDash", throwIfNotFound: true);
+        m_Player_utility = m_Player.FindAction("utility", throwIfNotFound: true);
+        m_Player_augment1 = m_Player.FindAction("augment1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -321,11 +385,12 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_crouch;
     private readonly InputAction m_Player_rightHand;
     private readonly InputAction m_Player_leftHand;
-    private readonly InputAction m_Player_rightLeg;
-    private readonly InputAction m_Player_leftLeg;
     private readonly InputAction m_Player_interact;
     private readonly InputAction m_Player_pause;
     private readonly InputAction m_Player_direction;
+    private readonly InputAction m_Player_directionalDash;
+    private readonly InputAction m_Player_utility;
+    private readonly InputAction m_Player_augment1;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -334,11 +399,12 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @crouch => m_Wrapper.m_Player_crouch;
         public InputAction @rightHand => m_Wrapper.m_Player_rightHand;
         public InputAction @leftHand => m_Wrapper.m_Player_leftHand;
-        public InputAction @rightLeg => m_Wrapper.m_Player_rightLeg;
-        public InputAction @leftLeg => m_Wrapper.m_Player_leftLeg;
         public InputAction @interact => m_Wrapper.m_Player_interact;
         public InputAction @pause => m_Wrapper.m_Player_pause;
         public InputAction @direction => m_Wrapper.m_Player_direction;
+        public InputAction @directionalDash => m_Wrapper.m_Player_directionalDash;
+        public InputAction @utility => m_Wrapper.m_Player_utility;
+        public InputAction @augment1 => m_Wrapper.m_Player_augment1;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,12 +426,6 @@ public class @Controls : IInputActionCollection, IDisposable
                 @leftHand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
                 @leftHand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
                 @leftHand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
-                @rightLeg.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightLeg;
-                @rightLeg.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightLeg;
-                @rightLeg.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightLeg;
-                @leftLeg.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
-                @leftLeg.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
-                @leftLeg.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftLeg;
                 @interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
@@ -375,6 +435,15 @@ public class @Controls : IInputActionCollection, IDisposable
                 @direction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                 @direction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                 @direction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
+                @directionalDash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalDash;
+                @directionalDash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalDash;
+                @directionalDash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalDash;
+                @utility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUtility;
+                @utility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUtility;
+                @utility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUtility;
+                @augment1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAugment1;
+                @augment1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAugment1;
+                @augment1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAugment1;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -391,12 +460,6 @@ public class @Controls : IInputActionCollection, IDisposable
                 @leftHand.started += instance.OnLeftHand;
                 @leftHand.performed += instance.OnLeftHand;
                 @leftHand.canceled += instance.OnLeftHand;
-                @rightLeg.started += instance.OnRightLeg;
-                @rightLeg.performed += instance.OnRightLeg;
-                @rightLeg.canceled += instance.OnRightLeg;
-                @leftLeg.started += instance.OnLeftLeg;
-                @leftLeg.performed += instance.OnLeftLeg;
-                @leftLeg.canceled += instance.OnLeftLeg;
                 @interact.started += instance.OnInteract;
                 @interact.performed += instance.OnInteract;
                 @interact.canceled += instance.OnInteract;
@@ -406,6 +469,15 @@ public class @Controls : IInputActionCollection, IDisposable
                 @direction.started += instance.OnDirection;
                 @direction.performed += instance.OnDirection;
                 @direction.canceled += instance.OnDirection;
+                @directionalDash.started += instance.OnDirectionalDash;
+                @directionalDash.performed += instance.OnDirectionalDash;
+                @directionalDash.canceled += instance.OnDirectionalDash;
+                @utility.started += instance.OnUtility;
+                @utility.performed += instance.OnUtility;
+                @utility.canceled += instance.OnUtility;
+                @augment1.started += instance.OnAugment1;
+                @augment1.performed += instance.OnAugment1;
+                @augment1.canceled += instance.OnAugment1;
             }
         }
     }
@@ -425,10 +497,11 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnRightHand(InputAction.CallbackContext context);
         void OnLeftHand(InputAction.CallbackContext context);
-        void OnRightLeg(InputAction.CallbackContext context);
-        void OnLeftLeg(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
+        void OnDirectionalDash(InputAction.CallbackContext context);
+        void OnUtility(InputAction.CallbackContext context);
+        void OnAugment1(InputAction.CallbackContext context);
     }
 }

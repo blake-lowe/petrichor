@@ -45,7 +45,12 @@ public class PlayerController : MonoBehaviour
     private int _gadgetIndex;
     public Image gadgetSpriteRendererUi;
     private GameObject _currentGadgetPrefab;
+    private GameObject _activeGadget;
+    public GameObject cancelUtilityButton;
     public TextMeshProUGUI gadgetNameField;
+    public LineRenderer gadgetTrajectoryRenderer;
+    private int _gadgetPhase;
+    
     
     private Sprite _rightHandSpriteSide;
     private Sprite _rightHandSpriteTop;
@@ -132,15 +137,13 @@ public class PlayerController : MonoBehaviour
         _controls.Player.sprint.canceled += EndSprint;
         _controls.Player.rightHand.started += HandleRightHandStart;
         _controls.Player.leftHand.started += HandleLeftHandStart;
-        _controls.Player.rightLeg.started += HandleRightLegStart;
-        _controls.Player.leftLeg.started += HandleLeftLegStart;
         _controls.Player.rightHand.canceled += HandleRightHandCancel;
         _controls.Player.leftHand.canceled += HandleLeftHandCancel;
-        _controls.Player.rightLeg.canceled += HandleRightLegCancel;
-        _controls.Player.leftLeg.canceled += HandleLeftLegCancel;
         _controls.Player.interact.performed += HandleInteract;
+        _controls.Player.utility.started += HandleUtility;
         
         _controls.Player.Enable();
+        
         _playerSpriteSortingOrder = playerSprite.sortingOrder;
         leftHandAmmoField.text = _isLeftHandFull ? 
             $"{leftHandAmmoCounter.currentAmmo}/{leftHandAmmoCounter.totalAmmo}" : "";
@@ -337,31 +340,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleRightLegStart(InputAction.CallbackContext context)
-    {
-        if (!isPaused && !isFrozen && !isDead)
-        {
-            Debug.Log("Right Leg Action Start");
-        }
-    }
-
-    private void HandleLeftLegStart(InputAction.CallbackContext context)
-    {
-        if (!isPaused && !isFrozen && !isDead)
-        {
-            Debug.Log("Left Leg Action Start");
-        }
-    }
-    private void HandleRightLegCancel(InputAction.CallbackContext context)
-    {
-        
-    }
-
-    private void HandleLeftLegCancel(InputAction.CallbackContext context)
-    {
-        
-    }
-
     private void HandleInteract(InputAction.CallbackContext context)
     {
         if (!isPaused && !isFrozen && !isDead)
@@ -409,6 +387,37 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void HandleUtility(InputAction.CallbackContext context)
+    {
+        if (!isPaused && !isDead && !isFrozen)
+        {
+            switch (_gadgetPhase)
+            {
+                case 0://ready->primed
+                    cancelUtilityButton.SetActive(true);
+                    gadgetTrajectoryRenderer.enabled = true;
+                    _gadgetPhase = 1;
+                    break;
+                case 1://primed->thrown
+                    cancelUtilityButton.SetActive(false);
+                    gadgetTrajectoryRenderer.enabled = false;
+                    //instantiate prefab
+                    _gadgetPhase = 2;
+                    break;
+                case 2://thrown->used
+                    _gadgetPhase = 0;
+                    break;
+            }
+        }
+    }
+
+    public void CancelUtility()
+    {
+        _gadgetPhase = 0;
+        cancelUtilityButton.SetActive(false);
+        gadgetTrajectoryRenderer.enabled = false;
     }
 
     public void DropRight()
@@ -611,6 +620,7 @@ public class PlayerController : MonoBehaviour
         {
             movement *= sprintModifier;
         }
+        rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
 
         if (currentTime > _nextStealthKillTime)
         {
@@ -618,14 +628,18 @@ public class PlayerController : MonoBehaviour
         }
         
         //set opacity of gadget renderer
-        if (gadgets.Length > 0)
-        {
-            
-        }
-
         gadgetSpriteRendererUi.color = gadgets.Length > 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
 
-        rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
+        //update positions of gadget targeter
+        var source = new Vector2(transform.position.x, transform.position.y);
+        var cursorDirection = new Vector2(cursorPosition.position.x, cursorPosition.position.y) - source;
+        var targetPosition = Physics2D.Raycast(source, cursorDirection).point;
+        if ((targetPosition - source).sqrMagnitude > (cursorDirection).sqrMagnitude)
+        {
+            targetPosition = cursorPosition.position;
+        }
+        gadgetTrajectoryRenderer.SetPositions(new []{transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), });
+
         //Set Animator Parameters
         if (!isFrozen)
         {

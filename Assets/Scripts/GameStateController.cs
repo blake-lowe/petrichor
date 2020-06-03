@@ -100,6 +100,7 @@ public class GameStateController : MonoBehaviour
         pauseVCAM.SetActive(true);
         gameplayVCAM.SetActive(false);
         playerController.isPaused = true;
+        playerController.CancelUtility();
     }
 
     public void UnpauseGame()
