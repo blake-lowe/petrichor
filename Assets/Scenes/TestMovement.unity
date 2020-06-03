@@ -11423,7 +11423,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 171827219632575796}
+      objectReference: {fileID: 269844378555943994}
     - target: {fileID: 4578561570729504548, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: alertsystem
@@ -11507,7 +11507,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 171827219632575796}
+      objectReference: {fileID: 269844378555943994}
     - target: {fileID: 4578561570729504548, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: alertsystem
@@ -27522,13 +27522,13 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &171827219632575796 stripped
+--- !u!1 &269844378555943994 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6403386397341381032, guid: 168a60262b5f64d439a7f54ae9ad9376,
     type: 3}
-  m_PrefabInstance: {fileID: 6585327017593372050}
+  m_PrefabInstance: {fileID: 6295798865757904522}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6585327017593372050
+--- !u!1001 &6295798865757904522
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -27673,7 +27673,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 171827219632575796}
+      objectReference: {fileID: 269844378555943994}
     - target: {fileID: 4578561570729504548, guid: e71e9339e723110448a461dcea417099,
         type: 3}
       propertyPath: alertsystem

@@ -40,6 +40,12 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI rightHandNameField;
     public TextMeshProUGUI rightHandAmmoField;
     public Weapon rightHandWeapon;
+
+    public Gadget[] gadgets;
+    private int _gadgetIndex;
+    public Image gadgetSpriteRendererUi;
+    private GameObject _currentGadgetPrefab;
+    public TextMeshProUGUI gadgetNameField;
     
     private Sprite _rightHandSpriteSide;
     private Sprite _rightHandSpriteTop;
@@ -55,8 +61,6 @@ public class PlayerController : MonoBehaviour
     public bool leftSortBelowRh = true;
     public Vector2 rightRelativePosRh;
     public bool rightSortBelowRh = false;
-    
-    
 
     private bool _isLeftHandFull = false;
     public SpriteRenderer leftHandSpriteRenderer;
@@ -151,6 +155,11 @@ public class PlayerController : MonoBehaviour
         {
             InitializeAmmoCounter(leftHandWeapon.weaponPrefab.GetComponent<WeaponInfo>(), "left");
             Equip(leftHandWeapon, leftHandAmmoCounter, "left");
+        }
+
+        if (gadgets.Length > 0)
+        {
+            EquipGadget(0);
         }
     }
 
@@ -533,6 +542,37 @@ public class PlayerController : MonoBehaviour
         //gameStateController.UnpauseGame();
     }
 
+    private void EquipGadget(int gadgetIndexToLoad)
+    {
+        if (gadgetIndexToLoad < gadgets.Length)
+        {
+            _gadgetIndex = gadgetIndexToLoad;
+            gadgetSpriteRendererUi.sprite = gadgets[gadgetIndexToLoad].spriteUi;
+            _currentGadgetPrefab = gadgets[gadgetIndexToLoad].gadgetPrefab;
+            gadgetNameField.text = gadgets[gadgetIndexToLoad].name;
+        }
+    }
+
+    public void GadgetUp()
+    {
+        var newIndex = _gadgetIndex + 1;
+        if (newIndex >= gadgets.Length)
+        {
+            newIndex = 0;
+        }
+        EquipGadget(newIndex);
+    }
+
+    public void GadgetDown()
+    {
+        var newIndex = _gadgetIndex - 1;
+        if (newIndex < 0)
+        {
+            newIndex = gadgets.Length;
+        }
+        EquipGadget(newIndex);
+    }
+
     public void SwitchItemHands()
     {
         var tempWeapon = _isLeftHandFull ? leftHandWeapon : null;
@@ -577,6 +617,13 @@ public class PlayerController : MonoBehaviour
             isFrozen = false;
         }
         
+        //set opacity of gadget renderer
+        if (gadgets.Length > 0)
+        {
+            
+        }
+
+        gadgetSpriteRendererUi.color = gadgets.Length > 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
 
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
         //Set Animator Parameters
