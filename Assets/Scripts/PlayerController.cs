@@ -41,15 +41,16 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI rightHandAmmoField;
     public Weapon rightHandWeapon;
 
-    public Gadget[] gadgets;
+    public List<Gadget> gadgets;
     private int _gadgetIndex;
     public Image gadgetSpriteRendererUi;
     private GameObject _currentGadgetPrefab;
-    private GameObject _activeGadget;
+    private GadgetController _activeGadgetController;
     public GameObject cancelUtilityButton;
     public TextMeshProUGUI gadgetNameField;
     public LineRenderer gadgetTrajectoryRenderer;
-    private int _gadgetPhase;
+    private Vector3 _gadgetTarget;
+    private int _gadgetPhase = 0;
     
     
     private Sprite _rightHandSpriteSide;
@@ -160,7 +161,7 @@ public class PlayerController : MonoBehaviour
             Equip(leftHandWeapon, leftHandAmmoCounter, "left");
         }
 
-        if (gadgets.Length > 0)
+        if (gadgets.Count > 0)
         {
             EquipGadget(0);
         }
@@ -391,22 +392,35 @@ public class PlayerController : MonoBehaviour
 
     private void HandleUtility(InputAction.CallbackContext context)
     {
-        if (!isPaused && !isDead && !isFrozen)
+        if (!isPaused && !isDead && !isFrozen && gadgets.Count > 0)
         {
             switch (_gadgetPhase)
             {
                 case 0://ready->primed
                     cancelUtilityButton.SetActive(true);
                     gadgetTrajectoryRenderer.enabled = true;
+                    //activate hilight
                     _gadgetPhase = 1;
                     break;
                 case 1://primed->thrown
                     cancelUtilityButton.SetActive(false);
                     gadgetTrajectoryRenderer.enabled = false;
+                    //change hilight color to red or something
                     //instantiate prefab
+                    _activeGadgetController = Instantiate(_currentGadgetPrefab).GetComponent<GadgetController>();
+                    _activeGadgetController.transform.position = transform.position;
+                    _activeGadgetController.targetPos = _gadgetTarget;
                     _gadgetPhase = 2;
                     break;
                 case 2://thrown->used
+                    _activeGadgetController.ActivateAbility();
+                    //remove the gadget from inventory
+                    gadgets.Remove(gadgets[_gadgetIndex]);
+                    if (_gadgetIndex >= gadgets.Count)
+                    {
+                        _gadgetIndex = 0;
+                    }
+                    EquipGadget(_gadgetIndex);
                     _gadgetPhase = 0;
                     break;
             }
@@ -553,19 +567,25 @@ public class PlayerController : MonoBehaviour
 
     private void EquipGadget(int gadgetIndexToLoad)
     {
-        if (gadgetIndexToLoad < gadgets.Length)
+        if (gadgetIndexToLoad < gadgets.Count)
         {
             _gadgetIndex = gadgetIndexToLoad;
             gadgetSpriteRendererUi.sprite = gadgets[gadgetIndexToLoad].spriteUi;
             _currentGadgetPrefab = gadgets[gadgetIndexToLoad].gadgetPrefab;
             gadgetNameField.text = gadgets[gadgetIndexToLoad].name;
         }
+
+        if (gadgets.Count == 0)
+        {
+            _currentGadgetPrefab = null;
+            gadgetNameField.text = "Empty";
+        }
     }
 
     public void GadgetUp()
     {
         var newIndex = _gadgetIndex + 1;
-        if (newIndex >= gadgets.Length)
+        if (newIndex >= gadgets.Count)
         {
             newIndex = 0;
         }
@@ -577,7 +597,7 @@ public class PlayerController : MonoBehaviour
         var newIndex = _gadgetIndex - 1;
         if (newIndex < 0)
         {
-            newIndex = gadgets.Length;
+            newIndex = gadgets.Count;
         }
         EquipGadget(newIndex);
     }
@@ -628,7 +648,7 @@ public class PlayerController : MonoBehaviour
         }
         
         //set opacity of gadget renderer
-        gadgetSpriteRendererUi.color = gadgets.Length > 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
+        gadgetSpriteRendererUi.color = gadgets.Count > 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
 
         //update positions of gadget targeter
         var source = new Vector2(transform.position.x, transform.position.y);
@@ -639,6 +659,7 @@ public class PlayerController : MonoBehaviour
             targetPosition = cursorPosition.position;
         }
         gadgetTrajectoryRenderer.SetPositions(new []{transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), });
+        _gadgetTarget = targetPosition;
 
         //Set Animator Parameters
         if (!isFrozen)

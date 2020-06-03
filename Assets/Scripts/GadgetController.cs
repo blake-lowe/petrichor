@@ -32,9 +32,10 @@ public class GadgetController : MonoBehaviour
                 Debug.Log("pop");
                 break;
             case "Flashbang":
-                Debug.Log("flash");
+                Debug.Log("flash...bang");
                 break;
         }
+        Destroy(gameObject);
     }
 
     private float F(float x)//logistic function
