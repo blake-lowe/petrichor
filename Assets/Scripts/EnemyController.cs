@@ -33,6 +33,10 @@ public class EnemyController : MonoBehaviour
     public bool isInvestigatingNoise = false;
     public bool isAttackingPlayer = false;
 
+    public bool isStunned;
+    private float _timeToStopStun;
+    
+    
     public AlertSystem alertsystem;
 
     private Vector3 temp;
@@ -74,7 +78,13 @@ public class EnemyController : MonoBehaviour
         {
             Kill();
         }
-        
+
+        if (currentTime > _timeToStopStun)
+        {
+            isStunned = false;
+        }
+        aiPath.enabled = !isStunned;
+
         // enemy listens to noises
         float noiseLevel;
         if (isInvestigatingNoise)
@@ -193,6 +203,12 @@ public class EnemyController : MonoBehaviour
         fieldOfView.gameObject.SetActive(false);
         healthBar.enabled = false;
         awarenessBar.enabled = false;
+    }
+
+    public void Stun(float time)
+    {
+        isStunned = true;
+        _timeToStopStun = Time.time + time;
     }
     
     private void OnParticleCollision(GameObject other)

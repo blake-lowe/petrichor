@@ -429,9 +429,12 @@ public class PlayerController : MonoBehaviour
 
     public void CancelUtility()
     {
-        _gadgetPhase = 0;
-        cancelUtilityButton.SetActive(false);
-        gadgetTrajectoryRenderer.enabled = false;
+        if (_gadgetPhase == 1)
+        {
+            _gadgetPhase = 0;
+            cancelUtilityButton.SetActive(false);
+            gadgetTrajectoryRenderer.enabled = false;
+        }
     }
 
     public void DropRight()
@@ -597,7 +600,7 @@ public class PlayerController : MonoBehaviour
         var newIndex = _gadgetIndex - 1;
         if (newIndex < 0)
         {
-            newIndex = gadgets.Count;
+            newIndex = gadgets.Count - 1;
         }
         EquipGadget(newIndex);
     }

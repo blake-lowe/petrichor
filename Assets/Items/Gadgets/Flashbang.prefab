@@ -47,6 +47,7 @@ MonoBehaviour:
   gadget: {fileID: 11400000, guid: 0656b8a051e37d24d82af25308fea71e, type: 2}
   targetPos: {x: 0, y: 0, z: 0}
   throwForce: 7
+  doesSpin: 1
 --- !u!212 &-4422358807680415672
 SpriteRenderer:
   m_ObjectHideFlags: 0

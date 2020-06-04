@@ -9,8 +9,10 @@ public class GadgetController : MonoBehaviour
     private Vector3 _startPos;
     public Vector3 targetPos;
     public float throwForce = 7;
+    public bool doesSpin = true;
     private Rigidbody2D _rb;//kinematic
     private float _startTime;
+    public ParticleSystem flashbangPS;
     
     private void Start()
     {
@@ -21,7 +23,14 @@ public class GadgetController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(_startPos, targetPos, F(Time.time - _startTime));
+        var y = F(Time.time - _startTime);
+        transform.position = Vector3.Lerp(_startPos, targetPos, y);
+        if (doesSpin && y < 0.99f)
+        {
+            var spinSpeed = 5;
+            var eulerAngles = transform.rotation.eulerAngles;
+            transform.rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z - spinSpeed);
+        }
     }
 
     public void ActivateAbility()
@@ -32,7 +41,20 @@ public class GadgetController : MonoBehaviour
                 Debug.Log("pop");
                 break;
             case "Flashbang":
-                Debug.Log("flash...bang");
+                var numCasts = 128;
+                var stunDuration = 3;
+                for (var i = 0; i < numCasts; i++)
+                {
+                    var angle = ((float)i / (float)numCasts) * 2f * Mathf.PI;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    RaycastHit2D ray = Physics2D.Raycast(transform.position, direction);
+                    var enemyController = ray.collider.gameObject.GetComponent<EnemyController>();
+                    if (enemyController)
+                    {
+                        Debug.Log(enemyController.name);
+                        enemyController.Stun(stunDuration);
+                    }
+                }
                 break;
         }
         Destroy(gameObject);
