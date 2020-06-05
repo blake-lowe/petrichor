@@ -5497,8 +5497,8 @@ MonoBehaviour:
   rightHandAmmoField: {fileID: 6403386396023636622}
   rightHandWeapon: {fileID: 0}
   gadgets:
-  - {fileID: 11400000, guid: 5f0483a5572ed514aba97b4094399810, type: 2}
   - {fileID: 11400000, guid: e97f08490f60bb6499e951a78df27a14, type: 2}
+  - {fileID: 11400000, guid: 5f0483a5572ed514aba97b4094399810, type: 2}
   - {fileID: 11400000, guid: 0656b8a051e37d24d82af25308fea71e, type: 2}
   gadgetSpriteRendererUi: {fileID: 6295798865419832066}
   cancelUtilityButton: {fileID: 3797763740585064704}
