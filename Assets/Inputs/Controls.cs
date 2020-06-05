@@ -258,7 +258,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""name"": ""WASD"",
                     ""id"": ""31e54efb-6fd5-4e81-8e6f-8f9389eaf859"",
                     ""path"": ""2DVector"",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": ""MultiTap(tapDelay=0.25)"",
                     ""processors"": ""Normalize(max=1)"",
                     ""groups"": """",
                     ""action"": ""directionalDash"",

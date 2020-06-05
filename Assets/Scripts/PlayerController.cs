@@ -90,6 +90,15 @@ public class PlayerController : MonoBehaviour
     public bool leftSortBelowLh = false;
     public Vector2 rightRelativePosLh;
     public bool rightSortBelowLh = true;
+
+    public bool hasDashAugment;
+    public float dashDistance;
+
+    public bool hasShieldAugment;
+    public bool shieldEnabled;
+    
+    public bool hasCannonAugment;
+    
     
     
     private Controls _controls;
@@ -142,6 +151,8 @@ public class PlayerController : MonoBehaviour
         _controls.Player.leftHand.canceled += HandleLeftHandCancel;
         _controls.Player.interact.performed += HandleInteract;
         _controls.Player.utility.started += HandleUtility;
+        _controls.Player.directionalDash.performed += HandleDashAugment;
+        _controls.Player.augment1.started += HandleCannonAugment;
         
         _controls.Player.Enable();
         
@@ -165,6 +176,8 @@ public class PlayerController : MonoBehaviour
         {
             EquipGadget(0);
         }
+
+        shieldEnabled = hasShieldAugment;
     }
 
     private void InitializeAmmoCounter(WeaponInfo original, string hand)
@@ -445,7 +458,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void CancelUtility()
+    private void HandleDashAugment(InputAction.CallbackContext context)
+    {
+        if (hasDashAugment && !isPaused && !isFrozen && !isDead)
+        {
+            Debug.Log(_direction);
+        }
+        
+    }
+
+    private void HandleCannonAugment(InputAction.CallbackContext context)
+    {
+        if (hasCannonAugment && !isPaused && !isFrozen && !isDead)
+        {
+            Debug.Log("Cannon Augment");
+        }
+    }
+
+        public void CancelUtility()
     {
         if (gadgetPhase == 1)
         {
@@ -891,8 +921,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        //player death
-        isDead = true;
-        gameStateController.Respawn();
+        if (shieldEnabled)
+        {
+            shieldEnabled = false;
+        }
+        else
+        {
+            //player death
+            isDead = true;
+            gameStateController.Respawn();
+        }
     }
 }
