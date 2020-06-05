@@ -6,6 +6,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class GadgetController : MonoBehaviour
 {
+    public PlayerController playerController;
     public Gadget gadget;
     private Vector3 _startPos;
     public Vector3 targetPos;
@@ -19,12 +20,17 @@ public class GadgetController : MonoBehaviour
     public Light2D flashbangLight;
     private bool _flashActive;
     public float flashIntensity = 10;
+    public float stealthShieldRadius;
     
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _startPos = transform.position;
         _startTime = Time.time;
+        if (!playerController)
+        {
+            Debug.Log("Err: Player Controller not set in Gadget Controller.");
+        }
     }
     
     private void FixedUpdate()
@@ -34,7 +40,7 @@ public class GadgetController : MonoBehaviour
         if (doesSpin)
         {
             var eulerAngles = transform.rotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, 360 * 3 * y);
+            transform.rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, 360 * 3 * (y));
         }
     }
 
@@ -44,7 +50,7 @@ public class GadgetController : MonoBehaviour
         {
             case "Bubble":
                 Debug.Log("pop");
-                destroyInSeconds(0.25f);
+                DestroyInSeconds(0.25f);
                 break;
             case "C-4":
                 //vfx
@@ -53,7 +59,7 @@ public class GadgetController : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 //emit damaging particles
                 c4ps.Play();
-                destroyInSeconds(1f);
+                DestroyInSeconds(1f);
                 break;
             case "Flashbang":
                 //vfx
@@ -71,17 +77,20 @@ public class GadgetController : MonoBehaviour
                     var enemyController = ray.collider.gameObject.GetComponent<EnemyController>();
                     if (enemyController)
                     {
-                        Debug.Log(enemyController.name);
                         enemyController.Stun(stunDuration);
                     }
                 }
-                destroyInSeconds(0.25f);
+                DestroyInSeconds(0.25f);
+                break;
+            case "Stealth Shield":
+                var shieldDuration = 8f;
+                DestroyInSeconds(shieldDuration);
                 break;
         }
         
     }
 
-    private void destroyInSeconds(float seconds)
+    private void DestroyInSeconds(float seconds)
     {
         _destroyTime = Time.time + seconds;
         _shouldDestroy = true;
@@ -99,7 +108,6 @@ public class GadgetController : MonoBehaviour
         switch (gadget.name)
         {
             case "Bubble":
-                Debug.Log("pop");
                 break;
             case "C-4":
                 //falls through
@@ -107,6 +115,21 @@ public class GadgetController : MonoBehaviour
                 if (_shouldDestroy)
                 {
                     flashbangLight.intensity = flashIntensity * (F(_destroyTime - currentTime));
+                }
+                break;
+            case "Stealth Shield":
+                //calc position
+                var playerPos = playerController.transform.position;
+                var cursorPos = playerController.cursorPosition.position;
+                var direction = (cursorPos - playerPos).normalized;
+                var shieldPosition = playerPos + stealthShieldRadius * direction;
+                //calc rotation
+                var shieldRotation = Quaternion.Euler(new Vector3(0, 0,
+                    Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+                transform.SetPositionAndRotation(shieldPosition, shieldRotation);
+                if (currentTime > _destroyTime - 1)
+                {
+                    //flash the shield or something to indicate exhaustion
                 }
                 break;
         }

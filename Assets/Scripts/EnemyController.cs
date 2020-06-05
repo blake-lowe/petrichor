@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     public bool isInvestigatingNoise = false;
     public bool isAttackingPlayer = false;
 
+    private bool _isDead;
     public bool isStunned;
     private float _timeToStopStun;
     
@@ -84,7 +85,11 @@ public class EnemyController : MonoBehaviour
         {
             isStunned = false;
         }
-        aiPath.enabled = !isStunned;
+
+        if (!_isDead)
+        {
+            aiPath.enabled = !isStunned;
+        }
 
         // enemy listens to noises
         float noiseLevel;
@@ -202,6 +207,7 @@ public class EnemyController : MonoBehaviour
 
     private void Kill()
     {
+        _isDead = true;
         animator.SetTrigger(KillTriggerID);
         aiPath.enabled = false;
         collider2d.enabled = false;

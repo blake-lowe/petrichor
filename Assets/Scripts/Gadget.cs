@@ -7,4 +7,5 @@ public class Gadget : Item
 {
     public Sprite spriteUi;
     public GameObject gadgetPrefab;
+    public bool deployable = true;
 }

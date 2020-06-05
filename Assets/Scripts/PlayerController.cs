@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI gadgetNameField;
     public LineRenderer gadgetTrajectoryRenderer;
     private Vector3 _gadgetTarget;
-    private int _gadgetPhase = 0;
+    public int gadgetPhase = 0;
     
     
     private Sprite _rightHandSpriteSide;
@@ -394,44 +394,62 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPaused && !isDead && !isFrozen && gadgets.Count > 0)
         {
-            switch (_gadgetPhase)
+            if (gadgets[_gadgetIndex].deployable)
             {
-                case 0://ready->primed
-                    cancelUtilityButton.SetActive(true);
-                    gadgetTrajectoryRenderer.enabled = true;
-                    //activate hilight
-                    _gadgetPhase = 1;
-                    break;
-                case 1://primed->thrown
-                    cancelUtilityButton.SetActive(false);
-                    gadgetTrajectoryRenderer.enabled = false;
-                    //change hilight color to red or something
-                    //instantiate prefab
-                    _activeGadgetController = Instantiate(_currentGadgetPrefab).GetComponent<GadgetController>();
-                    _activeGadgetController.transform.position = transform.position;
-                    _activeGadgetController.targetPos = _gadgetTarget;
-                    _gadgetPhase = 2;
-                    break;
-                case 2://thrown->used
-                    _activeGadgetController.ActivateAbility();
-                    //remove the gadget from inventory
-                    gadgets.Remove(gadgets[_gadgetIndex]);
-                    if (_gadgetIndex >= gadgets.Count)
-                    {
-                        _gadgetIndex = 0;
-                    }
-                    EquipGadget(_gadgetIndex);
-                    _gadgetPhase = 0;
-                    break;
+                switch (gadgetPhase)
+                {
+                    case 0://ready->primed
+                        cancelUtilityButton.SetActive(true);
+                        gadgetTrajectoryRenderer.enabled = true;
+                        //activate hilight
+                        gadgetPhase = 1;
+                        break;
+                    case 1://primed->thrown
+                        cancelUtilityButton.SetActive(false);
+                        gadgetTrajectoryRenderer.enabled = false;
+                        //change hilight color to red or something
+                        //instantiate prefab
+                        _activeGadgetController = Instantiate(_currentGadgetPrefab).GetComponent<GadgetController>();
+                        _activeGadgetController.playerController = this;
+                        _activeGadgetController.transform.position = transform.position;
+                        _activeGadgetController.targetPos = _gadgetTarget;
+                        gadgetPhase = 2;
+                        break;
+                    case 2://thrown->used
+                        _activeGadgetController.ActivateAbility();
+                        //remove the gadget from inventory
+                        gadgets.Remove(gadgets[_gadgetIndex]);
+                        if (_gadgetIndex >= gadgets.Count)
+                        {
+                            _gadgetIndex = 0;
+                        }
+                        EquipGadget(_gadgetIndex);
+                        gadgetPhase = 0;
+                        break;
+                }
+            }
+            else
+            {
+                _activeGadgetController = Instantiate(_currentGadgetPrefab).GetComponent<GadgetController>();
+                _activeGadgetController.playerController = this;
+                _activeGadgetController.transform.position = transform.position;
+                _activeGadgetController.ActivateAbility();
+                gadgets.Remove(gadgets[_gadgetIndex]);
+                if (_gadgetIndex >= gadgets.Count)
+                {
+                    _gadgetIndex = 0;
+                }
+                EquipGadget(_gadgetIndex);
+                gadgetPhase = 0;
             }
         }
     }
 
     public void CancelUtility()
     {
-        if (_gadgetPhase == 1)
+        if (gadgetPhase == 1)
         {
-            _gadgetPhase = 0;
+            gadgetPhase = 0;
             cancelUtilityButton.SetActive(false);
             gadgetTrajectoryRenderer.enabled = false;
         }
@@ -660,6 +678,10 @@ public class PlayerController : MonoBehaviour
         if ((targetPosition - source).sqrMagnitude > (cursorDirection).sqrMagnitude)
         {
             targetPosition = cursorPosition.position;
+        }
+        else
+        {
+            targetPosition -= cursorDirection.normalized * 0.2f;
         }
         gadgetTrajectoryRenderer.SetPositions(new []{transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), });
         _gadgetTarget = targetPosition;

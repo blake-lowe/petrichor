@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
+  m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -5497,12 +5497,14 @@ MonoBehaviour:
   rightHandAmmoField: {fileID: 6403386396023636622}
   rightHandWeapon: {fileID: 0}
   gadgets:
-  - {fileID: 11400000, guid: 0656b8a051e37d24d82af25308fea71e, type: 2}
+  - {fileID: 11400000, guid: 5f0483a5572ed514aba97b4094399810, type: 2}
+  - {fileID: 11400000, guid: e97f08490f60bb6499e951a78df27a14, type: 2}
   - {fileID: 11400000, guid: 0656b8a051e37d24d82af25308fea71e, type: 2}
   gadgetSpriteRendererUi: {fileID: 6295798865419832066}
   cancelUtilityButton: {fileID: 3797763740585064704}
   gadgetNameField: {fileID: 6295798865034408754}
   gadgetTrajectoryRenderer: {fileID: 3797763740344508313}
+  gadgetPhase: 0
   rightHandAmmoCounter: {fileID: 4678364951489047274}
   upRelativePosRh: {x: 0.2, y: 0}
   upSortBelowRh: 1
