@@ -36,3 +36,7 @@ AK-27_GROUND:
 * Should have a complete tile set as detailed here:
 
 <img src="https://lh3.googleusercontent.com/proxy/tC5aE-3-1qkTgAP6D85mdxBHhUD18oMmhMdiJ8DaKivlikDgneev-FWV2Yxrc9d1LBY-WARKUkI0sDseR-loCGHUL7NQa-sj_2QfBzdZANs6NeDI4BlvXcUhMA" width="512">
+
+# Utility Item Sprites
+* Size should be not larger than 16 wide x 8 high
+* Should contain at least a pop of color to help contrast against the floor sprites
