@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class GadgetController : MonoBehaviour
 {
@@ -12,7 +13,12 @@ public class GadgetController : MonoBehaviour
     public bool doesSpin = true;
     private Rigidbody2D _rb;//kinematic
     private float _startTime;
-    public ParticleSystem flashbangPS;
+    private float _destroyTime;
+    private bool _shouldDestroy;
+    public ParticleSystem c4ps;
+    public Light2D flashbangLight;
+    private bool _flashActive;
+    public float flashIntensity = 10;
     
     private void Start()
     {
@@ -25,11 +31,10 @@ public class GadgetController : MonoBehaviour
     {
         var y = F(Time.time - _startTime);
         transform.position = Vector3.Lerp(_startPos, targetPos, y);
-        if (doesSpin && y < 0.99f)
+        if (doesSpin)
         {
-            var spinSpeed = 5;
             var eulerAngles = transform.rotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z - spinSpeed);
+            transform.rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, 360 * 3 * y);
         }
     }
 
@@ -39,8 +44,23 @@ public class GadgetController : MonoBehaviour
         {
             case "Bubble":
                 Debug.Log("pop");
+                destroyInSeconds(0.25f);
+                break;
+            case "C-4":
+                //vfx
+                flashbangLight.enabled = true;
+                flashbangLight.intensity = flashIntensity;
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                //emit damaging particles
+                c4ps.Play();
+                destroyInSeconds(1f);
                 break;
             case "Flashbang":
+                //vfx
+                flashbangLight.enabled = true;
+                flashbangLight.intensity = flashIntensity;
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                //stun enemies
                 var numCasts = 128;
                 var stunDuration = 3;
                 for (var i = 0; i < numCasts; i++)
@@ -55,9 +75,41 @@ public class GadgetController : MonoBehaviour
                         enemyController.Stun(stunDuration);
                     }
                 }
+                destroyInSeconds(0.25f);
                 break;
         }
-        Destroy(gameObject);
+        
+    }
+
+    private void destroyInSeconds(float seconds)
+    {
+        _destroyTime = Time.time + seconds;
+        _shouldDestroy = true;
+    }
+
+    private void Update()
+    {
+        var currentTime = Time.time;
+        
+        if (currentTime > _destroyTime && _shouldDestroy)
+        {
+            Destroy(gameObject);
+        }
+
+        switch (gadget.name)
+        {
+            case "Bubble":
+                Debug.Log("pop");
+                break;
+            case "C-4":
+                //falls through
+            case "Flashbang":
+                if (_shouldDestroy)
+                {
+                    flashbangLight.intensity = flashIntensity * (F(_destroyTime - currentTime));
+                }
+                break;
+        }
     }
 
     private float F(float x)//logistic function

@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public SpriteRenderer awarenessBar;
     public Color awarenessBarColor;
     public Color awareOfPlayerColor;
+    public Color stunnedColor;
     public FieldOfView fieldOfView;
     public float fov;
     public float viewDistance;
@@ -131,7 +132,7 @@ public class EnemyController : MonoBehaviour
         FindPlayer();
         
         //calculate awareness
-        if (seesPlayer)
+        if (seesPlayer && !isStunned)
         {
             awareness += Time.deltaTime;
         }
@@ -154,6 +155,10 @@ public class EnemyController : MonoBehaviour
         }
         //set awareness bar color
         awarenessBar.color = awareOfPlayer ? awareOfPlayerColor : awarenessBarColor;
+        if (isStunned)
+        {
+            awarenessBar.color = stunnedColor;
+        }
         
         //set awareness bar
         if (awareness > 0 && health > 0)

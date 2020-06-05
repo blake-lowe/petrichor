@@ -4958,6 +4958,7 @@ MonoBehaviour:
   awarenessBar: {fileID: 7468451297080537636}
   awarenessBarColor: {r: 0, g: 0.86666673, b: 0.90196085, a: 0.7490196}
   awareOfPlayerColor: {r: 0.9215687, g: 0.627451, b: 0.023529414, a: 0.7490196}
+  stunnedColor: {r: 1, g: 1, b: 1, a: 1}
   fieldOfView: {fileID: 7935292721271258790}
   fov: 90
   viewDistance: 5
@@ -4975,6 +4976,7 @@ MonoBehaviour:
   isPatrolling: 0
   isInvestigatingNoise: 0
   isAttackingPlayer: 0
+  isStunned: 0
   alertsystem: {fileID: 0}
 --- !u!70 &1435626801
 CapsuleCollider2D:
@@ -5163,7 +5165,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5244,7 +5246,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
