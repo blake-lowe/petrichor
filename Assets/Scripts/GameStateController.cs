@@ -11,7 +11,8 @@ public class GameStateController : MonoBehaviour
 {
     public GameObject hud;
     public GameObject pausePanel;
-    public GameObject swapPanel;
+    public GameObject swapWeaponPanel;
+    public GameObject swapSwordPanel;
     public Canvas uiCanvas;
     public Animator sceneTransitionAnimator;
     public Animator glitchEffectAnimator;
@@ -108,7 +109,8 @@ public class GameStateController : MonoBehaviour
         _isPaused = false;
         Time.timeScale = 1;
         pausePanel.SetActive(false);
-        swapPanel.SetActive(false);
+        swapWeaponPanel.SetActive(false);
+        swapSwordPanel.SetActive(false);
         pauseCameraTarget.isPaused = false;
         //switch live camera
         gameplayVCAM.SetActive(true);

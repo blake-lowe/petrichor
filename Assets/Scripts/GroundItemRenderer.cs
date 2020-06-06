@@ -8,6 +8,8 @@ public class GroundItemRenderer : MonoBehaviour
     public SpriteRenderer sr;
     public Weapon weapon;
     public AmmoCounter ammoCounter;
+    public Gadget gadget;
+    public Sword sword;
 
     private void OnEnable()
     {
@@ -24,7 +26,19 @@ public class GroundItemRenderer : MonoBehaviour
 
     private void Start()
     {
-        sr.sprite = weapon.spriteGround;
+        if (weapon)
+        {
+            sr.sprite = weapon.spriteGround;
+        } 
+        else if (gadget)
+        {
+            sr.sprite = gadget.spriteGround;
+        }
+        else if (sword)
+        {
+            sr.sprite = sword.spriteGround;
+        }
+        
     }
 
     

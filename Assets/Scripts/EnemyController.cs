@@ -205,8 +205,9 @@ public class EnemyController : MonoBehaviour
         seesPlayer = false;
     }
 
-    private void Kill()
+    public void Kill()
     {
+        health = 0;
         _isDead = true;
         animator.SetTrigger(KillTriggerID);
         aiPath.enabled = false;

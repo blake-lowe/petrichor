@@ -48,6 +48,8 @@ MonoBehaviour:
   sr: {fileID: 143193456}
   weapon: {fileID: 11400000, guid: 7515ce794432de54891ee61b215adf84, type: 2}
   ammoCounter: {fileID: 143193455}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &143193456
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -160,6 +162,8 @@ MonoBehaviour:
   sr: {fileID: 327222465}
   weapon: {fileID: 11400000, guid: a53d0d356ec03a44c860b3535b627e08, type: 2}
   ammoCounter: {fileID: 327222464}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &327222465
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -272,6 +276,8 @@ MonoBehaviour:
   sr: {fileID: 518164417}
   weapon: {fileID: 11400000, guid: a53d0d356ec03a44c860b3535b627e08, type: 2}
   ammoCounter: {fileID: 518164416}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &518164417
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -384,6 +390,8 @@ MonoBehaviour:
   sr: {fileID: 1586302015}
   weapon: {fileID: 11400000, guid: 7515ce794432de54891ee61b215adf84, type: 2}
   ammoCounter: {fileID: 1586302014}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &1586302015
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -784,6 +792,8 @@ MonoBehaviour:
   sr: {fileID: 1241377838110622672}
   weapon: {fileID: 11400000, guid: e31e23f30b17e3c429d881153abf7b62, type: 2}
   ammoCounter: {fileID: 5703640994675105480}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &1241377838110622672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4499,6 +4509,8 @@ MonoBehaviour:
   sr: {fileID: 6403386396521113764}
   weapon: {fileID: 11400000, guid: e31e23f30b17e3c429d881153abf7b62, type: 2}
   ammoCounter: {fileID: 6403386396521113765}
+  gadget: {fileID: 0}
+  sword: {fileID: 0}
 --- !u!212 &6403386396521113764
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4611,7 +4623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hud: {fileID: 6403386395631530487}
   pausePanel: {fileID: 6403386395799331163}
-  swapPanel: {fileID: 4495899927313729478}
+  swapWeaponPanel: {fileID: 4495899926329378406}
+  swapSwordPanel: {fileID: 4495899926560045142}
   uiCanvas: {fileID: 6403386396501577630}
   sceneTransitionAnimator: {fileID: 6403386396626214623}
   glitchEffectAnimator: {fileID: 8407034994876695316}
@@ -5484,7 +5497,6 @@ MonoBehaviour:
   isFrozen: 0
   gameStateController: {fileID: 6403386396626214593}
   playerNoiseSource: {fileID: 5415008059113181541}
-  rightHandNoiseSource: {fileID: 4169277045338045040}
   leftHandNoiseSource: {fileID: 4359987742173648532}
   playerSprite: {fileID: 6403386395882278807}
   groundItemPrefab: {fileID: 3369160506475179502, guid: 5a0e2c8cb3611df43972da35db9dba55,
@@ -5492,10 +5504,8 @@ MonoBehaviour:
   groundItemsParent: {fileID: 6503553758254449511}
   rightHandSpriteRenderer: {fileID: 8854667530144040982}
   rightHandSpriteRendererUi: {fileID: 4292285008419141481}
-  rightHandParticleSystemParent: {fileID: 1974583184783648836}
   rightHandNameField: {fileID: 6403386397376950911}
-  rightHandAmmoField: {fileID: 6403386396023636622}
-  rightHandWeapon: {fileID: 0}
+  rightHandSword: {fileID: 0}
   gadgets:
   - {fileID: 11400000, guid: e97f08490f60bb6499e951a78df27a14, type: 2}
   - {fileID: 11400000, guid: 5f0483a5572ed514aba97b4094399810, type: 2}
@@ -5505,7 +5515,6 @@ MonoBehaviour:
   gadgetNameField: {fileID: 6295798865034408754}
   gadgetTrajectoryRenderer: {fileID: 3797763740344508313}
   gadgetPhase: 0
-  rightHandAmmoCounter: {fileID: 4678364951489047274}
   upRelativePosRh: {x: 0.2, y: 0}
   upSortBelowRh: 1
   downRelativePosRh: {x: -0.2, y: 0}
@@ -5529,6 +5538,11 @@ MonoBehaviour:
   leftSortBelowLh: 0
   rightRelativePosLh: {x: 0, y: 0.1}
   rightSortBelowLh: 1
+  hasDashAugment: 0
+  dashDistance: 0
+  hasShieldAugment: 0
+  shieldEnabled: 0
+  hasCannonAugment: 0
   isDead: 0
 --- !u!114 &6403386397341381029
 MonoBehaviour:
