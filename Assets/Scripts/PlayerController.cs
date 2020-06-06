@@ -88,6 +88,10 @@ public class PlayerController : MonoBehaviour
 
     public bool hasDashAugment;
     public float dashDistance;
+    public float dashSpeed;
+    private bool _isDashing;
+    private Vector3 _dashTarget;
+    public EchoEffect dashEchoEffect;
 
     public bool hasShieldAugment;
     public bool shieldEnabled;
@@ -223,11 +227,15 @@ public class PlayerController : MonoBehaviour
             var angle = (startAngle + (i / numCasts) * rightHandSword.arc) * Mathf.Deg2Rad;
             var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
             var raycastHit = Physics2D.Raycast(rightHandBlade.transform.position, direction, rightHandSword.reach);
-            EnemyController enemy = raycastHit.collider.gameObject.GetComponent<EnemyController>();
-            if (enemy && !enemiesInRange.Contains(enemy))
+            if (raycastHit)
             {
-                enemiesInRange.Add(enemy);
+                EnemyController enemy = raycastHit.collider.gameObject.GetComponent<EnemyController>();
+                if (enemy && !enemiesInRange.Contains(enemy))
+                {
+                    enemiesInRange.Add(enemy);
+                }
             }
+            
         }
 
         foreach (var enemyController in enemiesInRange)
@@ -457,7 +465,19 @@ public class PlayerController : MonoBehaviour
     {
         if (hasDashAugment && !isPaused && !isFrozen && !isDead)
         {
-            Debug.Log(_direction);
+            var colliderRadius = 0.5f;
+            var distance = dashDistance;
+            var raycastHit = Physics2D.Raycast(transform.position, _direction, dashDistance + colliderRadius);
+            if (raycastHit)
+            {
+                distance = raycastHit.distance - colliderRadius;
+            }
+            //move player
+            isFrozen = true;
+            _isDashing = true;
+            _dashTarget = transform.position + distance * new Vector3(_direction.x, _direction.y, 0).normalized;
+            //create visual effect
+            dashEchoEffect.enabled = true;
         }
         
     }
@@ -644,9 +664,28 @@ public class PlayerController : MonoBehaviour
         }
         rb.AddForce(new Vector2(movement.x, movement.y), ForceMode2D.Force);
 
-        if (currentTime > _nextStealthKillTime)
+        if (currentTime > _nextStealthKillTime & !_isDashing)
         {
             isFrozen = false;
+        }
+
+        if (_isDashing)
+        {
+            if ((_dashTarget - transform.position).magnitude < dashSpeed)
+            {
+                transform.position = _dashTarget;
+            }
+            else
+            {
+                transform.position += (_dashTarget - transform.position).normalized * dashSpeed;
+            }
+
+            if ((_dashTarget - transform.position).sqrMagnitude < 0.001f)
+            {
+                isFrozen = false;
+                _isDashing = false;
+                dashEchoEffect.enabled = false;
+            }
         }
         
         //set opacity of gadget renderer
