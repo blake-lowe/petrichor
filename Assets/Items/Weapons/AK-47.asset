@@ -22,3 +22,4 @@ MonoBehaviour:
   weaponPrefab: {fileID: 3248506232490269840, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99,
     type: 3}
   enemyWeaponInfo: {fileID: 1957116472, guid: 86d8a0390f3c1e7488da4f6e5dcbcd99, type: 3}
+  audioClip: {fileID: 8300000, guid: 2199ef391450268418dcde6921223390, type: 3}

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: StealthShield
   m_EditorClassIdentifier: 
   name: Stealth Shield
-  description: Not see-through
+  description: transpaque
   spriteUi: {fileID: 21300000, guid: cf276cb2f80c5784ab2498bbeac01a8e, type: 3}
+  spriteGround: {fileID: 0}
   gadgetPrefab: {fileID: 2752473531055651941, guid: cdeb0ba68dc222d4188b9d193ef4c154,
     type: 3}
   deployable: 0
+  audioClip: {fileID: 8300000, guid: 2a5894fb323f3a2408df45be1abf9ddd, type: 3}

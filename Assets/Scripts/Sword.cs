@@ -13,4 +13,6 @@ public class Sword : Item
     public float reach;
     public float arc;
     public float swingTime;
+
+    public AudioClip audioClip;
 }

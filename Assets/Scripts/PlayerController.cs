@@ -97,9 +97,10 @@ public class PlayerController : MonoBehaviour
     public bool shieldEnabled;
     
     public bool hasCannonAugment;
-    
-    
-    
+
+    public AudioSource weaponAudioSource;
+    public AudioSource swordAudioSource;
+
     private Controls _controls;
     private Vector2 _direction = new Vector2(0, 0);
     private bool _isCrouching;
@@ -215,35 +216,38 @@ public class PlayerController : MonoBehaviour
 
     private void HandleRightHandStart(InputAction.CallbackContext context)
     {
-        // TODO Add melee attack + unarmed attack
-        //play animation
-        rightHandBlade.SetTrigger("Swing");
-        //kill enemies in range
-        float numCasts = 24;
-        var enemiesInRange = new List<EnemyController>();
-        var startAngle = rightHandBlade.gameObject.transform.rotation.eulerAngles.z - (rightHandSword.arc / 2f);
-        for (float i = 0; i < numCasts; i++)
+        if (_isRightHandFull)
         {
-            var angle = (startAngle + (i / numCasts) * rightHandSword.arc) * Mathf.Deg2Rad;
-            var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            var raycastHit = Physics2D.Raycast(rightHandBlade.transform.position, direction, rightHandSword.reach);
-            if (raycastHit)
+            // TODO Add  unarmed attack
+            //play animation
+            rightHandBlade.SetTrigger("Swing");
+            swordAudioSource.Play();
+            //kill enemies in range
+            float numCasts = 24;
+            var enemiesInRange = new List<EnemyController>();
+            var startAngle = rightHandBlade.gameObject.transform.rotation.eulerAngles.z - (rightHandSword.arc / 2f);
+            for (float i = 0; i < numCasts; i++)
             {
-                EnemyController enemy = raycastHit.collider.gameObject.GetComponent<EnemyController>();
-                if (enemy && !enemiesInRange.Contains(enemy))
+                var angle = (startAngle + (i / numCasts) * rightHandSword.arc) * Mathf.Deg2Rad;
+                var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                var raycastHit = Physics2D.Raycast(rightHandBlade.transform.position, direction, rightHandSword.reach);
+                if (raycastHit)
                 {
-                    enemiesInRange.Add(enemy);
+                    EnemyController enemy = raycastHit.collider.gameObject.GetComponent<EnemyController>();
+                    if (enemy && !enemiesInRange.Contains(enemy))
+                    {
+                        enemiesInRange.Add(enemy);
+                    }
                 }
-            }
             
-        }
+            }
 
-        foreach (var enemyController in enemiesInRange)
-        {
-            enemyController.Kill();
+            foreach (var enemyController in enemiesInRange)
+            {
+                enemyController.Kill();
+            }
+            //start parry state
         }
-        //start parry state
-        
     }
 
     private void HandleLeftHandStart(InputAction.CallbackContext context)
@@ -257,6 +261,7 @@ public class PlayerController : MonoBehaviour
                     if (leftHandAmmoCounter.currentAmmo > 0)
                     {
                         _leftHandBullets.Play();
+                        weaponAudioSource.Play();
                         leftHandAmmoCounter.currentAmmo--;
                         _nextFireTimeLh = Time.time + 1 / _leftHandWeaponInfo.fireRate;
                         if (_leftHandWeaponInfo.isFullAuto)
@@ -569,6 +574,7 @@ public class PlayerController : MonoBehaviour
             leftHandSpriteRendererUi.color = new Color(1, 1, 1, 0);//make the placeholder sprite transparent
             leftHandNameField.text = "empty";
             leftHandAmmoField.text = "";
+            weaponAudioSource.clip = null;
             _isLeftHandFull = false;
         }
         else if (hand.Equals("right"))
@@ -580,6 +586,7 @@ public class PlayerController : MonoBehaviour
             rightHandSpriteRendererUi.sprite = null;
             rightHandSpriteRendererUi.color = new Color(1, 1, 1, 0);//make the placeholder sprite transparent
             rightHandNameField.text = "empty";
+            swordAudioSource.clip = null;
             _isRightHandFull = false;
         }
     }
@@ -596,6 +603,7 @@ public class PlayerController : MonoBehaviour
         leftHandSpriteRendererUi.color = new Color(1, 1, 1, 1);
         leftHandNameField.text = weapon.name;
         leftHandAmmoField.text = $"{leftHandAmmoCounter.currentAmmo}/{leftHandAmmoCounter.totalAmmo}";
+        weaponAudioSource.clip = weapon.audioClip;
         _isLeftHandFull = true;
     }
 
@@ -607,6 +615,7 @@ public class PlayerController : MonoBehaviour
         rightHandSpriteRendererUi.sprite = sword.spriteUi;
         rightHandSpriteRendererUi.color = new Color(1, 1, 1, 1);
         rightHandNameField.text = sword.name;
+        swordAudioSource.clip = sword.audioClip;
         _isRightHandFull = true;
     }
 
@@ -842,6 +851,7 @@ public class PlayerController : MonoBehaviour
             if (leftHandAmmoCounter.currentAmmo > 0)
             {
                 _leftHandBullets.Play();
+                weaponAudioSource.Play();
                 leftHandAmmoCounter.currentAmmo--;
                 _nextFireTimeLh = currentTime + 1 / _leftHandWeaponInfo.fireRate;
                 leftHandNoiseSource.noiseLevel = _leftHandWeaponInfo.noiseLevel;
@@ -899,5 +909,21 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             gameStateController.Respawn();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _controls.Player.crouch.started -= StartCrouch;
+        _controls.Player.crouch.canceled -= EndCrouch;
+        _controls.Player.sprint.started -= StartSprint;
+        _controls.Player.sprint.canceled -= EndSprint;
+        _controls.Player.rightHand.started -= HandleRightHandStart;
+        _controls.Player.leftHand.started -= HandleLeftHandStart;
+        _controls.Player.rightHand.canceled -= HandleRightHandCancel;
+        _controls.Player.leftHand.canceled -= HandleLeftHandCancel;
+        _controls.Player.interact.performed -= HandleInteract;
+        _controls.Player.utility.started -= HandleUtility;
+        _controls.Player.directionalDash.performed -= HandleDashAugment;
+        _controls.Player.augment1.started -= HandleCannonAugment;
     }
 }

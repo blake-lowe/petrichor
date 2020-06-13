@@ -12,4 +12,5 @@ public class Weapon : Item
     public float handleLength;
     public GameObject weaponPrefab;
     public WeaponInfo enemyWeaponInfo;
+    public AudioClip audioClip;
 }

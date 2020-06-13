@@ -15,5 +15,8 @@ MonoBehaviour:
   name: C-4
   description: remotely triggerable explosive device
   spriteUi: {fileID: 21300000, guid: 04a84adb5e50503438981c2debceb4e9, type: 3}
+  spriteGround: {fileID: 0}
   gadgetPrefab: {fileID: 4214755852472538673, guid: dd892dfe53ccbb14da2d302a534b0cac,
     type: 3}
+  deployable: 1
+  audioClip: {fileID: 8300000, guid: 2143fecc45af02948bb48446ce1b9d76, type: 3}

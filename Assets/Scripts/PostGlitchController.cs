@@ -5,7 +5,17 @@ using UnityEngine;
 public class PostGlitchController : MonoBehaviour
 {
     public GameStateController gameStateController;
+    private AudioSource _audioSource;
 
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlayGlitchSound()
+    {
+        _audioSource.Play();
+    }
     public void ReloadScene()
     {
         gameStateController.ReloadScene();

@@ -15,5 +15,8 @@ MonoBehaviour:
   name: Flashbang
   description: Flash! Bang!
   spriteUi: {fileID: 21300000, guid: cb55493be4bb46d499dbc05f92ef57a6, type: 3}
+  spriteGround: {fileID: 0}
   gadgetPrefab: {fileID: 7881176945983664959, guid: 753db6f20fd6eff429efa2033fb599e7,
     type: 3}
+  deployable: 1
+  audioClip: {fileID: 8300000, guid: cb8aedf337be67849aaabe06ccfab699, type: 3}

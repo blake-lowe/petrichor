@@ -21,3 +21,4 @@ MonoBehaviour:
   reach: 1
   arc: 0
   swingTime: 0
+  audioClip: {fileID: 8300000, guid: 92b83838f5863ef4c92485a8ffd5db90, type: 3}

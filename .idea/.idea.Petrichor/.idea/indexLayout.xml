@@ -24,7 +24,6 @@
       <Path>Library/PackageCache/com.unity.textmeshpro@2.0.1</Path>
       <Path>Library/PackageCache/com.unity.timeline@1.2.13</Path>
       <Path>Library/PackageCache/com.unity.visualeffectgraph@7.1.8</Path>
-      <Path>Packages</Path>
       <Path>ProjectSettings</Path>
     </explicitIncludes>
     <explicitExcludes>

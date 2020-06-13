@@ -9,4 +9,5 @@ public class Gadget : Item
     public Sprite spriteGround;
     public GameObject gadgetPrefab;
     public bool deployable = true;
+    public AudioClip audioClip;
 }

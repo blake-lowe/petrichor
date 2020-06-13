@@ -15,5 +15,8 @@ MonoBehaviour:
   name: Bubble
   description: It do be bubbly doe
   spriteUi: {fileID: 21300000, guid: 7cbe7cee0d9433341b8e3424d7aadd3d, type: 3}
+  spriteGround: {fileID: 0}
   gadgetPrefab: {fileID: 2750913646021424566, guid: e12ded9c3eda9884189bf8242be5a2dd,
     type: 3}
+  deployable: 1
+  audioClip: {fileID: 8300000, guid: 2a5894fb323f3a2408df45be1abf9ddd, type: 3}

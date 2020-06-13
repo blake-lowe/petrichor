@@ -21,6 +21,8 @@ public class GadgetController : MonoBehaviour
     private bool _flashActive;
     public float flashIntensity = 10;
     public float stealthShieldRadius;
+
+    private AudioSource _audioSource;
     
     private void Start()
     {
@@ -46,6 +48,9 @@ public class GadgetController : MonoBehaviour
 
     public void ActivateAbility()
     {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = gadget.audioClip;
+        _audioSource.Play();
         switch (gadget.name)
         {
             case "Bubble":
@@ -59,7 +64,7 @@ public class GadgetController : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 //emit damaging particles
                 c4ps.Play();
-                DestroyInSeconds(1f);
+                DestroyInSeconds(2f);
                 break;
             case "Flashbang":
                 //vfx
@@ -80,7 +85,7 @@ public class GadgetController : MonoBehaviour
                         enemyController.Stun(stunDuration);
                     }
                 }
-                DestroyInSeconds(0.25f);
+                DestroyInSeconds(2f);
                 break;
             case "Stealth Shield":
                 var shieldDuration = 8f;
@@ -114,7 +119,7 @@ public class GadgetController : MonoBehaviour
             case "Flashbang":
                 if (_shouldDestroy)
                 {
-                    flashbangLight.intensity = flashIntensity * (F(_destroyTime - currentTime));
+                    flashbangLight.intensity = flashIntensity * (F(_destroyTime - 1.75f - currentTime));
                 }
                 break;
             case "Stealth Shield":

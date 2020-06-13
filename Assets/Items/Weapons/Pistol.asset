@@ -23,3 +23,4 @@ MonoBehaviour:
     type: 3}
   enemyWeaponInfo: {fileID: 3248506233204395832, guid: 406510e75323f1e4ea1cc5a252185a03,
     type: 3}
+  audioClip: {fileID: 8300000, guid: 316a80ac4410c40498d0f7d783d64787, type: 3}
