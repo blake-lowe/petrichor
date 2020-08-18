@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public float maxAwareness = 3;
     public float awareness;
     public float awareDuration = 1;
+    public float hearing = 1;
     public SpriteRenderer healthBar;
     public Color healthBarColor;
     public SpriteRenderer awarenessBar;
@@ -26,6 +27,9 @@ public class EnemyController : MonoBehaviour
     public ParticleSystem hitPS;
     public AIPath aiPath;
     private NoiseSource[] _noiseSources;
+    private NoiseSource _noiseSourceToInvestigate;
+    private Transform _noiseSourceToInvestigateTransform;
+    public bool _hasReachedNoiseSource = true;
     public Vector2 facing;
     public bool seesPlayer;
     public bool awareOfPlayer;
@@ -40,10 +44,10 @@ public class EnemyController : MonoBehaviour
     
     
     public AlertSystem alertsystem;
-
-    private Vector3 temp;
+    
     private int _tick;
     private AIDestinationSetter _aiDestinationSetter;
+    private Patrol _patrol;
     private float _stopAwareTime;
     private static readonly int KillTriggerID = Animator.StringToHash("kill");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
@@ -54,19 +58,73 @@ public class EnemyController : MonoBehaviour
     {
         _noiseSources = FindObjectsOfType<NoiseSource>();
         _aiDestinationSetter = GetComponent<AIDestinationSetter>();
+        _patrol = GetComponent<Patrol>();
         fieldOfView.SetViewDistance(viewDistance);
         fieldOfView.SetFov(fov);
         facing = Vector2.right;
-        temp = Vector3.zero;
         health = startingHealth;
         healthBar.color = healthBarColor;
         healthBar.enabled = false;
         awarenessBar.color = awarenessBarColor;
         awarenessBar.enabled = false;
     }
+
+    private void Patrol()
+    {
+        isPatrolling = true;
+        isInvestigatingNoise = false;
+        isAttackingPlayer = false;
+        
+        _patrol.enabled = true;
+        _aiDestinationSetter.enabled = false;
+    }
+
+    private void InvestigateNoise()
+    {
+        if (_noiseSourceToInvestigate)
+        {
+            isPatrolling = false;
+            isInvestigatingNoise = true;
+            isAttackingPlayer = false;
+        
+            _patrol.enabled = false;
+            _aiDestinationSetter.target = _noiseSourceToInvestigateTransform;
+            _aiDestinationSetter.enabled = true;
+        }
+    }
+
+    private void AttackPlayer()
+    {
+        isPatrolling = false;
+        isInvestigatingNoise = false;
+        isAttackingPlayer = true;
+        _patrol.enabled = false;
+        _aiDestinationSetter.target = player.transform;
+        _aiDestinationSetter.enabled = true;
+        if (awareOfPlayer && !isStunned)//check for los and not stunned
+        {
+            //shoot gun if rof time passed
+            //reset shot timer for next shot
+        }
+    }
+
+    private void StopAttackPlayer()
+    {
+        isAttackingPlayer = false;
+        if (_noiseSourceToInvestigate)
+        {
+            InvestigateNoise();
+        }
+        else
+        {
+            Patrol();
+        }
+    }
+    
+    
     private void FixedUpdate()
     {
-        if (_tick >= 25) // calls every half a second (FixedUpdate is called every 0.02 seconds)
+        if (_tick >= 25) // calls every half a second (FixedUpdate is called every 0.02 seconds) to mitigate expensive call
         {
             _noiseSources = FindObjectsOfType<NoiseSource>();
             _tick = 0;
@@ -76,6 +134,35 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         var currentTime = Time.time;
+        
+        //set behavior state
+        if (_noiseSourceToInvestigate && Vector3.SqrMagnitude(_noiseSourceToInvestigate.transform.position - transform.position) < 1f)
+        {
+            _hasReachedNoiseSource = true;
+            _noiseSourceToInvestigate = null;
+            //TODO do a 360
+        }
+
+        if (!awareOfPlayer)
+        {
+            StopAttackPlayer();
+        }
+        
+        if (awareOfPlayer)
+        {
+            AttackPlayer();
+        }
+        else if (_noiseSourceToInvestigate)
+        {
+            InvestigateNoise();
+        }
+        else if (!_isDead && _hasReachedNoiseSource)
+        {
+            Patrol();
+        }
+        
+        
+        
         if (health <= 0)
         {
             Kill();
@@ -91,32 +178,34 @@ public class EnemyController : MonoBehaviour
             aiPath.enabled = !isStunned;
         }
 
-        // enemy listens to noises
-        float noiseLevel;
-        if (isInvestigatingNoise)
-        {
-            _aiDestinationSetter.target = null;
-        }
-
+        // enemy listens to noises and picks the loudest one accounting for distance falloff (inverse square)
         foreach (var noiseSource in _noiseSources)
         {
-            noiseLevel = noiseSource.noiseLevel;
-            if (Vector3.SqrMagnitude(transform.position - noiseSource.transform.position) <= noiseLevel)
+            var sqrDist = Vector3.SqrMagnitude(transform.position - noiseSource.transform.position);
+            if ((noiseSource.noiseLevel * hearing / sqrDist)  > 1f)
             {
-                isInvestigatingNoise = true;
-                isPatrolling = false;
-                _aiDestinationSetter.target = noiseSource.transform;
-                temp = noiseSource.transform.position;
+                if (_noiseSourceToInvestigate)
+                {
+                    var noiseSourceToInvestigateVolume = _noiseSourceToInvestigate.noiseLevel / 
+                                                            Vector3.SqrMagnitude(transform.position - _noiseSourceToInvestigate.transform.position);
+                    if (noiseSource.noiseLevel / sqrDist > noiseSourceToInvestigateVolume)
+                    {
+                        _noiseSourceToInvestigate = noiseSource;
+                        _hasReachedNoiseSource = false;
+                    }
+                }
+                else
+                {
+                    _noiseSourceToInvestigate = noiseSource;
+                    _hasReachedNoiseSource = false;
+                }
+                _noiseSourceToInvestigateTransform = _noiseSourceToInvestigate.transform;
+
             }
-        }
-        if (isInvestigatingNoise && Vector3.Distance(transform.position, temp) < 0.2)
-        {
-            isInvestigatingNoise = false;
-            isPatrolling = true;
         }
 
         //set animator parameters and facing
-        if (aiPath.velocity.sqrMagnitude > 0.001)
+        if (aiPath.velocity.sqrMagnitude > 0.001f)
         {
             animator.SetBool(IsMoving, true);
             facing.x = aiPath.velocity.normalized.x;
@@ -158,6 +247,7 @@ public class EnemyController : MonoBehaviour
         {
             awareness = 0;
         }
+
         //set awareness bar color
         awarenessBar.color = awareOfPlayer ? awareOfPlayerColor : awarenessBarColor;
         if (isStunned)
@@ -177,6 +267,7 @@ public class EnemyController : MonoBehaviour
             t.position = new Vector3(-0.25f * percentage +transform.position.x, pos.y, pos.z);
         }
     }
+    
     private void FindPlayer()
     {
         if (Vector3.Distance(transform.position, player.transform.position) < viewDistance)
@@ -191,12 +282,10 @@ public class EnemyController : MonoBehaviour
                     if (ray.collider.tag == "Player")
                     {
                         //raycast hit player
-                        isPatrolling = false;
-                        isInvestigatingNoise = false;
+
                         //isAttackingPlayer = true;
-                        alertsystem.SoundAlarm();
+                        //alertsystem.SoundAlarm();
                         seesPlayer = true;
-                        _aiDestinationSetter.target = player.transform; //this is temporary
                         return;
                     }
                 }

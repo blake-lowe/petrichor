@@ -5772,13 +5772,13 @@ MonoBehaviour:
   leftHandAmmoField: {fileID: 6403386395982691801}
   leftHandWeapon: {fileID: 0}
   leftHandAmmoCounter: {fileID: 4678364950022869550}
-  upRelativePosLh: {x: -0.2, y: 0}
+  upRelativePosLh: {x: -0.23, y: 0.02}
   upSortBelowLh: 1
-  downRelativePosLh: {x: 0.2, y: 0}
+  downRelativePosLh: {x: 0.165, y: 0.02}
   downSortBelowLh: 0
-  leftRelativePosLh: {x: 0, y: -0.1}
+  leftRelativePosLh: {x: -0.17, y: 0.03}
   leftSortBelowLh: 0
-  rightRelativePosLh: {x: 0, y: 0.1}
+  rightRelativePosLh: {x: 0.17, y: 0.03}
   rightSortBelowLh: 1
   hasDashAugment: 1
   dashDistance: 2.5

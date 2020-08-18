@@ -4829,6 +4829,7 @@ GameObject:
   - component: {fileID: 4578561570729504546}
   - component: {fileID: 4578561570729504545}
   - component: {fileID: 4578561570729504544}
+  - component: {fileID: 4525293481809778622}
   - component: {fileID: 4578561570729504548}
   - component: {fileID: 1435626801}
   - component: {fileID: 2676246320414737633}
@@ -4917,7 +4918,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 1.5
   pickNextWaypointDist: 0.6
-  endReachedDistance: 1
+  endReachedDistance: 0.25
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -4929,13 +4930,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4578561570729504558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
+--- !u!114 &4525293481809778622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578561570729504558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e6c29e32504465faa943c537d8029b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  targets: []
+  delay: 2
 --- !u!114 &4578561570729504548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4953,6 +4969,7 @@ MonoBehaviour:
   maxAwareness: 3
   awareness: 0
   awareDuration: 1
+  hearing: 3
   healthBar: {fileID: 7468451297468725939}
   healthBarColor: {r: 0.90800005, g: 0.40587604, b: 0.84774524, a: 0.74509805}
   awarenessBar: {fileID: 7468451297080537636}
