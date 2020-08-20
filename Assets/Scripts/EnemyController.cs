@@ -28,7 +28,8 @@ public class EnemyController : MonoBehaviour
     public AIPath aiPath;
     private NoiseSource[] _noiseSources;
     private NoiseSource _noiseSourceToInvestigate;
-    private Transform _noiseSourceToInvestigateTransform;
+    public Transform noiseSourceToInvestigateTransform;
+    private Vector3 _noiseSourceToInvestigateVector = new Vector3(0,0,0);
     public bool _hasReachedNoiseSource = true;
     public Vector2 facing;
     public bool seesPlayer;
@@ -88,7 +89,7 @@ public class EnemyController : MonoBehaviour
             isAttackingPlayer = false;
         
             _patrol.enabled = false;
-            _aiDestinationSetter.target = _noiseSourceToInvestigateTransform;
+            _aiDestinationSetter.target = noiseSourceToInvestigateTransform;
             _aiDestinationSetter.enabled = true;
         }
     }
@@ -111,6 +112,7 @@ public class EnemyController : MonoBehaviour
     private void StopAttackPlayer()
     {
         isAttackingPlayer = false;
+        _aiDestinationSetter.target = null;
         if (_noiseSourceToInvestigate)
         {
             InvestigateNoise();
@@ -136,13 +138,15 @@ public class EnemyController : MonoBehaviour
         var currentTime = Time.time;
         
         //set behavior state
-        if (_noiseSourceToInvestigate && Vector3.SqrMagnitude(_noiseSourceToInvestigate.transform.position - transform.position) < 1f)
+        if (_noiseSourceToInvestigate && Vector3.SqrMagnitude(noiseSourceToInvestigateTransform.position - transform.position) < 1f)
         {
             _hasReachedNoiseSource = true;
             _noiseSourceToInvestigate = null;
             //TODO do a 360
         }
-
+        
+        noiseSourceToInvestigateTransform.SetPositionAndRotation(_noiseSourceToInvestigateVector, Quaternion.identity);
+        
         if (!awareOfPlayer)
         {
             StopAttackPlayer();
@@ -155,14 +159,14 @@ public class EnemyController : MonoBehaviour
         else if (_noiseSourceToInvestigate)
         {
             InvestigateNoise();
+            if (!_isDead && _hasReachedNoiseSource)
+            {
+                Patrol();
+            }
         }
-        else if (!_isDead && _hasReachedNoiseSource)
-        {
-            Patrol();
-        }
-        
-        
-        
+
+
+
         if (health <= 0)
         {
             Kill();
@@ -199,8 +203,7 @@ public class EnemyController : MonoBehaviour
                     _noiseSourceToInvestigate = noiseSource;
                     _hasReachedNoiseSource = false;
                 }
-                _noiseSourceToInvestigateTransform = _noiseSourceToInvestigate.transform;
-
+                _noiseSourceToInvestigateVector = _noiseSourceToInvestigate.transform.position;
             }
         }
 
